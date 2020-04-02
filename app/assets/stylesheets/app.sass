@@ -1,0 +1,243 @@
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+//     ___              _ _           _   _               //
+//    / _ \            | (_)         | | (_)              //
+//   / /_\ \_ __  _ __ | |_  ___ __ _| |_ _  ___  _ __    //
+//   |  _  | '_ \| '_ \| | |/ __/ _` | __| |/ _ \| '_ \   //
+//   | | | | |_) | |_) | | | (_| (_| | |_| | (_) | | | |  //
+//   \_| |_/ .__/| .__/|_|_|\___\__,_|\__|_|\___/|_| |_|  //
+//         | |   | |                                      //
+//         |_|   |_|                                      //
+//                                                        //
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
+// Libs
+//= require datatables.min
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
+// FadeIn
+@keyframes fadein
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
+// Main
+body
+
+  // General
+  padding: 0 10px
+  background:
+    color: rgba(0,0,0,1) !important
+
+  //////////////////////////////////////
+  //////////////////////////////////////
+
+  // Flash
+  // Gives us the ability to style the flash messages which now appear on the system
+  .flash
+    position: fixed
+    top:      0
+    left:     0
+    width:    calc(100% - 20px)
+    margin:   10px
+    padding:  5px 15px
+    animation: fadein 0.1s
+    transition: opacity 0.15s ease-in, background-color 0.15s ease-in-out
+    border:    2px solid rgba(0,0,0,1)
+    font:
+      weight: bold
+    box:
+      sizing: border-box
+    border:
+      radius: 10px
+    background:
+      color:  rgba(255,255,255,1)
+      image:  linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)
+    z:
+      index:  1000
+    &:hover
+      cursor: pointer
+    &.notice
+      $color: rgba(31,222,34,1)
+      color: darken($color, 45%)
+      background:
+        color: $color
+      &:before
+        content: "✔️"
+      &:hover
+        background:
+          color: lighten($color, 5%)
+    &.error
+      $color: rgba(222,31,31,1)
+      color: darken($color, 35%)
+      background:
+        color: $color
+      &:before
+        content: "⚠️"
+      &:hover
+        background:
+          color: lighten($color, 10%)
+
+  //////////////////////////////////////
+  //////////////////////////////////////
+
+  // Intro
+  .intro
+    display: block
+    color: rgba(255,255,255,1)
+
+    // Title
+    h4
+      display: inline-block
+      background: red
+      padding: 10px
+      color: rgba(255,255,255,1)
+
+  // Options
+  .options
+    float: right
+    label
+      &:hover
+        cursor: pointer
+
+
+  //////////////////////////////////////
+  //////////////////////////////////////
+
+  // DataTables
+  // Styling for the data table
+  .dataTables_wrapper,
+  .dataTables_info
+    color: rgba(255,255,255,1)
+
+  //////////////////////////////////////
+  //////////////////////////////////////
+
+  // Table
+  // This styles all tables (beware)
+  table
+
+    // Styling for "orders" table only
+    &#orders
+
+      // General
+      background: rgba(255,255,255,1)
+      border:     2px solid rgba(0,0,0,1)
+      color:      rgba(0,0,0,1)
+      border:
+        radius: 5px
+
+      // Styling
+      tr
+        &:hover
+          td
+            border:
+              color: rgba(0,0,0,0.35)
+        td,
+        th
+          padding: 5px
+        th
+          font:
+            size: 1.05em
+          background:
+            color: #ccc
+          text:
+            transform: uppercase
+          border:
+            bottom: 2px solid rgba(0,0,0,1)
+        & + tr
+          border:
+            top: 2px solid rgba(0,0,0,0.15)
+        td
+          border:
+            bottom: 2px solid rgba(0,0,0,0.15)
+          transition: border-color 0.15s ease-in-out
+
+          // Orders
+          &.order
+            a
+              display: block
+              font:
+                weight: bold
+              &.packing_slip
+                display: inline-block
+                text:
+                  align: center
+                img
+                  display: block
+                  width: 25px
+                  margin: 0 auto 5px
+            text:
+              align: center
+            font:
+              size: 0.8em
+              weight: bold
+            h4
+              margin: 0
+              font:
+                size: 1.1em
+            span
+              &.total
+                display: inline-block
+                padding: 0 2px
+                color: white
+                background:
+                  color: black
+
+          // Status
+          &.status
+            text:
+              align: center
+            > *
+              display: block
+            span
+              margin:
+                bottom: 5px
+              &.pwinty_id
+                font:
+                  weight: bold
+
+          // Products
+          &.products
+            > div
+              font:
+                size: 0.8em
+              h4
+                margin:
+                  bottom: 5px
+            a
+              &.img
+                display: inline-block
+                background: black
+                color: rgba(255,255,255,1)
+                padding: 0 2px
+                font:
+                  size: 10px
+                &:hover,
+                &:focus
+                  text:
+                    decoration: none
+              &.line_item
+                  font:
+                    weight: bold
+            .customer
+              width: 10%
+              ul
+                margin: 0
+                padding: 0
+                list:
+                  style: none
+                li
+                  &:first-of-type
+                    font:
+                      weight: bold
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////

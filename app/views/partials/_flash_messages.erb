@@ -1,0 +1,22 @@
+<% if settings.development? %>
+
+  <% if flash.keys.any? %>
+    <% %i(notice error).each do |f| %>
+      <%= content_tag :div, flash[f], class: ["flash", f] if flash[f]  %>
+    <% end %>
+  <% end %>
+
+<% else %>
+
+  <script type="text/javascript">
+    ShopifyApp.ready(function(){
+      <% if flash[:notice] %>
+        ShopifyApp.flashNotice("<%= flash[:notice] %>");
+      <% end %>
+      <% if flash[:error] %>
+        ShopifyApp.flashError("<%= flash[:error] %>");
+      <% end %>
+    });
+  </script>
+
+<% end %>

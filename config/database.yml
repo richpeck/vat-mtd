@@ -1,0 +1,16 @@
+
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+
+staging:
+  url: <%= ENV['DATABASE_URL'] %>
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>
+
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 8

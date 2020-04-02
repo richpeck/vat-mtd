@@ -1,0 +1,31 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+
+    - # Assets
+    != stylesheet_tag('app')
+    != javascript_tag('app')
+
+    %title Pwinty
+
+    - # Redirect to Shopify
+    - # Only staging/production
+    - unless settings.development? or defined?(invoice)
+
+      - # Assets/Styles
+      != javascript_tag('https://cdn.shopify.com/s/assets/external/app.js')
+      != stylesheet_tag('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', integrity: 'sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==')
+
+      - # Javascript
+      :javascript
+        ShopifyApp.init({
+          apiKey:      "#{App.settings.api_key}",
+          shopOrigin:  "#{shop_origin}",
+          debug: true
+        });
+
+  %body
+    = haml :'partials/_top_bar', layout: false, locals: locals unless settings.development?
+    != erb  :'partials/_flash_messages', layout: false, locals: locals if flash.keys.any? # => Needs to be erb because HAML couldn't handle the conditional logic inside javascript
+    = yield

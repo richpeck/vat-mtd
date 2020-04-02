@@ -1,0 +1,7 @@
+.env
+*.sqlite3
+.byebug_history
+.bundle
+public/dist
+db/schema.rb
+tmp

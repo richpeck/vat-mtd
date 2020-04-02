@@ -1,0 +1,7 @@
+### This was required to get Foreman working ##
+## It wouldn't read out release.sh file, so had to create another Procfile ##
+## As per the following article: https://stackoverflow.com/a/11595600/1143732 ###
+
+# Web
+# Runs web server
+web: bundle exec puma -C config/deploy/puma.rb 

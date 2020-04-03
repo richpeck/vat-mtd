@@ -1,0 +1,7 @@
+- # => Login
+- # => Used to provide us with the ability to help users log in
+= form_tag "/login", class: :login, data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do
+  = email_field_tag    'user[email]',    placeholder: "Email",    required: true, minlength: 5
+  = password_field_tag 'user[password]', placeholder: "Password", required: true, minlength: 6
+  = submit_tag
+  = link_to "Forgot", "/forgot"

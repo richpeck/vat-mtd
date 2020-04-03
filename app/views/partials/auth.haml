@@ -1,0 +1,6 @@
+%auth
+  - if user_signed_in?
+    = button_to "Logout", "/logout", method: :delete, data: { confirm: "Really?" }, title: "Logout"
+  - else
+    = button_to "Login", "/login", method: :get
+    = button_to "Register", "/register", method: :get

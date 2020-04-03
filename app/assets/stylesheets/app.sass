@@ -13,12 +13,13 @@
 ////////////////////////////////////////////////////////////
 
 // Libs
-//= require datatables.min
+//= require parsleyjs/src/parsley
+//= require bootstrap
 
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 
-// FadeIn
+// Animations
 @keyframes fadein
   from
     opacity: 0
@@ -28,216 +29,134 @@
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 
-// Main
+// Vars
+$main_bg: #15112b
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
+// HTML
+html,
+body
+  height: 100%
+  width: 100%
+
+// General
+// Allows us to create rudamentary styling for the system
 body
 
-  // General
-  padding: 0 10px
+  // Styling
+  color: rgba(255,255,255,1)
+  position: relative
   background:
-    color: rgba(0,0,0,1) !important
+    color: rgba($main_bg,1)
+    image: linear-gradient(0deg, rgba(#0B071D,45) 0%, rgba(#0B071D,0) 48%)
+  a
+    display: inline-block
+    color: #fff
+    background: red
+    &:hover
+      text:
+        decoration: none
 
-  //////////////////////////////////////
-  //////////////////////////////////////
+  ////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
+
+  // Modal
+  // Styling for confirmation modal etc
+  .modal
+    color: black
+    .modal-body
+      display: none
+
+  ////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
 
   // Flash
-  // Gives us the ability to style the flash messages which now appear on the system
-  .flash
-    position: fixed
-    top:      0
-    left:     0
-    width:    calc(100% - 20px)
-    margin:   10px
-    padding:  5px 15px
-    animation: fadein 0.1s
-    transition: opacity 0.15s ease-in, background-color 0.15s ease-in-out
-    border:    2px solid rgba(0,0,0,1)
-    font:
-      weight: bold
-    box:
-      sizing: border-box
-    border:
-      radius: 10px
-    background:
-      color:  rgba(255,255,255,1)
-      image:  linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)
-    z:
-      index:  1000
-    &:hover
-      cursor: pointer
-    &.notice
-      $color: rgba(31,222,34,1)
-      color: darken($color, 45%)
-      background:
-        color: $color
-      &:before
-        content: "✔️"
-      &:hover
-        background:
-          color: lighten($color, 5%)
-    &.error
-      $color: rgba(222,31,31,1)
-      color: darken($color, 35%)
-      background:
-        color: $color
-      &:before
-        content: "⚠️"
-      &:hover
-        background:
-          color: lighten($color, 10%)
-
-  //////////////////////////////////////
-  //////////////////////////////////////
-
-  // Intro
-  .intro
+  // This allows us to stylize the flash messages which appear
+  flash
     display: block
-    color: rgba(255,255,255,1)
-
-    // Title
-    h4
-      display: inline-block
-      background: red
-      padding: 10px
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    margin: 0 auto
+    width: 100%
+    z:
+      index: 1000
+    > div
+      display: block
+      padding: 7px 5px
+      margin: 5px 10px
       color: rgba(255,255,255,1)
-
-  // Options
-  .options
-    float: right
-    label
-      &:hover
-        cursor: pointer
-
-
-  //////////////////////////////////////
-  //////////////////////////////////////
-
-  // DataTables
-  // Styling for the data table
-  .dataTables_wrapper,
-  .dataTables_info
-    color: rgba(255,255,255,1)
-
-  //////////////////////////////////////
-  //////////////////////////////////////
-
-  // Table
-  // This styles all tables (beware)
-  table
-
-    // Styling for "orders" table only
-    &#orders
-
-      // General
-      background: rgba(255,255,255,1)
-      border:     2px solid rgba(0,0,0,1)
-      color:      rgba(0,0,0,1)
+      animation: fadein 0.2s
+      transition: opacity 0.15s ease-in, background-color 0.15s ease-in-out
+      border: 2px solid rgba(0,0,0,1)
+      margin:
+        bottom: 1px
+      font:
+        size: 11px
+        weight: bold
+      text:
+        shadow: 1px 1px 0 rgba(#000000,1)
+      background:
+        color:  rgba(255,255,255,1)
+        image:  linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)
+      box:
+        sizing: border-box
+        shadow: 0px 0 5px -4px rgba(0,0,0,0.75), inset 0 0 0 1px rgba(255,255,255,0.15)
       border:
         radius: 5px
+      z:
+        index:  1000
+      &:hover
+        cursor: pointer
+      &:before
+        position: relative
+        top: -1px
+        margin:
+          right: 2px
+      &.notice
+        $color: rgba(31,222,34,1)
+        background:
+          color: $color
+        &:before
+          content: "✔️"
+      &.error
+        $color: rgba(255,0,0,1)
+        background:
+          color: $color
+        &:before
+          content: "⚠️"
 
-      // Styling
-      tr
+  //////////////////////////////////////
+  //////////////////////////////////////
+
+  // Inputs
+  // General
+  form
+    input,
+    select,
+    textarea
+      padding: 10px
+      border:  1px solid rgba(35,35,35,1)
+      border:
+        radius: 5px
+      box:
+        sizing: border-box
+      &:focus
+        outline: none
+      &[type="submit"]
         &:hover
-          td
-            border:
-              color: rgba(0,0,0,0.35)
-        td,
-        th
-          padding: 5px
-        th
-          font:
-            size: 1.05em
-          background:
-            color: #ccc
-          text:
-            transform: uppercase
-          border:
-            bottom: 2px solid rgba(0,0,0,1)
-        & + tr
-          border:
-            top: 2px solid rgba(0,0,0,0.15)
-        td
-          border:
-            bottom: 2px solid rgba(0,0,0,0.15)
-          transition: border-color 0.15s ease-in-out
+          cursor: pointer
 
-          // Orders
-          &.order
-            a
-              display: block
-              font:
-                weight: bold
-              &.packing_slip
-                display: inline-block
-                text:
-                  align: center
-                img
-                  display: block
-                  width: 25px
-                  margin: 0 auto 5px
-            text:
-              align: center
-            font:
-              size: 0.8em
-              weight: bold
-            h4
-              margin: 0
-              font:
-                size: 1.1em
-            span
-              &.total
-                display: inline-block
-                padding: 0 2px
-                color: white
-                background:
-                  color: black
-
-          // Status
-          &.status
-            text:
-              align: center
-            > *
-              display: block
-            span
-              margin:
-                bottom: 5px
-              &.pwinty_id
-                font:
-                  weight: bold
-
-          // Products
-          &.products
-            > div
-              font:
-                size: 0.8em
-              h4
-                margin:
-                  bottom: 5px
-            a
-              &.img
-                display: inline-block
-                background: black
-                color: rgba(255,255,255,1)
-                padding: 0 2px
-                font:
-                  size: 10px
-                &:hover,
-                &:focus
-                  text:
-                    decoration: none
-              &.line_item
-                  font:
-                    weight: bold
-            .customer
-              width: 10%
-              ul
-                margin: 0
-                padding: 0
-                list:
-                  style: none
-                li
-                  &:first-of-type
-                    font:
-                      weight: bold
+    &.login
+      display: block
+      input
+        display: block
+        & + input
+          margin:
+            top: 1px
 
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////

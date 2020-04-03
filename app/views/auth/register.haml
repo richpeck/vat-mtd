@@ -5,7 +5,6 @@
   %h5 This does <u>not</u> log you into HMRC.
   - f.object.errors.full_messages.each do |message|
     = message
-  = f.text_field     :business_name,         placeholder: "Tax Entity Name (Optional)",   id: :business_name, minlength: 3
   = f.email_field    :email,                 placeholder: "Email",      required: true,   id: :email, minlength: 5, data: { parsley: { type: :email }}
   = f.password_field :password,              placeholder: "Password",   required: true,   id: :password, minlength: 6
   = f.password_field :password_confirmation, placeholder: "Confirm",    required: true,   id: :password_confirmation, minlength: 6, data: { parsley: { equalto: "#password" }}

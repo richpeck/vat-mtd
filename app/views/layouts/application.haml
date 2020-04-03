@@ -3,16 +3,18 @@
   %head
 
     - # General
-    %title= @options.title || "Notion Test App"
+    %title= "VAT MTD (Making Tax Digital) Integration"
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %link{rel: "icon", type: "image/png", href: "favicon.ico"}
 
     - # Assets
     != stylesheet_tag('app')
     != javascript_tag('app')
 
-  %body
+  %body{ class: request.path.delete('\/') }
     %header
       = haml :'partials/auth', layout: false
+      %h1= link_to "💳 VAT MTD Integration", "/"
     %main
       = haml :'partials/flash', layout: false if flash.keys.any? # => required because it would just show {}
       = yield

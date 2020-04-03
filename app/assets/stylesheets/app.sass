@@ -54,8 +54,8 @@ body
   a
     display: inline-block
     color: #fff
-    background: red
     &:hover
+      color: rgba(255,255,255,1)
       text:
         decoration: none
 
@@ -138,25 +138,75 @@ body
     input,
     select,
     textarea
-      padding: 10px
-      border:  1px solid rgba(35,35,35,1)
+      padding:    10px
+      border:     3px solid darken(#15112b, 10%)
+      transition: color 0.1s ease-in-out
+      color:      rgba(0,0,0,0.75)
       border:
         radius: 5px
       box:
         sizing: border-box
+      &:hover
+        &::placeholder
+          color: rgba(0,0,0,0.75)
       &:focus
         outline: none
+      &::placeholder
+        color: rgba(0,0,0,0.45)
+        transition: color 0.1s ease-in-out
       &[type="submit"]
         &:hover
           cursor: pointer
 
+    // Auth
     &.login
       display: block
+      margin: auto
+      max:
+        width: 50%
       input
         display: block
         & + input
           margin:
             top: 1px
+        .forgot
+          background: red
+
+  //////////////////////////////////////
+  //////////////////////////////////////
+
+  // Header
+  header
+    background: rgba(255,255,255,0.05)
+    padding: 5px
+
+    // Clear
+    &:after
+      content: ""
+      clear: both
+      display: block
+
+    // Table Cells
+    > *
+      line:
+        height: 32px
+
+    // Auth
+    // Uses form as "button_to"
+    auth
+      float: right
+      .btn
+        font:
+          size: 11px
+        background:
+          color: rgba(255,255,255,1)
+        border: 2px solid darken($main_bg, 10%)
+        &:hover
+          text:
+            decoration: underline
+        & + .btn
+          margin:
+            left: 5px
 
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////

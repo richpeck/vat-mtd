@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.string "vat", limit: 9
+    t.string "vtr", limit: 9
     t.string "last_signed_in_ip"
     t.datetime "last_signed_in_at"
     t.datetime "created_at", precision: 6, null: false

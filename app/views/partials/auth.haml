@@ -2,5 +2,5 @@
   - if user_signed_in?
     = button_to "Logout", "/logout", method: :delete, data: { confirm: "Really?" }, title: "Logout"
   - else
-    = button_to "Login", "/login", method: :get
-    = button_to "Register", "/register", method: :get
+    = link_to ["🔒", I18n.t('auth.login.label')].join(" "),    "/login", class: :btn
+    = link_to ["✔️", I18n.t('auth.register.label')].join(" "), "/register", method: :get, class: :btn

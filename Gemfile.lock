@@ -43,6 +43,9 @@ GEM
       temple (>= 0.8.0)
       tilt
     htmlcompressor (0.4.0)
+    httparty (0.18.0)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     humanize (2.4.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
@@ -51,9 +54,13 @@ GEM
       reline (>= 0.0.1)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+    mime-types (3.3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2019.1009)
     mini_mime (1.0.2)
     minitest (5.14.0)
     multi_json (1.14.1)
+    multi_xml (0.6.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.2)
@@ -74,7 +81,10 @@ GEM
       rack
     rack-protection (2.0.8.1)
       rack
+    rails-assets-bootstrap (4.3.1)
     rails-assets-jquery (3.4.1)
+    rails-assets-parsleyjs (2.9.0)
+      rails-assets-jquery (> 1.8)
     rake (12.3.3)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
@@ -138,6 +148,7 @@ DEPENDENCIES
   foreman
   haml (~> 5.1, >= 5.1.2)
   htmlcompressor (~> 0.4.0)
+  httparty (~> 0.18.0)
   humanize (~> 2.1, >= 2.1.1)
   i18n
   irb
@@ -147,7 +158,9 @@ DEPENDENCIES
   pony (~> 1.13, >= 1.13.1)
   puma
   rack-flash3
+  rails-assets-bootstrap!
   rails-assets-jquery!
+  rails-assets-parsleyjs!
   rake
   require_all (~> 3.0)
   sass (~> 3.7, >= 3.7.4)

@@ -10,7 +10,7 @@
 ############################################################
 
 ## Users ##
-## id | name | email | password_digest (encrypted) | vat | last_signed_in_ip | last_signed_in_at | created_at | updated_at ##
+## id | name | email | password_digest (encrypted) | vtr | last_signed_in_ip | last_signed_in_at | created_at | updated_at ##
 class CreateUsers < ActiveRecord::Migration::Base # => lib/active_record/migration/base.rb
 
   ## Password ##
@@ -23,7 +23,7 @@ class CreateUsers < ActiveRecord::Migration::Base # => lib/active_record/migrati
       t.string  :name                                                            # => Business name (or personal, depending on submission)
       t.string  :email                                                           # => Email (login)
       t.string  :password_digest                                                 # => Password (login)
-      t.string  :vat, limit: 9                                                   # => VAT (9 character number)
+      t.string  :vtr, limit: 9                                                   # => VAT (9 character number) (vtr = VAT Tax Reference)
       t.send (adapter.to_sym == :SQLite ? :string : :inet), :last_signed_in_ip   # => last_signed_in_ip
       t.datetime :last_signed_in_at                                              # => last_signed_in_at
       t.timestamps                                                               # => created_at, updated_at

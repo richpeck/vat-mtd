@@ -16,7 +16,6 @@
 #= require jquery
 #= require parsleyjs
 #= require bootstrap
-#= require data-confirm-modal
 
 ##########################################################
 ##########################################################
@@ -29,6 +28,6 @@ $(document).on "click", "flash > div", (e) ->
   ## After this, remove from the DOM ##
   $(this).animate { height: 0, opacity: 0 }, 50, ->
     $(this).remove()
-    
+
 ##########################################################
 ##########################################################

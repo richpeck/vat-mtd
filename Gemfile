@@ -73,6 +73,7 @@ gem 'rack-flash3', require: 'rack-flash'           # => Flash messages for Rack 
 gem 'warden', '~> 1.2', '>= 1.2.8'                 # => Warden (authentication)
 gem 'bcrypt', '~> 3.1', '>= 3.1.13'                # => Password management (encrypts passwords if using SQLite3 -- if using Postgres, we have extensions)
 gem 'htmlcompressor', '~> 0.4.0'                   # => HTMLCompressor (used to make the HTML have no spaces etc) // https://github.com/paolochiodi/htmlcompressor
+gem 'httparty', '~> 0.18.0'                        # => HTTParty - gives us the ability to interact with HMRC API without writing tons of code
 
 # => Asset Management
 gem 'uglifier', '~> 4.2'         # => Uglifier - Javascript minification (required to get minification working)
@@ -112,7 +113,9 @@ group :assets do
   # => This is not reliable, and may require refactoring (12/02/2020)
   # => It also needs to embody the gem inside the source block (new update)
   source 'https://rails-assets.org' do
-    gem 'rails-assets-jquery', require: false # => JQuery       (https://github.com/jquery/jquery)
+    gem 'rails-assets-jquery'    # => JQuery       (https://github.com/jquery/jquery)
+    gem 'rails-assets-parsleyjs' # => ParselyJS    (https://github.com/guillaumepotier/Parsley.js)
+    gem 'rails-assets-bootstrap' # => Bootstrap    (https://github.com/twbs/bootstrap)
   end
 
   ##################################

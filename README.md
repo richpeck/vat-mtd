@@ -31,3 +31,7 @@ Like other REST API's the process of achieving this is relatively simple.
 Finally, submitting new VAT returns is where the real use value of a tool like this resides.
 
 In order to create a compatible submission solution, the system needs to be able to parse data (from a spreadsheet) and send it to HMRC. This, obviously, needs to be mathematically correct, as well as simple & easy to use.
+
+---
+
+©️ <a href="http://www.frontlineutilities.co.uk" title="Frontline Utilities LTD"><img src="private/fl.jpg" align="absmiddle" /></a> <a href="https://www.github.com/richpeck" title="Richard Peck"><img src="https://avatars2.githubusercontent.com/u/1104431?v=3&s=460" height="22" align="absmiddle" /></a>

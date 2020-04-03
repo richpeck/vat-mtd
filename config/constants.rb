@@ -12,10 +12,12 @@
 
 ## ENV ##
 ## Allows us to define before the App directory ##
-DOMAIN              = ENV.fetch('DOMAIN', 'fox-and-oak.myshopify.com') ## used for CORS and other funtionality -- ENV var gives flexibility
+DOMAIN              = ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com') ## used for CORS and other funtionality -- ENV var gives flexibility
 DEBUG               = ENV.fetch("DEBUG", false) != false ## this needs to be evaluated this way because each ENV variable returns a string ##
 ENVIRONMENT         = ENV.fetch("RACK_ENV", "development")
 HMRC_API_ENDPOINT   = ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk") # => production or sandbox URL
+HMRC_CLIENT_ID      = ENV.fetch("HMRC_CLIENT_ID", nil)
+HMRC_CLIENT_SECRET  = ENV.fetch("HMRC_CLIENT_SECRET", nil)
 
 ##########################################################
 ##########################################################

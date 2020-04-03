@@ -39,6 +39,5 @@ en:
       failure:   Login Required!
       persisted: Already Logged In
     logout:
-      success: Logged Out
-  nodes:
-    new: ➕
+      label:     LogOut
+      success:   Logged Out

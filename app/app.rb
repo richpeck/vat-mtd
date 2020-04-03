@@ -242,7 +242,7 @@ class App < Sinatra::Base
 
     # => Objects
     # => @pages = the pages of current_user
-    @nodes = current_user.nodes
+    @nodes = current_user
 
     # => Action
     # => Show the "index" page (app/views/index.haml)

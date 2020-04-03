@@ -1,10 +1,10 @@
 ##########################################################
 ##########################################################
-##        _    _____  ______    __  _____________       ##
-##       | |  / /   |/_  __/   /  |/  /_  __/ __ \      ##
-##       | | / / /| | / /_____/ /|_/ / / / / / / /      ##
-##       | |/ / ___ |/ /_____/ /  / / / / / /_/ /       ##
-##       |___/_/  |_/_/     /_/  /_/ /_/ /_____/        ##
+##       _    _____  ______    __  _____________        ##
+##      | |  / /   |/_  __/   /  |/  /_  __/ __ \       ##
+##      | | / / /| | / /_____/ /|_/ / / / / / / /       ##
+##      | |/ / ___ |/ /_____/ /  / / / / / /_/ /        ##
+##      |___/_/  |_/_/     /_/  /_/ /_/ /_____/         ##
 ##                                                      ##
 ##########################################################
 ##########################################################
@@ -38,7 +38,7 @@ Bundler.require :default, ENVIRONMENT if defined?(Bundler) # => ENVIRONMENT only
 
 # => Models
 # => This allows us to load all the models (which are not loaded by default)
-require_all 'app'
+require_all 'app', 'lib'
 
 ##########################################################
 ##########################################################
@@ -66,7 +66,6 @@ class App < Sinatra::Base
     register Sinatra::MultiRoute          # => Multi Route (allows for route :put, :delete)
     register Sinatra::Namespace           # => Namespace (http://sinatrarb.com/contrib/namespace.html)
     register Sinatra::I18nSupport         # => Locales (https://www.rubydoc.info/gems/sinatra-support/1.2.2/Sinatra/I18nSupport) -- dependent on sinatra-support gem (!)
-    register Sinatra::Initializers        # => Initializers (used to give "meta" model support)
 
     # => Rack (Flash/Sessions etc)
     # => Allows us to use the "flash" object (rack-flash3)
@@ -124,15 +123,6 @@ class App < Sinatra::Base
     set :haml, { layout: :'layouts/application' } # https://stackoverflow.com/a/18303130/1143732
     set :views, Proc.new { File.join(root, "views") } # required to get views working (defaulted to ./views)
     set :public_folder, File.join(root, "..", "public") # Root dir fucks up (public_folder defaults to root) http://sinatrarb.com/configuration.html#root---the-applications-root-directory
-
-    # => Logger
-    # => Allows us to store information from the application
-    # => http://sinatrarb.com/contrib/custom_logger
-    configure :development, :production do
-      FileUtils.touch "#{root}/../log/#{environment}.log"
-      logger = Logger.new File.open("#{root}/../log/#{environment}.log", 'a') # => https://code-maven.com/how-to-write-to-file-in-ruby
-      set :logger, logger
-    end
 
     # => Required for CSRF
     # => https://cheeyeo.uk/ruby/sinatra/padrino/2016/05/14/padrino-sinatra-rack-authentication-token/
@@ -222,10 +212,6 @@ class App < Sinatra::Base
     ## APP ##
     ## Allows us to set specifics for ENTIRE app
     before do
-
-      # => Options
-      # => Used to provide base functionality for the likes of app title etc
-      @options = OpenStruct.new title: Option.find_by(user_id: 0, ref: "app_title").try(:val)
 
       # => Authentication
       # => Allows you to load the page if required

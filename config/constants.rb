@@ -14,6 +14,7 @@
 ## Allows us to define before the App directory ##
 DOMAIN              = ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com') ## used for CORS and other funtionality -- ENV var gives flexibility
 DEBUG               = ENV.fetch("DEBUG", false) != false ## this needs to be evaluated this way because each ENV variable returns a string ##
+SECRET              = ENV.fetch("SECRET", "62uao31c7d7j7dy6se9hs5auxyupmay") ## used to provide "shared secret" (for Rack Deflator)
 ENVIRONMENT         = ENV.fetch("RACK_ENV", "development")
 HMRC_API_ENDPOINT   = ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk") # => production or sandbox URL
 HMRC_CLIENT_ID      = ENV.fetch("HMRC_CLIENT_ID", nil)

@@ -36,7 +36,6 @@ gem 'sinatra-contrib', '~> 2.0', '>= 2.0.7',                                    
 gem 'sinatra-cors', '~> 1.1',                                                      require: 'sinatra/cors'                        # => Protect app via CORS
 gem 'sinatra-redirect-with-flash', '~> 0.2.1',                                     require: 'sinatra/redirect_with_flash'         # => Redirect with Flash (allows use of redirect) -> https://github.com/vast/sinatra-redirect-with-flash
 gem 'sinatra-support', '~> 1.2', '>= 1.2.2',                                       require: 'sinatra/support/i18nsupport'         # => Sinatra Support (helpers for Sinatra - https://github.com/sinefunc/sinatra-support) (used for LOCALES)
-gem 'sinatra-initializers', '~> 0.1.4'                                                                                            # => Sinatra Initializers (used to give us the means to invoke the "meta" models through an initializer)
 
 # => Database
 # => Allows us to determine exactly which db we're using

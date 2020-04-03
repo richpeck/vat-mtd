@@ -104,7 +104,6 @@ GEM
       sinatra (= 2.0.8.1)
       tilt (~> 2.0)
     sinatra-cors (1.1.0)
-    sinatra-initializers (0.1.4)
     sinatra-redirect-with-flash (0.2.1)
       sinatra (>= 1.0.0)
     sinatra-support (1.2.2)
@@ -157,7 +156,6 @@ DEPENDENCIES
   sinatra-asset-pipeline (~> 2.2)!
   sinatra-contrib (~> 2.0, >= 2.0.7)
   sinatra-cors (~> 1.1)
-  sinatra-initializers (~> 0.1.4)
   sinatra-redirect-with-flash (~> 0.2.1)
   sinatra-support (~> 1.2, >= 1.2.2)
   sqlite3

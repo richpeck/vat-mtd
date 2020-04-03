@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   # => Validations
   # => Ensures we're able to store the correct data
   validates :email, uniqueness: true, presence: true
-  validates :vat, length: { is: 9 } # => VAT numbers are 9 characters (GB xxx xxx xxx)
+  validates :vtr, length: { is: 9 }, allow_blank: true # => VAT numbers are 9 characters (GB xxx xxx xxx)
 
   # => Password
   # => This allows us to create a password + send it to email if the created user does not have a password (seed)

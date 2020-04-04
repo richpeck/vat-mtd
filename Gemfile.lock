@@ -83,6 +83,8 @@ GEM
       rack
     rails-assets-bootstrap (4.3.1)
     rails-assets-jquery (3.4.1)
+    rails-assets-jquery-ujs (1.2.2)
+      rails-assets-jquery (> 1.8)
     rails-assets-parsleyjs (2.9.0)
       rails-assets-jquery (> 1.8)
     rake (12.3.3)
@@ -160,6 +162,7 @@ DEPENDENCIES
   rack-flash3
   rails-assets-bootstrap!
   rails-assets-jquery!
+  rails-assets-jquery-ujs!
   rails-assets-parsleyjs!
   rake
   require_all (~> 3.0)

@@ -21,9 +21,20 @@
 ##############################################################
 
 ## User ##
-## This only stores "user" data (we have "profile" for extras)
-## id | email | password_digest (encrypted) | created_at | updated_at ##
+## Because we want to keep the app simple, this stores all the required information (no profile model) ##
+## id | name | email | password_digest (encrypted) | vtr | created_at | updated_at ##
 class User < ActiveRecord::Base
+
+  ################################
+  ################################
+
+  ####################
+  ##  Associations  ##
+  ####################
+
+  # => Returns
+  # => Gives us ability to view & manage the various VAT returns for a user
+  has_many :returns
 
   ################################
   ################################

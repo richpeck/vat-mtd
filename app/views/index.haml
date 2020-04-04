@@ -1,3 +1,34 @@
-- # Add Node
-- # Allows you to add a new page to your roster
-= link_to I18n.t('nodes.new'), "/new", title: "New", class: :new
+- ###################################################
+- ###################################################
+- ##            ____          __                   ##
+- ##           /  _/___  ____/ /__  _  __          ##
+- ##           / // __ \/ __  / _ \| |/_/          ##
+- ##         _/ // / / / /_/ /  __/>  <            ##
+- ##        /___/_/ /_/\__,_/\___/_/|_|            ##
+- ##                                               ##
+- ###################################################
+- ###################################################
+- ## Gives us a single page from which to manage   ##
+- ## underlying functionality for the system.      ##
+- ###################################################
+- ###################################################
+
+- ## User Signed In?
+- ## Provides us with the ability to manage content/functionality for logged-in users
+- if user_signed_in?
+
+  - # Returns
+  - # These show the user which returns they have available, and which they need to submit
+  - if @returns.any?
+    - @returns.each do |r|
+      = r.periodKey
+  - else
+    No Returns!
+
+- else
+
+  - # Not Logged In
+  - # Allows us to show a page (or pages) to the user if they are not logged in
+
+- ###################################################
+- ###################################################

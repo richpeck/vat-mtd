@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 2) do
 
   create_table "associations", force: :cascade do |t|
     t.integer "user_id"
@@ -22,6 +22,29 @@ ActiveRecord::Schema.define(version: 1) do
     t.index ["associatiable_type", "associatiable_id", "associated_type", "associated_id"], name: "association_index", unique: true
     t.index ["associatiable_type", "associatiable_id"], name: "index_associations_on_associatiable_type_and_associatiable_id"
     t.index ["user_id"], name: "index_associations_on_user_id"
+  end
+
+  create_table "returns", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "periodKey", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.date "due_date"
+    t.string "status"
+    t.decimal "vatDueSales", precision: 13, scale: 2
+    t.decimal "vatDueAcquisitions", precision: 13, scale: 2
+    t.decimal "vatDueDue", precision: 13, scale: 2
+    t.decimal "vatReclaimedCurrPeriod", precision: 13, scale: 2
+    t.decimal "netVatDue", precision: 11, scale: 2
+    t.integer "totalValueSalesExVAT"
+    t.integer "totalValuePurchasesExVAT"
+    t.integer "totalValueGoodsSuppliedExVAT"
+    t.integer "totalAcquisitionsExVAT"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["periodKey"], name: "period_key_unique", unique: true
+    t.index ["user_id", "periodKey"], name: "user_period_key_unique", unique: true
+    t.index ["user_id"], name: "index_returns_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -14,6 +14,7 @@
 
 ## Libs ##
 #= require jquery
+#= require jquery-ujs
 #= require parsleyjs
 #= require bootstrap
 

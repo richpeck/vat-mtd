@@ -162,7 +162,7 @@ module Auth
       # => Request to log out of the system (allows us to perform session destroy)
       delete "/#{@@logout}" do
         env['warden'].logout
-        redirect '/', success: I18n.t('auth.login.success')
+        redirect '/', error: I18n.t('auth.logout.success')
       end
 
       # => Unauthenticated (POST)

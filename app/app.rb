@@ -216,7 +216,7 @@ class App < Sinatra::Base
       # => Authentication
       # => Allows you to load the page if required
       # => https://stackoverflow.com/a/7709087/1143732
-      env['warden'].authenticate! unless %w[login logout register].include?(request.path_info.split('/')[1]) || !request.path_info.split('/')[1].nil? # => required to ensure protection // https://stackoverflow.com/a/7709087/1143732
+      env['warden'].authenticate! unless %w[login logout register unauthenticated].include?(request.path_info.split('/')[1]) || request.path_info.split('/')[1].nil? # => required to ensure protection
 
     end
 
@@ -240,9 +240,9 @@ class App < Sinatra::Base
   # => Required authentication
   get '/' do
 
-    # => Objects
-    # => @pages = the pages of current_user
-    @nodes = current_user
+    # => Data
+    # => Only if user is present
+    @returns = current_user.returns if user_signed_in?
 
     # => Action
     # => Show the "index" page (app/views/index.haml)

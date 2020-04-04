@@ -113,9 +113,10 @@ group :assets do
   # => This is not reliable, and may require refactoring (12/02/2020)
   # => It also needs to embody the gem inside the source block (new update)
   source 'https://rails-assets.org' do
-    gem 'rails-assets-jquery'    # => JQuery       (https://github.com/jquery/jquery)
-    gem 'rails-assets-parsleyjs' # => ParselyJS    (https://github.com/guillaumepotier/Parsley.js)
-    gem 'rails-assets-bootstrap' # => Bootstrap    (https://github.com/twbs/bootstrap)
+    gem 'rails-assets-jquery'     # => JQuery    (https://github.com/jquery/jquery)
+    gem 'rails-assets-parsleyjs'  # => ParselyJS (https://github.com/guillaumepotier/Parsley.js)
+    gem 'rails-assets-bootstrap'  # => Bootstrap (https://github.com/twbs/bootstrap)
+    gem 'rails-assets-jquery-ujs' # => JQueryUJS (https://github.com/rails/jquery-ujs)
   end
 
   ##################################

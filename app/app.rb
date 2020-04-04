@@ -250,18 +250,37 @@ class App < Sinatra::Base
 
   end ## get
 
+  #####################
+  #####################
+
+  # => User
+  # => Gives the ability to update the user record
+  post '/user' do
+
+    # => User
+    # => Update user object
+    @user = current_user
+    @user.name = params.dig(:user, :name)
+    @user.vtr  = params.dig(:user, :vtr)
+    @user.save # => update doesn't return error values
+
+    # => Action
+    haml :index, @user.try(:errors) ? {error: "Errors"} : {notice: "Updated"}
+
+  end
+
   ############################################################
   ############################################################
-  ##                _   __          __                      ##
-  ##               / | / /___  ____/ /__  _____             ##
-  ##              /  |/ / __ \/ __  / _ \/ ___/             ##
-  ##             / /|  / /_/ / /_/ /  __(__  )              ##
-  ##            /_/ |_/\____/\__,_/\___/____/               ##
+  ##            ____       __                               ##
+  ##           / __ \___  / /___  ___________  _____        ##
+  ##          / /_/ / _ \/ __/ / / / ___/ __ \/ ___/        ##
+  ##         / _, _/  __/ /_/ /_/ / /  / / / (__  )         ##
+  ##        /_/ |_|\___/\__/\__,_/_/  /_/ /_/____/          ##
   ##                                                        ##
   ############################################################
   ############################################################
-  ## Central data object in system (allows us to store data payload + appended data)
-  ## Allows us to move pages around with content etc @node.contents
+  ## Objects associated with users, which allows us to call
+  ## the various pieces of data required to get the user submitted
   ############################################################
   ############################################################
 

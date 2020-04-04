@@ -17,6 +17,9 @@
 ## @hrmc = HMRC.new(vtr) ##
 ## https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/1.0#_retrieve-vat-obligations_get_accordion ##
 class HMRC
+
+  ## HTTParty ##
+  ## This allows us to wrap the HTTP/API requests in a wrapper, making it object oriented ##
   include HTTParty
   base_uri HMRC_API_ENDPOINT
 
@@ -34,9 +37,6 @@ class HMRC
     self.class.get("/organisations/vat/#{@options.vtr}/obligations")
   end
 
-  def users
-    self.class.get("/2.2/users", @options)
-  end
 end
 
 ##########################################################

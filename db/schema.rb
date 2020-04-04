@@ -10,19 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
-
-  create_table "associations", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "associatiable_type"
-    t.integer "associatiable_id"
-    t.string "associated_type"
-    t.integer "associated_id"
-    t.index ["associated_type", "associated_id"], name: "index_associations_on_associated_type_and_associated_id"
-    t.index ["associatiable_type", "associatiable_id", "associated_type", "associated_id"], name: "association_index", unique: true
-    t.index ["associatiable_type", "associatiable_id"], name: "index_associations_on_associatiable_type_and_associatiable_id"
-    t.index ["user_id"], name: "index_associations_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 1) do
 
   create_table "returns", force: :cascade do |t|
     t.integer "user_id", null: false

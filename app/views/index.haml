@@ -17,8 +17,20 @@
 - ## Provides us with the ability to manage content/functionality for logged-in users
 - if user_signed_in?
 
+  - # User Information
+  %h4 User Information
+  = form_for current_user, '/user', data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
+    - if @user.try(:errors)
+      = @user.inspect
+      - @user.errors.full_messages.each do |message|
+        = message
+    = f.text_field :name, placeholder: "Tax Entity Name"
+    = f.text_field :vtr, placeholder: "VAT Number"
+    = f.submit
+
   - # Returns
   - # These show the user which returns they have available, and which they need to submit
+  %h4 Returns
   - if @returns.any?
     - @returns.each do |r|
       = r.periodKey
@@ -29,6 +41,7 @@
 
   - # Not Logged In
   - # Allows us to show a page (or pages) to the user if they are not logged in
+  Not Logged in.
 
 - ###################################################
 - ###################################################

@@ -152,7 +152,7 @@ class App < Sinatra::Base
   ##########################################################
   ##########################################################
 
-    # => Sprockets
+    # => Config
     # => This is for the layout (calling sprockets helpers etc)
     # => https://github.com/petebrowne/sprockets-helpers#setup
     configure do
@@ -259,15 +259,46 @@ class App < Sinatra::Base
 
     # => User
     # => Update user object
-    @user = current_user
-    @user.name = params.dig(:user, :name)
-    @user.vtr  = params.dig(:user, :vtr)
-    @user.save # => update doesn't return error values
+    @user = current_user.update params.dig(:user, :name)
 
     # => Action
-    haml :index, @user.try(:errors) ? {error: "Errors"} : {notice: "Updated"}
+    redirect :index, @user ? {error: "Errors"} : {notice: "Updated"}
 
   end
+
+  #####################
+  #####################
+
+  # => Development
+  # => To test HMRC API (in development), we use the following route
+  configure :development do
+
+    # => Hello World
+    # => Allows us to test the HMRC API connectivity
+    get '/hello_world' do
+
+      # => Validation
+      redirect '/', error: "No VTR" unless current_user.try(:vtr)
+
+      puts current_user.vtr
+
+      # => HMRC
+      # => Starts the API
+      @api = HMRC.new current_user.vtr
+      @response = @api.hello_world
+
+      # => Error
+      # => This checks for an error code and redirects to home if it is there
+      redirect_to '/', error: @response.dig("code") if @response.try("code")
+
+      # => Response
+      # => Allows us to pass back the text
+      body @response
+
+    end
+
+  end
+
 
   ############################################################
   ############################################################

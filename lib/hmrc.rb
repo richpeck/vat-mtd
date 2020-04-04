@@ -37,6 +37,12 @@ class HMRC
     self.class.get("/organisations/vat/#{@options.vtr}/obligations")
   end
 
+  ## Hello World ##
+  ## https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/api-example-microservice/1.0 ##
+  def hello_world
+    self.class.get("/hello/world") # => should return "Hello World"
+  end
+
 end
 
 ##########################################################

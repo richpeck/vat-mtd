@@ -216,7 +216,7 @@ class App < Sinatra::Base
       # => Authentication
       # => Allows you to load the page if required
       # => https://stackoverflow.com/a/7709087/1143732
-      env['warden'].authenticate! unless %w[login logout register unauthenticated].include?(request.path_info.split('/')[1]) || !request.path_info.split('/')[1].nil? # => required to ensure protection
+      env['warden'].authenticate! unless %w[nil login logout register unauthenticated].include?(request.path_info.split('/')[1]) # => https://stackoverflow.com/a/7709087/1143732
 
     end
 
@@ -273,30 +273,34 @@ class App < Sinatra::Base
   # => To test HMRC API (in development), we use the following route
   configure :development do
 
+    # => Redirect
+    # => Only works if the user has added the VTR to their account & authenticated with HMRC (not required for hello-world)
+    before /(?!\/(obligations|returns))/ do
+      redirect '/', error: "No Authentication" unless (current_user.try(:vtr) && !current_user.vtr.blank?) || !current_user.authenticated?
+    end
+
     # => Hello World
     # => Allows us to test the HMRC API connectivity
     get '/hello_world' do
 
-      # => Validation
-      redirect '/', error: "No VTR" unless current_user.try(:vtr) && !current_user.vtr.blank?
-
       # => HMRC
       # => Starts the API
       @api = HMRC.new current_user.vtr
-      @response = @api.hello_world
+      r = @api.hello_world
+
+      puts r.try("code")
 
       # => Error
       # => This checks for an error code and redirects to home if it is there
-      redirect_to '/', error: @response.dig("code") if @response.try("code")
+      redirect '/', error: r.dig("code") if r.try("code")
 
       # => Response
       # => Allows us to pass back the text
-      body @response
+      body response.dig("message")
 
     end
 
   end
-
 
   ############################################################
   ############################################################

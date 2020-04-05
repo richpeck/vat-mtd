@@ -23,24 +23,29 @@ class HMRC
   include HTTParty
   base_uri HMRC_API_ENDPOINT
 
+  ## Accessors ##
+  ## Used to provide @hmrc = HMRC.new // @hrmc.x functionality ##
+  attr_accessor :vtr
+
   ## Constructor ##
   ## Allows us to build out the class properly ##
   ## @hmrc = HMRC.new current_user.vtr
-  def initialize(vtr)
-    @options = { vtr: vtr }
+  def initialize vtr
+    @vtr = vtr
+    @headers = {"Accept": "application/vnd.hmrc.1.0+json"}
   end
 
   ## Obligations ##
   ## This pulls down the submitted returns and gives us a periodKey (which we use to pull individual returns) ##
   ## The aim is to store all returns in a single table ##
   def obligations
-    self.class.get("/organisations/vat/#{@options.vtr}/obligations")
+    self.class.get("/organisations/vat/#{@vtr}/obligations", headers: @headers)
   end
 
   ## Hello World ##
   ## https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/api-example-microservice/1.0 ##
   def hello_world
-    self.class.get("/hello/world") # => should return "Hello World"
+    self.class.get("/hello/world", headers: @headers) # => should return "Hello World"
   end
 
 end

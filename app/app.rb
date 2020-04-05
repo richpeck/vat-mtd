@@ -216,7 +216,7 @@ class App < Sinatra::Base
       # => Authentication
       # => Allows you to load the page if required
       # => https://stackoverflow.com/a/7709087/1143732
-      env['warden'].authenticate! unless %w[login logout register unauthenticated].include?(request.path_info.split('/')[1]) || request.path_info.split('/')[1].nil? # => required to ensure protection
+      env['warden'].authenticate! unless %w[login logout register unauthenticated].include?(request.path_info.split('/')[1]) || !request.path_info.split('/')[1].nil? # => required to ensure protection
 
     end
 
@@ -262,7 +262,7 @@ class App < Sinatra::Base
     @user = current_user.update params.dig(:user, :name)
 
     # => Action
-    redirect :index, @user ? {error: "Errors"} : {notice: "Updated"}
+    redirect '/', @user ? {error: "Errors"} : {notice: "Updated"}
 
   end
 
@@ -278,9 +278,7 @@ class App < Sinatra::Base
     get '/hello_world' do
 
       # => Validation
-      redirect '/', error: "No VTR" unless current_user.try(:vtr)
-
-      puts current_user.vtr
+      redirect '/', error: "No VTR" unless current_user.try(:vtr) && !current_user.vtr.blank?
 
       # => HMRC
       # => Starts the API

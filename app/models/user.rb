@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
   ################################
   ################################
 
+  ###################
+  ##    General    ##
+  ###################
+
   # => Validations
   # => Ensures we're able to store the correct data
   validates :email, uniqueness: true, presence: true
@@ -52,6 +56,20 @@ class User < ActiveRecord::Base
   # => Password (encryption)
   # => https://learn.co/lessons/sinatra-password-security#activerecord's-has_secure_password
   has_secure_password
+
+  ################################
+  ################################
+
+  ###################
+  ##    Private    ##
+  ###################
+
+  # => Authenticated?
+  # => Allows us to see if HMRC is authenticated or not
+  # => Tests for the presence of the access token
+  def authenticated?
+    false
+  end
 
   ################################
   ################################

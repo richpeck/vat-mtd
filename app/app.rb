@@ -266,42 +266,6 @@ class App < Sinatra::Base
 
   end
 
-  #####################
-  #####################
-
-  # => Development
-  # => To test HMRC API (in development), we use the following route
-  configure :development do
-
-    # => Redirect
-    # => Only works if the user has added the VTR to their account & authenticated with HMRC (not required for hello-world)
-    before /(?!\/(obligations|returns))/ do
-      redirect '/', error: "No Authentication" unless (current_user.try(:vtr) && !current_user.vtr.blank?) || !current_user.authenticated?
-    end
-
-    # => Hello World
-    # => Allows us to test the HMRC API connectivity
-    get '/hello_world' do
-
-      # => HMRC
-      # => Starts the API
-      @api = HMRC.new current_user.vtr
-      r = @api.hello_world
-
-      puts r.try("code")
-
-      # => Error
-      # => This checks for an error code and redirects to home if it is there
-      redirect '/', error: r.dig("code") if r.try("code")
-
-      # => Response
-      # => Allows us to pass back the text
-      body response.dig("message")
-
-    end
-
-  end
-
   ############################################################
   ############################################################
   ##            ____       __                               ##
@@ -318,27 +282,46 @@ class App < Sinatra::Base
   ############################################################
 
   # => Namespace
-  # => Gives us the means to create & manage nodes as required
-  namespace :nodes do
+  # => Gives us the means to create & manage returns as required
+  namespace '/returns' do
 
-    ################################
-    ################################
-
-    # => New
-    # => Provide functionality for building a new node (IE able to add properties etc)
-    # => This is somewhat experimental, but still pretty damn cool
-    get 'new' do
-      @node = current_user.nodes.new # => allows us to create new nodes
-    end ## get
-
-    ################################
-    ################################
-
-    # => Create
-    # => Build the new node + properties required to make it work
-    post 'create' do
-      @node = current_user.nodes.create node_params
+    get '/hello2' do
+      body "test"
     end
+
+    ################################
+    ################################
+
+    # => Redirect
+    # => Only works if the user has added the VTR to their account & authenticated with HMRC (not required for hello-world)
+    before /(?!\/(obligations|returns))/ do
+      redirect '/', error: "No Authentication" unless (current_user.try(:vtr) && !current_user.vtr.blank?) || !current_user.authenticated?
+    end
+
+    ################################
+    ################################
+
+    # => Development
+    # => To test HMRC API (in development), we use the following route
+    configure :development do
+
+      # => Hello World
+      # => Allows us to test the HMRC API connectivity
+      # => Open to everyone (in dev) for testing
+      get 'hello' do # => returns/hello_world
+
+        # => HMRC
+        # => Starts the API
+        @api = HMRC.new current_user.vtr
+        r = @api.hello_world
+
+        # => Response
+        # => This checks for an error code and redirects to home if it is there
+        redirect '/', notice: "test"
+
+      end #get
+
+    end #configure
 
     ################################
     ################################

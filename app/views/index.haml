@@ -13,13 +13,13 @@
 - ###################################################
 - ###################################################
 
-- # HR 
+- # HR
 %hr
 
 - # User Information
 - # Expected to be signed in
-%h4 Authentication
-%h6 Connect to HMRC and define your credentials...
+%h4 🔒 Authentication
+%h6 Connect to HMRC and define your credentials
 = form_for current_user, '/user', data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
   - if @user.try(:errors)
     - @user.errors.full_messages.each do |message|
@@ -37,7 +37,7 @@
 
 - # Returns
 - # These show the user which returns they have available, and which they need to submit
-%h4 Returns
+%h4 📝 Returns
 - if @returns.any?
   - @returns.each do |r|
     = r.periodKey

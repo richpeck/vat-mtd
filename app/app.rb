@@ -115,6 +115,14 @@ class App < Sinatra::Base
       register Sinatra::Reloader  # => http://sinatrarb.com/contrib/reloader
     end
 
+    # => Staging
+    # => Manage staging environment to ensure the system is protected from unwanted attention
+    configure :staging do
+      use Rack::Attack # => allows us to block access etc
+      Rack::Attack.safelist_ip("86.10.199.250")
+      Rack::Attack.blocklist("block all access") { |request| request.path.start_with? "/" }
+    end
+
   ##########################################################
   ##########################################################
 
@@ -301,27 +309,21 @@ class App < Sinatra::Base
     ################################
     ################################
 
-    # => Development
-    # => To test HMRC API (in development), we use the following route
-    configure :development do
+    # => Hello World
+    # => Allows us to test the HMRC API connectivity
+    # => Open to everyone (in dev) for testing
+    get '/hello_world' do # => returns/hello_world
 
-      # => Hello World
-      # => Allows us to test the HMRC API connectivity
-      # => Open to everyone (in dev) for testing
-      get 'hello' do # => returns/hello_world
+      # => HMRC
+      # => Starts the API
+      @api = HMRC.new current_user.vrn
+      r = @api.hello_world
 
-        # => HMRC
-        # => Starts the API
-        @api = HMRC.new current_user.vtr
-        r = @api.hello_world
+      # => Response
+      # => This checks for an error code and redirects to home if it is there
+      redirect '/', r.try("code") ? { error: r.dig("code") } : { notice: r.dig("message") }
 
-        # => Response
-        # => This checks for an error code and redirects to home if it is there
-        redirect '/', notice: "test"
-
-      end #get
-
-    end #configure
+    end #get
 
     ################################
     ################################

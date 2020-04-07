@@ -24,8 +24,7 @@
   - if @user.try(:errors)
     - @user.errors.full_messages.each do |message|
       = message
-  = f.text_field :name, placeholder: "Tax Entity Name"
-  = f.text_field :vtr, placeholder: "VAT Number"
+  = f.text_field :vrn, placeholder: "VAT Number (VRN)"
   = f.submit
 
 - # Authentication

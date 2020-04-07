@@ -25,13 +25,13 @@ class HMRC
 
   ## Accessors ##
   ## Used to provide @hmrc = HMRC.new // @hrmc.x functionality ##
-  attr_accessor :vtr
+  attr_accessor :vrn
 
   ## Constructor ##
   ## Allows us to build out the class properly ##
   ## @hmrc = HMRC.new current_user.vtr
-  def initialize vtr
-    @vtr = vtr
+  def initialize vrn
+    @vtr = vrn
     @headers = {"Accept": "application/vnd.hmrc.1.0+json"}
   end
 
@@ -39,13 +39,21 @@ class HMRC
   ## This pulls down the submitted returns and gives us a periodKey (which we use to pull individual returns) ##
   ## The aim is to store all returns in a single table ##
   def obligations
-    self.class.get("/organisations/vat/#{@vtr}/obligations", headers: @headers)
+    self.class.get("/organisations/vat/#{@vrn}/obligations", headers: @headers)
   end
 
   ## Hello World ##
   ## https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/api-example-microservice/1.0 ##
   def hello_world
     self.class.get("/hello/world", headers: @headers) # => should return "Hello World"
+  end
+
+  #################################
+  #################################
+
+  ## Auth ##
+  def authenticate
+    self.class.post("/oauth/token")
   end
 
 end

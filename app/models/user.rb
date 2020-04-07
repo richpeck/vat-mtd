@@ -22,7 +22,7 @@
 
 ## User ##
 ## Because we want to keep the app simple, this stores all the required information (no profile model) ##
-## id | name | email | password_digest (encrypted) | vtr | created_at | updated_at ##
+## id | email | password_digest (encrypted) | vrn | created_at | updated_at ##
 class User < ActiveRecord::Base
 
   ################################
@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   # => Validations
   # => Ensures we're able to store the correct data
   validates :email, uniqueness: true, presence: true
-  validates :vtr,   format: { with: /\A\d+\z/, message: "Integers only." }, length: { is: 9 }, allow_blank: true # => VAT numbers are 9 characters (GB xxx xxx xxx)
+  validates :vrn,   format: { with: /\A\d+\z/, message: "Integers only." }, length: { is: 9 }, allow_blank: true # => VAT numbers are 9 characters (GB xxx xxx xxx)
 
   # => Password
   # => This allows us to create a password + send it to email if the created user does not have a password (seed)

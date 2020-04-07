@@ -67,13 +67,14 @@ end
 ####################
 
 # => General
-gem "i18n", require: 'sinatra/support/i18nsupport' # => Locales support (allows us to manage various responses from central location) - https://www.rubydoc.info/gems/sinatra-support/1.2.2/Sinatra/I18nSupport
-gem 'rake'                                         # => Allows for Rake usage
-gem 'rack-flash3', require: 'rack-flash'           # => Flash messages for Rack apps (required for "redirect_with_flash" -- #L44)
-gem 'warden', '~> 1.2', '>= 1.2.8'                 # => Warden (authentication)
-gem 'bcrypt', '~> 3.1', '>= 3.1.13'                # => Password management (encrypts passwords if using SQLite3 -- if using Postgres, we have extensions)
-gem 'htmlcompressor', '~> 0.4.0'                   # => HTMLCompressor (used to make the HTML have no spaces etc) // https://github.com/paolochiodi/htmlcompressor
-gem 'httparty', '~> 0.18.0'                        # => HTTParty - gives us the ability to interact with HMRC API without writing tons of code
+gem "i18n", require: 'sinatra/support/i18nsupport'              # => Locales support (allows us to manage various responses from central location) - https://www.rubydoc.info/gems/sinatra-support/1.2.2/Sinatra/I18nSupport
+gem 'rake'                                                      # => Allows for Rake usage
+gem 'rack-flash3', require: 'rack-flash'                        # => Flash messages for Rack apps (required for "redirect_with_flash" -- #L44)
+gem 'warden', '~> 1.2', '>= 1.2.8'                              # => Warden (authentication)
+gem 'bcrypt', '~> 3.1', '>= 3.1.13'                             # => Password management (encrypts passwords if using SQLite3 -- if using Postgres, we have extensions)
+gem 'htmlcompressor', '~> 0.4.0'                                # => HTMLCompressor (used to make the HTML have no spaces etc) // https://github.com/paolochiodi/htmlcompressor
+gem 'httparty', '~> 0.18.0'                                     # => HTTParty - gives us the ability to interact with HMRC API without writing tons of code
+gem 'rack-attack', '~> 6.2', '>= 6.2.2', require: 'rack/attack' # => Rack::Attack - allows us to block unwanted usage etc
 
 # => Asset Management
 gem 'uglifier', '~> 4.2'         # => Uglifier - Javascript minification (required to get minification working)

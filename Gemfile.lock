@@ -30,7 +30,6 @@ GEM
     backports (3.17.0)
     bcrypt (3.1.13)
     byebug (11.1.1)
-    cancan (1.6.10)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -78,6 +77,8 @@ GEM
     puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.2)
+    rack-attack (6.2.2)
+      rack (>= 1.0, < 3)
     rack-flash3 (1.0.5)
       rack
     rack-protection (2.0.8.1)
@@ -109,9 +110,6 @@ GEM
     sinatra-activerecord (2.0.14)
       activerecord (>= 3.2)
       sinatra (>= 1.0)
-    sinatra-can (0.2.1)
-      cancan (>= 1.6.0)
-      sinatra (>= 1.0.0)
     sinatra-contrib (2.0.8.1)
       backports (>= 2.8.2)
       multi_json
@@ -163,6 +161,7 @@ DEPENDENCIES
   pg
   pony (~> 1.13, >= 1.13.1)
   puma
+  rack-attack (~> 6.2, >= 6.2.2)
   rack-flash3
   rails-assets-bootstrap!
   rails-assets-jquery!
@@ -174,7 +173,6 @@ DEPENDENCIES
   sinatra (~> 2.0, >= 2.0.7)
   sinatra-activerecord (~> 2.0, >= 2.0.14)
   sinatra-asset-pipeline (~> 2.2)!
-  sinatra-can (~> 0.2.1)
   sinatra-contrib (~> 2.0, >= 2.0.7)
   sinatra-cors (~> 1.1)
   sinatra-redirect-with-flash (~> 0.2.1)

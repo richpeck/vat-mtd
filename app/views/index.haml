@@ -13,35 +13,40 @@
 - ###################################################
 - ###################################################
 
-- # HR
-%hr
+- # If user is NOT authenticated with HMRC
+- unless current_user.authenticated?
 
-- # User Information
-- # Expected to be signed in
-%h4 🔒 Authentication
-%h6 Connect to HMRC and define your credentials
-= form_for current_user, '/user', data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
-  - if @user.try(:errors)
-    - @user.errors.full_messages.each do |message|
-      = message
-  = f.text_field :vrn, placeholder: "VAT Number (VRN)"
-  = f.submit
+  - # Container
+  .authentication
 
-- # Authentication
-- # Used to provide the oAuth connectivity to HMRC
-= button_to "Authenticate", "https://www.google.com", disabled: current_user.authenticated?
+    - # User Information
+    - # Expected to be signed in
+    %h4 🔒 Authentication
 
-- # HR
-%hr
+    - # Content
+    .container
+      - unless current_user.vrn.present?
+        %h6 Provide your VRN (VAT Registration Number):
+        = form_for current_user, '/user', data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
+          - if @user.try(:errors)
+            - @user.errors.full_messages.each do |message|
+              = message
+          = f.text_field :vrn, placeholder: "VAT Number (VRN)", data: { parsley: { type: "number", minlength: "9", maxlength: "9" }}
+          = f.submit
+      - else
+        %h6 Connect to HMRC (oAuth)
+        = button_to "Authenticate", "https://www.google.com", disabled: current_user.authenticated?
 
-- # Returns
-- # These show the user which returns they have available, and which they need to submit
-%h4 📝 Returns
-- if @returns.any?
-  - @returns.each do |r|
-    = r.periodKey
 - else
-  No Returns!
+
+  - # Returns
+  - # These show the user which returns they have available, and which they need to submit
+  %h4 📝 Returns
+  - if @returns.any?
+    - @returns.each do |r|
+      = r.periodKey
+  - else
+    No Returns!
 
 - ###################################################
 - ###################################################

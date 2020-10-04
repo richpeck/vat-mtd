@@ -74,7 +74,11 @@ gem 'warden', '~> 1.2', '>= 1.2.9'                              # => Warden (aut
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'                             # => Password management (encrypts passwords if using SQLite3 -- if using Postgres, we have extensions)
 gem 'htmlcompressor', '~> 0.4.0'                                # => HTMLCompressor (used to make the HTML have no spaces etc) // https://github.com/paolochiodi/htmlcompressor
 gem 'httparty', '~> 0.18.1'                                     # => HTTParty - gives us the ability to interact with HMRC API without writing tons of code
-gem 'rack-attack', '~> 6.3', '>= 6.3.1', require: 'rack/attack' # => Rack::Attack - allows us to block unwanted usage etc
+gem 'rack-attack', '~> 6.3', '>= 6.3.1', require: 'rack/attack' # => Rack::Attack - allows us to block unwanted usage
+
+# => Functionality
+# => This is used for specific functionality inside the system
+gem 'rack-oauth2', '~> 1.16', require: 'rack/oauth2' # => oAuth
 
 # => Asset Management
 gem 'uglifier', '~> 4.2'         # => Uglifier - Javascript minification (required to get minification working)

@@ -16,7 +16,9 @@ DOMAIN              = ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com') ## used for C
 DEBUG               = ENV.fetch("DEBUG", false) != false ## this needs to be evaluated this way because each ENV variable returns a string ##
 SECRET              = ENV.fetch("SECRET", "62uao31c7d7j7dy6se9hs5auxyupmay") ## used to provide "shared secret" (for Rack Deflator)
 ENVIRONMENT         = ENV.fetch("RACK_ENV", "development")
-HMRC_API_ENDPOINT   = ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk") # => production or sandbox URL
+
+HMRC_API_ENDPOINT   = ENV.fetch("HMRC_API_ENDPOINT",  "https://test-api.service.hmrc.gov.uk") # => production or sandbox URL
+HMRC_AUTH_ENDPOINT  = ENV.fetch("HMRC_AUTH_ENDPOINT", "https://test-api.service.hmrc.gov.uk/oauth/authorize") # => https://developer.service.hmrc.gov.uk/api-documentation/docs/tutorials#user-restricted
 HMRC_CLIENT_ID      = ENV.fetch("HMRC_CLIENT_ID", nil)
 HMRC_CLIENT_SECRET  = ENV.fetch("HMRC_CLIENT_SECRET", nil)
 

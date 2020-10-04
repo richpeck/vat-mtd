@@ -1,5 +1,6 @@
 %auth
   - if user_signed_in?
+    = link_to "⚙️", "/settings", title: "Settings", class: :btn
     = link_to ["❌", I18n.t('auth.logout.label')].join(" "), "/logout", method: :delete, data: { confirm: "Really?" }, class: :btn
   - else
     = link_to ["🔒", I18n.t('auth.login.label')].join(" "),    "/login", class: :btn

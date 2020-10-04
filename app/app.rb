@@ -181,7 +181,7 @@ class App < Sinatra::Base
 
       # => Paths
       # => Used to add assets to asset pipeline
-      %w(stylesheets javascripts images).each do |folder|
+      %w(stylesheets javascripts images fonts).each do |folder|
         sprockets.append_path File.join(root, 'assets', folder)
         sprockets.append_path File.join(root, '..', 'vendor', 'assets', folder)
       end #paths
@@ -196,7 +196,7 @@ class App < Sinatra::Base
           port:     '587',
           domain:    DOMAIN,
           user_name: 'apikey',
-          password:  ENV.fetch('SENDGRID'),
+          password:  ENV.fetch('SENDGRID', nil),
           authentication: :plain,
           enable_starttls_auto: true
         }
@@ -267,7 +267,7 @@ class App < Sinatra::Base
 
     # => User
     # => Update user object
-    @user = current_user.update params.dig(:user, :name)
+    @user = current_user.update params[:user]
 
     # => Action
     redirect '/', @user ? {error: "Errors"} : {notice: "Updated"}
@@ -292,13 +292,6 @@ class App < Sinatra::Base
   # => Namespace
   # => Gives us the means to create & manage returns as required
   namespace '/returns' do
-
-    get '/hello2' do
-      body "test"
-    end
-
-    ################################
-    ################################
 
     # => Redirect
     # => Only works if the user has added the VTR to their account & authenticated with HMRC (not required for hello-world)

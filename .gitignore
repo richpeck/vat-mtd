@@ -2,6 +2,6 @@
 *.sqlite3
 .byebug_history
 .bundle
-public/dist
+public
 db/schema.rb
 tmp

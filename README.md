@@ -4,8 +4,6 @@ HMRC's [MTD (Making Tax Digital)](https://www.gov.uk/guidance/making-tax-digital
 
 The [VAT-MTD](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/1.0) service facilitates the creation & submission of VAT returns for authenticated companies.
 
-As an ode to [100% Free VAT Bridge](http://www.comsci.co.uk/100PcVatFreeBridge.html), decided to create a comparable tool (in Ruby & Sinatra).
-
 ---
 
 ### ⚖️ Copyrights/Licenses

@@ -30,6 +30,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  page:
+    not_found:   Page Not Found!
   auth:
     register:
       label:     Register

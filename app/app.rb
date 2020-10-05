@@ -239,12 +239,12 @@ class App < Sinatra::Base
   ##############################################################
   ##############################################################
 
-  # => Not Found
-  # => https://blog.iphoting.com/blog/2012/04/22/custom-404-error-pages-with-sinatra-dot-rb/
-  # => https://github.com/vast/sinatra-redirect-with-flash
-  not_found do
-    redirect "/", error: "Not Found!"
-  end
+    # => Not Found
+    # => https://blog.iphoting.com/blog/2012/04/22/custom-404-error-pages-with-sinatra-dot-rb/
+    # => https://github.com/vast/sinatra-redirect-with-flash
+    not_found do
+      redirect "/", error: I18n.t('page.not_found')
+    end
 
   ##############################################################
   ##############################################################
@@ -288,7 +288,7 @@ class App < Sinatra::Base
     @user = current_user.update params[:user]
 
     # => Action
-    redirect '/', @user ? {error: "Errors"} : {notice: "Updated"}
+    redirect '/', @user.errors.any? ? {error: "Errors - #{@user.errors.full_messagess..join(' ')}"} : {notice: "Updated"}
 
   end
 

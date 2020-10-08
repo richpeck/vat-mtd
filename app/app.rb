@@ -246,8 +246,8 @@ class App < Sinatra::Base
     # => https://stackoverflow.com/questions/25299186/sinatra-error-handling-in-ruby
     error 400..510 do
       respond_with :index, name: "test" do |format|
-        format.js   { {error: env['sinatra.error'].message }.to_json }
-        format.html { redirect "/", error: env['sinatra.error'].class.name }
+        format.js   { {error: env['sinatra.error'].class.name.demodulize }.to_json }
+        format.html { redirect "/", error: env['sinatra.error'].class.name.demodulize }
       end
     end
 

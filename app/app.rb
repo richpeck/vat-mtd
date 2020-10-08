@@ -21,7 +21,7 @@
 
 # => Constants
 # => Should be loaded by Bundler, but this has to do for now
-require_relative '../../config/constants'
+require_relative '../config/constants'
 
 ##########################################################
 ##########################################################

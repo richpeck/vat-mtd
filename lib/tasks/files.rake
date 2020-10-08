@@ -21,7 +21,7 @@ require 'fileutils'
 ##############################################
 
 ## Declarations ##
-root    = File.join(File.dirname(__FILE__), "..", "..")
+root    = File.join(File.dirname(__FILE__), "..", "..", "..")
 create  = [ { from: File.join(root, "app", "assets", "images", "favicon.ico"), to: File.join(root, "public") } ]
 destroy = ["favicon.ico", "sitemap.xml.gz", "sitemap1.xml.gz", "sitemap2.xml.gz"]
 

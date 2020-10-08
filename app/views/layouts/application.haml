@@ -17,7 +17,7 @@
   %body{ class: request.path.delete('\/') }
     %header
       = haml :'partials/auth', layout: false
-      %h1= link_to "💳 VAT MTD Integration", "/"
+      %h1= link_to "VAT MTD Integration", "/"
     %main
       = haml :'partials/flash', layout: false if flash.keys.any? # => required because it would just show {}
       .container= yield

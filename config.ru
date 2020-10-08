@@ -18,9 +18,16 @@
 ## Required for Ubuntu ##
 require 'rubygems' # => Necessary for Ubuntu
 
-## Sinatra ##
+## Require ##
+## This should really have bundler stuff ##
 require_relative 'app/app'
-run App
+
+## Sinatra ##
+## Changed the following to include different app structure ##
+## https://nickcharlton.net/posts/structuring-sinatra-applications.html ##
+map('/returns')  { run Returns }
+map('/settings') { run Settings }
+map('/')         { run App }
 
 ##################################################
 ##################################################

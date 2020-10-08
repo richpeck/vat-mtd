@@ -1,14 +1,16 @@
 ##########################################################
 ##########################################################
-##       _    _____  ______    __  _____________        ##
-##      | |  / /   |/_  __/   /  |/  /_  __/ __ \       ##
-##      | | / / /| | / /_____/ /|_/ / / / / / / /       ##
-##      | |/ / ___ |/ /_____/ /  / / / / / /_/ /        ##
-##      |___/_/  |_/_/     /_/  /_/ /_/ /_____/         ##
+##        ___      ___ ________  _________              ##
+##       |\  \    /  /|\   __  \|\___   ___\            ##
+##       \ \  \  /  / | \  \|\  \|___ \  \_|            ##
+##        \ \  \/  / / \ \   __  \   \ \  \             ##
+##         \ \    / /   \ \  \ \  \   \ \  \            ##
+##          \ \__/ /     \ \__\ \__\   \ \__\           ##
+##           \|__|/       \|__|\|__|    \|__|           ##
 ##                                                      ##
 ##########################################################
 ##########################################################
-##              Main Sinatra app.rb file                ##
+##                      VAT-MTD                         ##
 ## Allows us to define, manage and serve various routes ##
 ##########################################################
 ##########################################################
@@ -123,6 +125,13 @@ class App < Sinatra::Base
       Rack::Attack.blocklist("block all access") { |request| request.path.start_with? "/" }
     end
 
+    # => Logging
+    # => Enable logging for production & development
+    # => https://nickcharlton.net/posts/structuring-sinatra-applications.html
+    configure :production do
+      enable :logging
+    end
+
   ##########################################################
   ##########################################################
 
@@ -230,20 +239,15 @@ class App < Sinatra::Base
 
   ##############################################################
   ##############################################################
-  ##            ______                           __           ##
-  ##           / ____/__  ____  ___  _________ _/ /           ##
-  ##          / / __/ _ \/ __ \/ _ \/ ___/ __ `/ /            ##
-  ##         / /_/ /  __/ / / /  __/ /  / /_/ / /             ##
-  ##         \____/\___/_/ /_/\___/_/   \__,_/_/              ##
-  ##                                                          ##
-  ##############################################################
-  ##############################################################
 
     # => Not Found
     # => https://blog.iphoting.com/blog/2012/04/22/custom-404-error-pages-with-sinatra-dot-rb/
     # => https://github.com/vast/sinatra-redirect-with-flash
     not_found do
-      redirect "/", error: I18n.t('page.not_found')
+      respond_with :index, name: "test" do |format|
+        format.js   { {error: I18n.t('page.not_found')}.to_json }
+        format.html { redirect "/", error: I18n.t('page.not_found') }
+      end
     end
 
   ##############################################################
@@ -275,71 +279,6 @@ class App < Sinatra::Base
     haml :index
 
   end ## get
-
-  #####################
-  #####################
-
-  # => User
-  # => Gives the ability to update the user record
-  post '/user' do
-
-    # => User
-    # => Update user object
-    @user = current_user.update params[:user]
-
-    # => Action
-    redirect '/', @user.errors.any? ? {error: "Errors - #{@user.errors.full_messagess..join(' ')}"} : {notice: "Updated"}
-
-  end
-
-  ############################################################
-  ############################################################
-  ##            ____       __                               ##
-  ##           / __ \___  / /___  ___________  _____        ##
-  ##          / /_/ / _ \/ __/ / / / ___/ __ \/ ___/        ##
-  ##         / _, _/  __/ /_/ /_/ / /  / / / (__  )         ##
-  ##        /_/ |_|\___/\__/\__,_/_/  /_/ /_/____/          ##
-  ##                                                        ##
-  ############################################################
-  ############################################################
-  ## Objects associated with users, which allows us to call
-  ## the various pieces of data required to get the user submitted
-  ############################################################
-  ############################################################
-
-  # => Namespace
-  # => Gives us the means to create & manage returns as required
-  namespace '/returns' do
-
-    # => Redirect
-    # => Only works if the user has added the VTR to their account & authenticated with HMRC (not required for hello-world)
-    before /(?!\/(obligations|returns))/ do
-      redirect '/', error: "No Authentication" unless (current_user.try(:vtr) && !current_user.vtr.blank?) || !current_user.authenticated?
-    end
-
-    ################################
-    ################################
-
-    # => Hello World
-    # => Allows us to test the HMRC API connectivity
-    # => Open to everyone (in dev) for testing
-    get '/hello_world' do # => returns/hello_world
-
-      # => HMRC
-      # => Starts the API
-      @api = HMRC.new current_user.vrn
-      r = @api.hello_world
-
-      # => Response
-      # => This checks for an error code and redirects to home if it is there
-      redirect '/', r.try("code") ? { error: r.dig("code") } : { notice: r.dig("message") }
-
-    end #get
-
-    ################################
-    ################################
-
-  end ## namespace
 
   ##############################################################
   ##############################################################

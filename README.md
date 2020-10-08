@@ -1,8 +1,6 @@
 [[ img ]]
 
-HMRC's [MTD (Making Tax Digital)](https://www.gov.uk/guidance/making-tax-digital-for-vat) has opened a variety of API endpoints to developers.
-
-In line with this, and taking inspiration from [100pcVatBridge](http://www.comsci.co.uk/100PcVatFreeBridge.html), we decided to attempt to create a similar tool. 
+[VAT-MTD](https://www.gov.uk/guidance/making-tax-digital-for-vat) integration (inspired by [100pcVatBridge](http://www.comsci.co.uk/100PcVatFreeBridge.html)) to enable UK VAT return submissions. 
 
 ---
 

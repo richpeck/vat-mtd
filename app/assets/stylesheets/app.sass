@@ -135,7 +135,8 @@ body
 
   // Header
   header
-    padding: 5px
+    padding: 10px 5px
+    background: rgba(0,0,0,1)
 
     // Clear
     &:after
@@ -153,14 +154,22 @@ body
     auth
       float: right
       .btn
+        outline: none
+        color: rgba(255,255,255,1)
         font:
           size: 11px
         background:
-          color: rgba(255,255,255,1)
-        border: 2px solid darken($main_bg, 10%)
+          color: rgba(255,255,255,0.25)
+        text:
+          shadow: 0 1px rgba(0,0,0,1)
+        transition: background-color 0.15s ease
         &:hover
-          text:
-            decoration: underline
+          color: rgba(255,255,255,1)
+          background:
+            color: rgba(255,255,255,0.4)
+        &:focus
+          background:
+            color: rgba(255,255,255,0.6)
         & + .btn
           margin:
             left: 5px

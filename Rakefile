@@ -9,8 +9,14 @@
 ##                                                      ##
 ##########################################################
 ##########################################################
+## This uses the sinatra-asset-pipeline gem to provide
+## access to the Rails asset pipeline. The most important
+## thing is to ensure you run any rake command after "bundle exec"
+##########################################################
+##########################################################
 
 # => Libs
+# => https://github.com/kalasjocke/sinatra-asset-pipeline#usage
 require 'sinatra/activerecord/rake'   # => This works but ONLY if you call "bundle exec" - https://github.com/janko/sinatra-activerecord/issues/40#issuecomment-51647819
 require 'sinatra/asset_pipeline/task' # => Sinatra Asset Pipeline
 

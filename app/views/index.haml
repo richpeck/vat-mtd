@@ -35,7 +35,7 @@
           = f.submit
       - else
         %h6 Connect to HMRC (oAuth)
-        = button_to "Authenticate", "https://www.google.com", disabled: current_user.authenticated?
+        = button_to "Authenticate", "/authenticatetest", disabled: current_user.authenticated?
 
 - else
 

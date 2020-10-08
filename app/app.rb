@@ -243,10 +243,11 @@ class App < Sinatra::Base
     # => Errors
     # => https://blog.iphoting.com/blog/2012/04/22/custom-404-error-pages-with-sinatra-dot-rb/
     # => https://github.com/vast/sinatra-redirect-with-flash
-    error do
+    # => https://stackoverflow.com/questions/25299186/sinatra-error-handling-in-ruby
+    error 400..510 do
       respond_with :index, name: "test" do |format|
-        format.js   { {error: I18n.t('page.not_found')}.to_json }
-        format.html { redirect "/", error: I18n.t('page.not_found') }
+        format.js   { {error: env['sinatra.error'].message }.to_json }
+        format.html { redirect "/", error: env['sinatra.error'].class.name }
       end
     end
 

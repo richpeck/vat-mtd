@@ -14,6 +14,7 @@
 # https://stackoverflow.com/a/32717779/1143732
 # find . -name '*.sh' | xargs git update-index --chmod=+x
 
+echo "Test";
 echo "Migrating...";
 bundle exec rake db:migrate;
 

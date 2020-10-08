@@ -1,6 +1,6 @@
+# Release
+# Uses bin/sh (separate commands with semi-colon)
 if [ "$RACK_ENV" != "development" ]; then
-  # Release
-  # Uses bin/sh (separate commands with semi-colon)
   release: ./config/deploy/release.sh
 fi
 

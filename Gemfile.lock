@@ -13,12 +13,12 @@ GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
-    activemodel (6.0.3.3)
-      activesupport (= 6.0.3.3)
-    activerecord (6.0.3.3)
-      activemodel (= 6.0.3.3)
-      activesupport (= 6.0.3.3)
-    activesupport (6.0.3.3)
+    activemodel (6.0.3.4)
+      activesupport (= 6.0.3.4)
+    activerecord (6.0.3.4)
+      activemodel (= 6.0.3.4)
+      activesupport (= 6.0.3.4)
+    activesupport (6.0.3.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
@@ -189,7 +189,7 @@ DEPENDENCIES
   warden (~> 1.2, >= 1.2.9)
 
 RUBY VERSION
-   ruby 2.7.1p83
+   ruby 2.7.2p137
 
 BUNDLED WITH
    2.1.4

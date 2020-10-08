@@ -19,7 +19,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # => Ruby
 # => https://github.com/cantino/huginn/blob/master/Gemfile#L4
-ruby [RUBY_VERSION, '2.7.1'].max
+ruby [RUBY_VERSION, '2.7.2'].max
 
 # => Ruby 2.7.0
 # => Required to get working with latest Ruby (TEMPORARY)

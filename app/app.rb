@@ -240,7 +240,7 @@ class App < Sinatra::Base
   ##############################################################
   ##############################################################
 
-    # => Not Found
+    # => Errors
     # => https://blog.iphoting.com/blog/2012/04/22/custom-404-error-pages-with-sinatra-dot-rb/
     # => https://github.com/vast/sinatra-redirect-with-flash
     not_found do

@@ -20,7 +20,10 @@ require 'rubygems' # => Necessary for Ubuntu
 
 ## Require ##
 ## This should really have bundler stuff ##
-require_relative 'app/app'
+## https://www.oreilly.com/library/view/sinatra-up-and/9781449306847/ch04.html ##
+require_relative 'app/controllers/app'
+require_relative 'app/controllers/returns'
+require_relative 'app/controllers/settings'
 
 ## Sinatra ##
 ## Changed the following to include different app structure ##

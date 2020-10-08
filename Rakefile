@@ -22,7 +22,7 @@ require 'sinatra/asset_pipeline/task' # => Sinatra Asset Pipeline
 
 # => App
 # => Loads environment etc
-require_relative 'app/app'
+require_relative 'app/controllers/app'
 
 ##########################################################
 ##########################################################

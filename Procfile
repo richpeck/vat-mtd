@@ -6,5 +6,5 @@ fi
 
 # Web
 # Runs web server
-# To change port, set the PORT environment variable 
+# To change port, set the PORT environment variable (which should be done locally as product/staging don't care)
 web: bundle exec puma -C config/deploy/puma.rb

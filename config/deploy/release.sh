@@ -21,7 +21,7 @@ echo "Seeding...";
 bundle exec rake db:seed;
 
 echo "Precompiling...";
-bundle exec rake assetsclobber;
+bundle exec rake assets:clobber;
 bundle exec rake assets:precompile;
 
 ###########################################

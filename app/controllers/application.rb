@@ -45,9 +45,9 @@ require_all 'app', 'lib'
 ##########################################################
 ##########################################################
 
-## Sinatra ##
-## Based on - https://github.com/kevinhughes27/shopify-sinatra-app ##
-class App < Sinatra::Base
+# => This is used to give us a general set of config options
+# => No, it's not the simplest way to do it, but it works
+class Sinatra::Base
 
   ##########################################################
   ##########################################################
@@ -139,8 +139,8 @@ class App < Sinatra::Base
     # => Allows us to determine various specifications inside the app
     set :haml, { layout: :'layouts/application' } # https://stackoverflow.com/a/18303130/1143732
     set :root, File.join(Dir.pwd, "app") # => had to change because we put into the app/controllers directory (if we put it in app directory we can just use default behaviour)
-    set :views, Proc.new { File.join(root, "views") } # required to get views working (defaulted to ./views)
-    set :public_folder, File.join(root, "..", "public") # Root dir fucks up (public_folder defaults to root) http://sinatrarb.com/configuration.html#root---the-applications-root-directory
+    set :views, File.join(root, 'views') # => required to get views working (defaulted to ./views)
+    set :public_folder, File.join(root, "..", "public") # => Root dir fucks up (public_folder defaults to root) http://sinatrarb.com/configuration.html#root---the-applications-root-directory
 
     # => Required for CSRF
     # => https://cheeyeo.uk/ruby/sinatra/padrino/2016/05/14/padrino-sinatra-rack-authentication-token/
@@ -251,6 +251,18 @@ class App < Sinatra::Base
         format.html { redirect "/", error: env['sinatra.error'].class.name.demodulize }
       end
     end
+
+  ##############################################################
+  ##############################################################
+
+end
+
+##########################################################
+##########################################################
+
+## Sinatra ##
+## Based on - https://github.com/kevinhughes27/shopify-sinatra-app ##
+class App < Sinatra::Base
 
   ##############################################################
   ##############################################################

@@ -18,10 +18,16 @@
 ## Required for Ubuntu ##
 require 'rubygems' # => Necessary for Ubuntu
 
+##################################################
+##################################################
+
 ## Require ##
 ## This should really have bundler stuff ##
 ## https://www.oreilly.com/library/view/sinatra-up-and/9781449306847/ch04.html ##
 Dir["app/controllers/*"].each {|file| require_relative file }
+
+##################################################
+##################################################
 
 ## Sinatra ##
 ## Changed the following to include different app structure ##

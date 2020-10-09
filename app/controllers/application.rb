@@ -21,7 +21,7 @@
 
 # => Constants
 # => Should be loaded by Bundler, but this has to do for now
-require_relative '../config/constants'
+require_relative '../../config/constants'
 
 ##########################################################
 ##########################################################
@@ -138,6 +138,7 @@ class App < Sinatra::Base
     # => General
     # => Allows us to determine various specifications inside the app
     set :haml, { layout: :'layouts/application' } # https://stackoverflow.com/a/18303130/1143732
+    set :root, File.join(Dir.pwd, "app") # => had to change because we put into the app/controllers directory (if we put it in app directory we can just use default behaviour)
     set :views, Proc.new { File.join(root, "views") } # required to get views working (defaulted to ./views)
     set :public_folder, File.join(root, "..", "public") # Root dir fucks up (public_folder defaults to root) http://sinatrarb.com/configuration.html#root---the-applications-root-directory
 

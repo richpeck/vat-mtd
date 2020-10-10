@@ -9,9 +9,16 @@
 ##########################################################
 ##########################################################
 
+# => Auth
+require_relative '../lib/warden'
+
+##########################################################
+##########################################################
+
+# => Base
 # => This is used to give us a general set of config options
 # => No, it's not the simplest way to do it, but it works
-class Sinatra::Base
+class Config < Sinatra::Base
 
     # => Register
     # => This allows us to call the various extensions for the system
@@ -148,22 +155,6 @@ class Sinatra::Base
         sprockets.append_path File.join(root, 'assets', folder)
         sprockets.append_path File.join(root, '..', 'vendor', 'assets', folder)
       end #paths
-
-      # => Pony
-      # => SMTP used to send email to account owner
-      # => https://github.com/benprew/pony#default-options
-      Pony.options = {
-        via: :smtp,
-        via_options: {
-          address:  'smtp.sendgrid.net',
-          port:     '587',
-          domain:    DOMAIN,
-          user_name: 'apikey',
-          password:  ENV.fetch('SENDGRID', nil),
-          authentication: :plain,
-          enable_starttls_auto: true
-        }
-      } #pony
 
     end #configure
 

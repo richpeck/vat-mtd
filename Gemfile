@@ -30,9 +30,9 @@ gem 'nokogiri', '~> 1.11.0.rc3'
 
 # => Sinatra
 # => Not big enough for Rails
-gem 'sinatra', '~> 2.1',                                                           require: ['sinatra/base', 'sinatra/namespace'] # => Not needed but allows us to call /namespace
+gem 'sinatra', '~> 2.1',                                                           require: ['sinatra/base', 'sinatra/namespace', 'sinatra/multi_route'] # => Not needed but allows us to call /namespace
 gem 'sinatra-activerecord', '~> 2.0', '>= 2.0.18',                                 require: 'sinatra/activerecord'                # => Integrates ActiveRecord into Sinatra apps (I changed for AR6+)
-gem 'sinatra-asset-pipeline', '~> 2.2', '>= 2.2.1', github: 'richpeck/sinatra-asset-pipeline', require: 'sinatra/asset_pipeline'                # => Asset Pipeline (for CSS/JS) (changed lib/asset-pipeline/task.rb#14 to use ::Sinatra:Manifest) (changed dependencies to use installed rake)
+gem 'sinatra-asset-pipeline', '~> 2.2', '>= 2.2.1', github: 'richpeck/sinatra-asset-pipeline', require: 'sinatra/asset_pipeline'  # => Asset Pipeline (for CSS/JS) (changed lib/asset-pipeline/task.rb#14 to use ::Sinatra:Manifest) (changed dependencies to use installed rake)
 gem 'sinatra-contrib', '~> 2.1',                                                   require: 'sinatra/contrib'                     # => Allows us to add "contrib" library to Sinatra app (respond_with) -> http://sinatrarb.com/contrib/
 gem 'sinatra-cors', '~> 1.2',                                                      require: 'sinatra/cors'                        # => Protect app via CORS
 gem 'sinatra-redirect-with-flash', '~> 0.2.1',                                     require: 'sinatra/redirect_with_flash'         # => Redirect with Flash (allows use of redirect) -> https://github.com/vast/sinatra-redirect-with-flash
@@ -86,10 +86,10 @@ gem 'sass', '~> 3.7', '>= 3.7.4' # =>  SASS - converts SASS into CSS (required f
 
 # => Extra
 # => Added to help us manage data structures in app
-gem 'pony', '~> 1.13', '>= 1.13.1'            # => Email management for Ruby/Rails
-gem 'addressable', '~> 2.7'                   # => Break down the various components of a domain
-gem 'require_all', '~> 3.0'                   # => Require an entire directory and include in an app
-gem 'padrino-helpers', '~> 0.15.0'            # => Sinatra framework which adds a number of support classes -- we needed it for "number_to_currency" (https://github.com/padrino/padrino-framework/blob/02feacb6afa9bce20c1fb360df4dfd4057899cfc/padrino-helpers/lib/padrino-helpers/number_helpers.rb)
+gem 'pony', '~> 1.13', '>= 1.13.1'                          # => Email management for Ruby/Rails
+gem 'addressable', '~> 2.7'                                 # => Break down the various components of a domain
+gem 'require_all', '~> 3.0', github: 'richpeck/require_all' # => Require an entire directory and include in an app (had to change a line to make native globbing work - PR submitted https://github.com/jarmo/require_all/pull/32)
+gem 'padrino-helpers', '~> 0.15.0'                          # => Sinatra framework which adds a number of support classes -- we needed it for "number_to_currency" (https://github.com/padrino/padrino-framework/blob/02feacb6afa9bce20c1fb360df4dfd4057899cfc/padrino-helpers/lib/padrino-helpers/number_helpers.rb)
 
 # => ActiveRecord
 # => Sinec we had multiple dependencies here, better to just add to our own category

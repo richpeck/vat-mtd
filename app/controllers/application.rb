@@ -19,16 +19,6 @@
 ##########################################################
 ##########################################################
 
-# => Configuration Options
-# => This should be loaded by bundler, but we need to do it here for now
-# => Since 10/2020, added a base "settings.rb" file which stores all the settings for Sinatra
-%w(constants).each do |file|
-  require_relative "../../config/#{file}"
-end
-
-##########################################################
-##########################################################
-
 # => Load
 # => This replaces individual requires with bundled gems
 # => https://stackoverflow.com/a/1712669/1143732
@@ -36,16 +26,14 @@ require 'bundler/setup'
 
 # => Pulls in all Gems
 # => Replaces the need for individual gems
-Bundler.require :default, ENV.fetch("RACK_ENV", "development") if defined?(Bundler) # => ENVIRONMENT only used here, can do away with constant if necessary
+Bundler.require :default, ENV["RACK_ENV"] if defined?(Bundler) # => ENVIRONMENT only used here, can do away with constant if necessary
 
 ##########################################################
 ##########################################################
 
 # => Models
 # => This allows us to load all the models (which are not loaded by default)
-require_all 'app', 'lib'
-
-  require_relative "../../config/settings"
+require_all 'app', 'lib', 'config/*.rb'
 
 ##########################################################
 ##########################################################
@@ -69,9 +57,12 @@ class App < Sinatra::Base
   ##############################################################
   ##############################################################
 
+  register Sinatra::MultiRoute
+  register Sinatra::RespondWith
+
   # => General
   # => Pulls pages (allows to show modals) - needs to be here to allow other routes to be called first
-  get '/' do
+  get '/', '/(:id)' do
 
     # Set ID
     # This is set if no :id is passed (IE the user is on the index page)

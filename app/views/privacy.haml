@@ -1,0 +1,52 @@
+- ###################################################
+- ###################################################
+- ##            ____          __                   ##
+- ##           /  _/___  ____/ /__  _  __          ##
+- ##           / // __ \/ __  / _ \| |/_/          ##
+- ##         _/ // / / / /_/ /  __/>  <            ##
+- ##        /___/_/ /_/\__,_/\___/_/|_|            ##
+- ##                                               ##
+- ###################################################
+- ###################################################
+- ## Gives us a single page from which to manage   ##
+- ## underlying functionality for the system.      ##
+- ###################################################
+- ###################################################
+
+- # If user is NOT authenticated with HMRC
+- unless current_user.authenticated?
+
+  - # Container
+  .authentication
+
+    - # User Information
+    - # Expected to be signed in
+    %h4 🔒 Authentication
+
+    - # Content
+    .container
+      - unless current_user.vrn.present?
+        %h6 Provide your VRN (VAT Registration Number):
+        = form_for current_user, '/user', data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
+          - if @user.try(:errors)
+            - @user.errors.full_messages.each do |message|
+              = message
+          = f.text_field :vrn, placeholder: "VAT Number (VRN)", data: { parsley: { type: "number", minlength: "9", maxlength: "9" }}
+          = f.submit
+      - else
+        %h6 Connect to HMRC (oAuth)
+        = button_to "Authenticate", "/authenticatetest", disabled: current_user.authenticated?
+
+- else
+
+  - # Returns
+  - # These show the user which returns they have available, and which they need to submit
+  %h4 📝 Returns
+  - if @returns.any?
+    - @returns.each do |r|
+      = r.periodKey
+  - else
+    No Returns!
+
+- ###################################################
+- ###################################################

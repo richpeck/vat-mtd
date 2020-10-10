@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/richpeck/require_all.git
+  revision: bf706fa1014c53859fe9d44836455f46c2fce937
+  specs:
+    require_all (3.0.0)
+
+GIT
   remote: https://github.com/richpeck/sinatra-asset-pipeline.git
   revision: da80bb6c3129243f16d093d08416f066ed0495a2
   specs:
@@ -102,7 +108,6 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    require_all (3.0.0)
     ruby2_keywords (0.0.2)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -174,7 +179,7 @@ DEPENDENCIES
   rails-assets-jquery-ujs!
   rails-assets-parsleyjs!
   rake (~> 13.0, >= 13.0.1)
-  require_all (~> 3.0)
+  require_all (~> 3.0)!
   sass (~> 3.7, >= 3.7.4)
   sinatra (~> 2.1)
   sinatra-activerecord (~> 2.0, >= 2.0.18)

@@ -178,7 +178,7 @@ class Config < Sinatra::Base
       # => Authentication
       # => Allows you to load the page if required
       # => https://stackoverflow.com/a/7709087/1143732
-      env['warden'].authenticate! unless %w[nil login logout register unauthenticated].include?(request.path_info.split('/')[1]) # => https://stackoverflow.com/a/7709087/1143732
+      env['warden'].authenticate! unless %w[nil login logout register unauthenticated privacy terms].include?(request.path_info.split('/')[1]) # => https://stackoverflow.com/a/7709087/1143732
 
     end
 
@@ -190,7 +190,7 @@ class Config < Sinatra::Base
     # => https://github.com/vast/sinatra-redirect-with-flash
     # => https://stackoverflow.com/questions/25299186/sinatra-error-handling-in-ruby
     error 400..510 do
-      respond_with :index, name: "test" do |format|
+      respond_with :index, name: "error" do |format|
         format.js   { {error: env['sinatra.error'].class.name.demodulize }.to_json }
         format.html { redirect "/", error: env['sinatra.error'].class.name.demodulize }
       end

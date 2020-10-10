@@ -33,14 +33,14 @@ Bundler.require :default, ENV["RACK_ENV"] if defined?(Bundler) # => ENVIRONMENT 
 
 # => Models
 # => This allows us to load all the models (which are not loaded by default)
-require_all 'app', 'lib', 'config/*.rb'
+require_all 'config/*.rb', 'lib', 'app'
 
 ##########################################################
 ##########################################################
 
 ## Sinatra ##
 ## Based on - https://github.com/kevinhughes27/shopify-sinatra-app ##
-class App < Sinatra::Base
+class App < Config # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
 
   ##############################################################
   ##############################################################
@@ -57,12 +57,9 @@ class App < Sinatra::Base
   ##############################################################
   ##############################################################
 
-  register Sinatra::MultiRoute
-  register Sinatra::RespondWith
-
   # => General
-  # => Pulls pages (allows to show modals) - needs to be here to allow other routes to be called first
-  get '/', '/(:id)' do
+  # => Pulls pages (some are static and need to be shown outside of the authentication system)
+  get '/', '/privacy', '/terms' do
 
     # Set ID
     # This is set if no :id is passed (IE the user is on the index page)

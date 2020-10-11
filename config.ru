@@ -47,7 +47,7 @@ HMRC_CLIENT_SECRET  = ENV.fetch("HMRC_CLIENT_SECRET", nil)
 ## This should really have bundler stuff ##
 ## https://www.oreilly.com/library/view/sinatra-up-and/9781449306847/ch04.html ##
 loader = Zeitwerk::Loader.new
-%w(app/controllers app/models lib config).each do |d|
+%w(config lib app/controllers app/models).each do |d|
   loader.push_dir(d)
 end
 loader.enable_reloading # you need to opt-in before setup

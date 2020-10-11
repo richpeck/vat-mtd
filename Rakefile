@@ -62,7 +62,7 @@ import 'lib/tasks/files.rake' # => files.rake (allows us to add/remove favicon o
 ##########################################################
 ##########################################################
 
-Sinatra::AssetPipeline::Task.define! App # => Sinatra Asset Pipeline
+Sinatra::AssetPipeline::Task.define! Application # => Sinatra Asset Pipeline
 
 ##########################################################
 ##########################################################

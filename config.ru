@@ -14,9 +14,10 @@
 ##################################################
 ##################################################
 
-## RubyGems ##
-## Required for Ubuntu ##
+## Libraries ##
+## RubyGems Required for Ubuntu ##
 require 'rubygems' # => Necessary for Ubuntu
+require_relative 'config/_constants' # => Required because Zeitwerk does not recognize pure Ruby (only classes/namespaces)
 
 ##################################################
 ##################################################
@@ -33,21 +34,11 @@ Bundler.require :default, ENV["RACK_ENV"] if defined?(Bundler) # => ENVIRONMENT 
 ##################################################
 ##################################################
 
-DOMAIN              = ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com') ## used for CORS and other funtionality -- ENV var gives flexibility
-DEBUG               = ENV.fetch("DEBUG", false) != false ## this needs to be evaluated this way because each ENV variable returns a string ##
-SECRET              = ENV.fetch("SECRET", "62uao31c7d7j7dy6se9hs5auxyupmay") ## used to provide "shared secret" (for Rack Deflator)
-ENVIRONMENT         = ENV.fetch("RACK_ENV", "development")
-
-HMRC_API_ENDPOINT   = ENV.fetch("HMRC_API_ENDPOINT",  "https://test-api.service.hmrc.gov.uk") # => production or sandbox URL
-HMRC_AUTH_ENDPOINT  = ENV.fetch("HMRC_AUTH_ENDPOINT", "https://test-api.service.hmrc.gov.uk/oauth/authorize") # => https://developer.service.hmrc.gov.uk/api-documentation/docs/tutorials#user-restricted
-HMRC_CLIENT_ID      = ENV.fetch("HMRC_CLIENT_ID", nil)
-HMRC_CLIENT_SECRET  = ENV.fetch("HMRC_CLIENT_SECRET", nil)
-
 ## Zeitwerk ##
 ## This should really have bundler stuff ##
 ## https://www.oreilly.com/library/view/sinatra-up-and/9781449306847/ch04.html ##
 loader = Zeitwerk::Loader.new
-%w(config lib app/controllers app/models).each do |d|
+%w(app/controllers app/models lib config).each do |d|
   loader.push_dir(d)
 end
 loader.enable_reloading # you need to opt-in before setup

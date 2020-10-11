@@ -9,12 +9,6 @@
 ##########################################################
 ##########################################################
 
-# => Auth
-require_relative '../lib/warden'
-
-##########################################################
-##########################################################
-
 # => Base
 # => This is used to give us a general set of config options
 # => No, it's not the simplest way to do it, but it works
@@ -33,7 +27,7 @@ class Config < Sinatra::Base
     # => Allows us to use the "flash" object (rack-flash3)
     # => Required to get redirect_with_flash working
     use Rack::Deflater # => Compresses responses generated at server level
-    use Rack::Session::Cookie, secret: SECRET # => could use enable :sessions instead (http://sinatrarb.com/faq.html#sessions)
+    use Rack::Session::Cookie, secret: ENV.fetch("SECRET", "62uao31c7d7j7dy6se9hs5auxyupmay") # => could use enable :sessions instead (http://sinatrarb.com/faq.html#sessions)
     use Rack::Flash, accessorize: [:notice, :error], sweep: true
     use Rack::MethodOverride # => used for DELETE requests (logout etc) - https://stackoverflow.com/a/5169913 // http://sinatrarb.com/configuration.html#method_override---enabledisable-the-post-_method-hack
 

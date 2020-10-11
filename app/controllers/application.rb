@@ -19,28 +19,9 @@
 ##########################################################
 ##########################################################
 
-# => Load
-# => This replaces individual requires with bundled gems
-# => https://stackoverflow.com/a/1712669/1143732
-require 'bundler/setup'
-
-# => Pulls in all Gems
-# => Replaces the need for individual gems
-Bundler.require :default, ENV["RACK_ENV"] if defined?(Bundler) # => ENVIRONMENT only used here, can do away with constant if necessary
-
-##########################################################
-##########################################################
-
-# => Models
-# => This allows us to load all the models (which are not loaded by default)
-require_all 'config/*.rb', 'lib', 'app'
-
-##########################################################
-##########################################################
-
 ## Sinatra ##
 ## Based on - https://github.com/kevinhughes27/shopify-sinatra-app ##
-class App < Config # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
+class Application < Config # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
 
   ##############################################################
   ##############################################################

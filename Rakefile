@@ -20,6 +20,15 @@
 require 'sinatra/activerecord/rake'   # => This works but ONLY if you call "bundle exec" - https://github.com/janko/sinatra-activerecord/issues/40#issuecomment-51647819
 require 'sinatra/asset_pipeline/task' # => Sinatra Asset Pipeline
 
+# => Load
+# => This replaces individual requires with bundled gems
+# => https://stackoverflow.com/a/1712669/1143732
+require 'bundler/setup'
+
+# => Pulls in all Gems
+# => Replaces the need for individual gems
+Bundler.require :default, ENV["RACK_ENV"] if defined?(Bundler) # => ENVIRONMENT only used here, can do away with constant if necessary
+
 # => App
 # => Loads environment etc
 DOMAIN              = ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com') ## used for CORS and other funtionality -- ENV var gives flexibility

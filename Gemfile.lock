@@ -67,7 +67,6 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.5.4)
-    nokogiri (1.11.0.rc3-x64-mingw32)
     padrino-helpers (0.15.0)
       i18n (>= 0.6.7, < 2)
       padrino-support (= 0.15.0)
@@ -160,7 +159,6 @@ DEPENDENCIES
   httparty (~> 0.18.1)
   humanize (~> 2.4, >= 2.4.3)
   i18n
-  nokogiri (~> 1.11.0.rc3)
   padrino-helpers (~> 0.15.0)
   pg
   pony (~> 1.13, >= 1.13.1)

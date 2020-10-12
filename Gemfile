@@ -21,10 +21,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # => https://github.com/cantino/huginn/blob/master/Gemfile#L4
 ruby [RUBY_VERSION, '2.7.2'].max
 
-# => Ruby 2.7.0
-# => Required to get working with latest Ruby (TEMPORARY)
-gem 'nokogiri', '~> 1.11.0.rc3'
-
 ###########################################
 ###########################################
 
@@ -90,7 +86,7 @@ gem 'pony', '~> 1.13', '>= 1.13.1'                          # => Email managemen
 gem 'addressable', '~> 2.7'                                 # => Break down the various components of a domain
 #gem 'require_all', '~> 3.0', github: 'richpeck/require_all' # => Require an entire directory and include in an app (had to change a line to make native globbing work - PR submitted https://github.com/jarmo/require_all/pull/32)
 gem 'padrino-helpers', '~> 0.15.0'                          # => Sinatra framework which adds a number of support classes -- we needed it for "number_to_currency" (https://github.com/padrino/padrino-framework/blob/02feacb6afa9bce20c1fb360df4dfd4057899cfc/padrino-helpers/lib/padrino-helpers/number_helpers.rb)
-gem 'zeitwerk', '~> 2.4'                                    # => Replaced require_all to give us the ability to autoload/require classes in a Rails-centric way 
+gem 'zeitwerk', '~> 2.4'                                    # => Replaced require_all to give us the ability to autoload/require classes in a Rails-centric way
 
 # => ActiveRecord
 # => Sinec we had multiple dependencies here, better to just add to our own category

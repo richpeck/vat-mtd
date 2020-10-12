@@ -20,8 +20,8 @@
 require 'sinatra/activerecord/rake'   # => This works but ONLY if you call "bundle exec" - https://github.com/janko/sinatra-activerecord/issues/40#issuecomment-51647819
 require 'sinatra/asset_pipeline/task' # => Sinatra Asset Pipeline
 
-##################################################
-##################################################
+##########################################################
+##########################################################
 
 # => Load
 # => This should have bundler load etc, but because we need to use the Rakefile, we need to load them with the other files ##
@@ -38,7 +38,7 @@ import 'lib/tasks/files.rake' # => files.rake (allows us to add/remove favicon o
 ##########################################################
 ##########################################################
 
-Sinatra::AssetPipeline::Task.define! Application # => Sinatra Asset Pipeline
+Sinatra::AssetPipeline::Task.define! Config # => Sinatra Asset Pipeline
 
 ##########################################################
 ##########################################################

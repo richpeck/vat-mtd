@@ -19,11 +19,11 @@ require_relative '_constants' # => named this way so it stands out
 # => Load
 # => This replaces individual requires with bundled gems
 # => https://stackoverflow.com/a/1712669/1143732
-require 'bundler/setup'
+require 'bundler'
 
 # => Pulls in all Gems
 # => Replaces the need for individual gems
-Bundler.require :default, "development" if defined?(Bundler) # => ENVIRONMENT only used here, can do away with constant if necessary
+Bundler.require :default, ENV.fetch("RACK_ENV", "development") if defined?(Bundler) # => ENVIRONMENT only used here, can do away with constant if necessary
 
 ##################################################
 ##################################################

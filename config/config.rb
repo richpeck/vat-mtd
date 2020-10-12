@@ -9,6 +9,38 @@
 ##########################################################
 ##########################################################
 
+# => Constants
+# => These are not loaded properly by zeitwerk, so we load them manually
+require_relative '_constants' # => named this way so it stands out
+
+##################################################
+##################################################
+
+# => Load
+# => This replaces individual requires with bundled gems
+# => https://stackoverflow.com/a/1712669/1143732
+require 'bundler/setup'
+
+# => Pulls in all Gems
+# => Replaces the need for individual gems
+Bundler.require :default, "development" if defined?(Bundler) # => ENVIRONMENT only used here, can do away with constant if necessary
+
+##################################################
+##################################################
+
+## Zeitwerk ##
+## This should really have bundler stuff ##
+## https://www.oreilly.com/library/view/sinatra-up-and/9781449306847/ch04.html ##
+loader = Zeitwerk::Loader.new
+%w(app/controllers app/models lib config).each do |d|
+  loader.push_dir(d)
+end
+loader.enable_reloading # you need to opt-in before setup
+loader.setup
+
+##################################################
+##################################################
+
 # => Base
 # => This is used to give us a general set of config options
 # => No, it's not the simplest way to do it, but it works

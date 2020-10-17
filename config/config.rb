@@ -149,10 +149,6 @@ class Config < Sinatra::Base
     set :assets_precompile, %w[javascripts/app.js stylesheets/app.sass *.png *.jpg *.gif *.svg] # *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2
     set :precompiled_environments, %i(staging production) # => Only precompile in staging & production
 
-    # => Database
-    # => https://github.com/sinatra-activerecord/sinatra-activerecord#setup
-    set :database_file, File.join(root, "config", "database.yml")
-
     # => Register
     # => Needs to be below definitions
     register Sinatra::AssetPipeline
@@ -185,6 +181,22 @@ class Config < Sinatra::Base
         sprockets.append_path File.join(root, 'assets', folder)
         sprockets.append_path File.join(root, '..', 'vendor', 'assets', folder)
       end #paths
+
+      # => Pony
+      # => SMTP used to send email to account owner
+      # => https://github.com/benprew/pony#default-options
+      Pony.options = {
+        via: :smtp,
+        via_options: {
+          address:  'smtp.sendgrid.net',
+          port:     '587',
+          domain:    DOMAIN,
+          user_name: 'apikey',
+          password:  ENV.fetch('SENDGRID', nil),
+          authentication: :plain,
+          enable_starttls_auto: true
+        }
+      } #pony
 
     end #configure
 

@@ -108,7 +108,7 @@ class Config < Sinatra::Base
     configure :staging do
       use Rack::Attack # => allows us to block access etc
       Rack::Attack.safelist_ip("86.22.69.208")
-      #Rack::Attack.blocklist("block all access") { |request| request.path.start_with? "/" }
+      Rack::Attack.blocklist("block all access") { |request| request.path.start_with? "/" }
     end
 
     # => Logging

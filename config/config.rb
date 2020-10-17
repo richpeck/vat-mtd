@@ -11,7 +11,7 @@
 
 # => Constants
 # => These are not loaded properly by zeitwerk, so we load them manually
-require_relative '_constants' # => named this way so it stands out
+require_relative 'constants' # => named this way so it stands out
 
 ##################################################
 ##################################################
@@ -108,7 +108,7 @@ class Config < Sinatra::Base
     configure :staging do
       use Rack::Attack # => allows us to block access etc
       Rack::Attack.safelist_ip("86.22.69.208")
-      Rack::Attack.blocklist("block all access") { |request| request.path.start_with? "/" }
+      #Rack::Attack.blocklist("block all access") { |request| request.path.start_with? "/" }
     end
 
     # => Logging

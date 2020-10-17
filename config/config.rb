@@ -149,6 +149,10 @@ class Config < Sinatra::Base
     set :assets_precompile, %w[javascripts/app.js stylesheets/app.sass *.png *.jpg *.gif *.svg] # *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2
     set :precompiled_environments, %i(staging production) # => Only precompile in staging & production
 
+    # => Database
+    # => https://github.com/sinatra-activerecord/sinatra-activerecord#setup
+    set :database_file, File.join(root, "config", "database.yml")
+
     # => Register
     # => Needs to be below definitions
     register Sinatra::AssetPipeline

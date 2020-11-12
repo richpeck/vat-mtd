@@ -18,7 +18,7 @@
 # => Class
 # => Creates "Settings" namespace
 # => Referenced in ./config.ru
-class Settings < Config
+class SettingsController < ApplicationController
 
     ##########################
     ##########################

@@ -25,7 +25,7 @@ require 'sinatra/asset_pipeline/task' # => Sinatra Asset Pipeline
 
 # => Load
 # => This should have bundler load etc, but because we need to use the Rakefile, we need to load them with the other files ##
-require_relative 'config/config'
+require_relative 'config/environment'
 
 ##########################################################
 ##########################################################

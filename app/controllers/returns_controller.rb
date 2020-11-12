@@ -16,7 +16,7 @@
 # => Class
 # => Creates "Returns" namespace
 # => Referenced in ./config.ru
-class Returns < Config
+class ReturnsController < ApplicationController
 
   ################################
   ################################

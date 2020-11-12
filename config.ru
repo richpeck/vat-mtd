@@ -28,7 +28,7 @@ require 'rubygems' # => Necessary for Ubuntu
 
 ## Load ##
 ## This should have bundler load etc, but because we need to use the Rakefile, we need to load them with the other files ##
-require_relative 'config/config'
+require_relative 'config/environment'
 
 ##########################################################
 ##########################################################
@@ -36,9 +36,9 @@ require_relative 'config/config'
 ## Sinatra ##
 ## Changed the following to include different app structure ##
 ## https://nickcharlton.net/posts/structuring-sinatra-applications.html ##
-map('/returns')  { run Returns }
-map('/settings') { run Settings }
-map('/')         { run Dashboard }
+map('/returns')  { run ReturnsController }
+map('/settings') { run SettingsController }
+map('/')         { run ApplicationController }
 
 ##########################################################
 ##########################################################

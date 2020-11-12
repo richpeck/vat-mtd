@@ -15,7 +15,7 @@
 
 # => Dashboard
 # => Referenced in ./config.ru
-class Dashboard < Config # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
+class ApplicationController < Environment # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
 
   # => General
   # => Pulls pages (some are static and need to be shown outside of the authentication system)

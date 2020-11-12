@@ -44,7 +44,7 @@ loader.setup
 # => Base
 # => This is used to give us a general set of config options
 # => No, it's not the simplest way to do it, but it works
-class Config < Sinatra::Base
+class Environment < Sinatra::Base
 
     # => Register
     # => This allows us to call the various extensions for the system

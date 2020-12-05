@@ -89,7 +89,7 @@ gem 'zeitwerk', '~> 2.4'                                    # => Replaced requir
 
 # => ActiveRecord
 # => Sinec we had multiple dependencies here, better to just add to our own category
-gem 'activerecord', '~> 6.0', '>= 6.0.3.3' # => Allows us to use AR 6.0.0.rc1+ as opposed to 5.2.x (will need to keep up to date)
+gem 'activerecord', '~> 6.1.0.rc1' # => Allows us to use AR 6.0.0.rc1+ as opposed to 5.2.x (will need to keep up to date)
 
 ###########################################
 ###########################################

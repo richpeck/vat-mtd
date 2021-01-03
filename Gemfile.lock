@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/richpeck/sinatra-activerecord.git
+  revision: 5d36e0db66df0cf0b2e15a5481533552ef25dde9
+  specs:
+    sinatra-activerecord (2.0.21)
+      activerecord (>= 4.1)
+      sinatra (>= 1.0)
+
+GIT
   remote: https://github.com/richpeck/sinatra-asset-pipeline.git
   revision: da80bb6c3129243f16d093d08416f066ed0495a2
   specs:
@@ -102,9 +110,6 @@ GEM
       rack (~> 2.2)
       rack-protection (= 2.1.0)
       tilt (~> 2.0)
-    sinatra-activerecord (2.0.21)
-      activerecord (>= 4.1)
-      sinatra (>= 1.0)
     sinatra-contrib (2.1.0)
       multi_json
       mustermann (~> 1.0)
@@ -162,7 +167,7 @@ DEPENDENCIES
   rake (~> 13.0, >= 13.0.3)
   sass (~> 3.7, >= 3.7.4)
   sinatra (~> 2.1)
-  sinatra-activerecord (~> 2.0, >= 2.0.21)
+  sinatra-activerecord (~> 2.0, >= 2.0.21)!
   sinatra-asset-pipeline (~> 2.2, >= 2.2.1)!
   sinatra-contrib (~> 2.1)
   sinatra-cors (~> 1.2)

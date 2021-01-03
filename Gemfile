@@ -26,13 +26,13 @@ ruby [RUBY_VERSION, '2.7.2'].max
 
 # => Sinatra
 # => Not big enough for Rails
-gem 'sinatra', '~> 2.1',                                                           require: ['sinatra/base', 'sinatra/namespace', 'sinatra/multi_route'] # => Not needed but allows us to call /namespace
-gem 'sinatra-activerecord', '~> 2.0', '>= 2.0.21',                                 require: 'sinatra/activerecord'                # => Integrates ActiveRecord into Sinatra apps (I changed for AR6+)
-gem 'sinatra-asset-pipeline', '~> 2.2', '>= 2.2.1', github: 'richpeck/sinatra-asset-pipeline', require: 'sinatra/asset_pipeline'  # => Asset Pipeline (for CSS/JS) (changed lib/asset-pipeline/task.rb#14 to use ::Sinatra:Manifest) (changed dependencies to use installed rake)
-gem 'sinatra-contrib', '~> 2.1',                                                   require: 'sinatra/contrib'                     # => Allows us to add "contrib" library to Sinatra app (respond_with) -> http://sinatrarb.com/contrib/
-gem 'sinatra-cors', '~> 1.2',                                                      require: 'sinatra/cors'                        # => Protect app via CORS
-gem 'sinatra-redirect-with-flash', '~> 0.2.1',                                     require: 'sinatra/redirect_with_flash'         # => Redirect with Flash (allows use of redirect) -> https://github.com/vast/sinatra-redirect-with-flash
-gem 'sinatra-support', '~> 1.2', '>= 1.2.2',                                       require: 'sinatra/support/i18nsupport'         # => Sinatra Support (helpers for Sinatra - https://github.com/sinefunc/sinatra-support) (used for LOCALES)
+gem 'sinatra', '~> 2.1',                                                                       require: ['sinatra/base', 'sinatra/namespace', 'sinatra/multi_route'] # => Not needed but allows us to call /namespace
+gem 'sinatra-activerecord', '~> 2.0', '>= 2.0.21' , github: 'richpeck/sinatra-activerecord',   require: 'sinatra/activerecord'                # => Integrates ActiveRecord into Sinatra apps (I changed for AR6+)
+gem 'sinatra-asset-pipeline', '~> 2.2', '>= 2.2.1', github: 'richpeck/sinatra-asset-pipeline', require: 'sinatra/asset_pipeline'              # => Asset Pipeline (for CSS/JS) (changed lib/asset-pipeline/task.rb#14 to use ::Sinatra:Manifest) (changed dependencies to use installed rake)
+gem 'sinatra-contrib', '~> 2.1',                                                               require: 'sinatra/contrib'                     # => Allows us to add "contrib" library to Sinatra app (respond_with) -> http://sinatrarb.com/contrib/
+gem 'sinatra-cors', '~> 1.2',                                                                  require: 'sinatra/cors'                        # => Protect app via CORS
+gem 'sinatra-redirect-with-flash', '~> 0.2.1',                                                 require: 'sinatra/redirect_with_flash'         # => Redirect with Flash (allows use of redirect) -> https://github.com/vast/sinatra-redirect-with-flash
+gem 'sinatra-support', '~> 1.2', '>= 1.2.2',                                                   require: 'sinatra/support/i18nsupport'         # => Sinatra Support (helpers for Sinatra - https://github.com/sinefunc/sinatra-support) (used for LOCALES)
 
 # => Database
 # => Allows us to determine exactly which db we're using
@@ -89,7 +89,7 @@ gem 'zeitwerk', '~> 2.4', '>= 2.4.2'                         # => Replaced requi
 
 # => ActiveRecord
 # => Sinec we had multiple dependencies here, better to just add to our own category
-gem 'activerecord', '6.0.3.4' # => Allows us to use AR 6.0.0.rc1+ as opposed to 5.2.x (will need to keep up to date)
+gem 'activerecord', '~> 6.1' # => Allows us to use AR 6.0.0.rc1+ as opposed to 5.2.x (will need to keep up to date)
 
 ###########################################
 ###########################################

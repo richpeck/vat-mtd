@@ -42,6 +42,15 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
   ##############################################################
   ##############################################################
 
+  # => oAuth
+  # => This is from https://github.com/omniauth/omniauth/wiki/Sinatra-Example
+  post '/auth/:name/callback' do
+    auth = request.env['omniauth.auth']
+    logger.info(auth.inspect)
+    redirect "/", notice: "test"
+    # do whatever you want with the information!
+  end
+
 end ## app.rb
 
 ##########################################################

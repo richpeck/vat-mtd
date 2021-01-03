@@ -101,6 +101,7 @@ class Environment < Sinatra::Base
     # => Ensures we're only loading in development environment
     configure :development do
       register Sinatra::Reloader  # => http://sinatrarb.com/contrib/reloader
+      use OmniAuth::Strategies::Developer # => OmniAuth (Developer)
     end
 
     # => Staging

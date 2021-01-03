@@ -20,7 +20,6 @@ require_relative 'constants' # => named this way so it stands out
 # => This replaces individual requires with bundled gems
 # => https://stackoverflow.com/a/1712669/1143732
 require 'bundler'
-require 'uri'
 
 # => Pulls in all Gems
 # => Replaces the need for individual gems
@@ -38,6 +37,7 @@ loader = Zeitwerk::Loader.new
 end
 loader.enable_reloading # you need to opt-in before setup
 loader.setup
+loader.eager_load
 
 ##################################################
 ##################################################

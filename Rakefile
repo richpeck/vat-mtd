@@ -15,17 +15,17 @@
 ##########################################################
 ##########################################################
 
+# => Load
+# => This should have bundler load etc, but because we need to use the Rakefile, we need to load them with the other files ##
+require_relative 'config/environment'
+
+##########################################################
+##########################################################
+
 # => Libs
 # => https://github.com/kalasjocke/sinatra-asset-pipeline#usage
 require 'sinatra/activerecord/rake'   # => This works but ONLY if you call "bundle exec" - https://github.com/janko/sinatra-activerecord/issues/40#issuecomment-51647819
 require 'sinatra/asset_pipeline/task' # => Sinatra Asset Pipeline
-
-##########################################################
-##########################################################
-
-# => Load
-# => This should have bundler load etc, but because we need to use the Rakefile, we need to load them with the other files ##
-require_relative 'config/environment'
 
 ##########################################################
 ##########################################################

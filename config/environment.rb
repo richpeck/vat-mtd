@@ -37,7 +37,6 @@ loader = Zeitwerk::Loader.new
 end
 loader.enable_reloading # you need to opt-in before setup
 loader.setup
-loader.eager_load
 
 ##################################################
 ##################################################
@@ -49,12 +48,13 @@ class Environment < Sinatra::Base
 
     # => Register
     # => This allows us to call the various extensions for the system
-    register Sinatra::Cors                # => Protects from unauthorized domain activity
-    register Padrino::Helpers             # => number_to_currency (https://github.com/padrino/padrino-framework/blob/master/padrino-helpers/lib/padrino-helpers.rb#L22)
-    register Sinatra::RespondWith         # => http://sinatrarb.com/contrib/respond_with
-    register Sinatra::MultiRoute          # => Multi Route (allows for route :put, :delete)
-    register Sinatra::Namespace           # => Namespace (http://sinatrarb.com/contrib/namespace.html)
-    register Sinatra::I18nSupport         # => Locales (https://www.rubydoc.info/gems/sinatra-support/1.2.2/Sinatra/I18nSupport) -- dependent on sinatra-support gem (!)
+    register Sinatra::Cors                  # => Protects from unauthorized domain activity
+    register Padrino::Helpers               # => number_to_currency (https://github.com/padrino/padrino-framework/blob/master/padrino-helpers/lib/padrino-helpers.rb#L22)
+    register Sinatra::RespondWith           # => http://sinatrarb.com/contrib/respond_with
+    register Sinatra::MultiRoute            # => Multi Route (allows for route :put, :delete)
+    register Sinatra::Namespace             # => Namespace (http://sinatrarb.com/contrib/namespace.html)
+    register Sinatra::I18nSupport           # => Locales (https://www.rubydoc.info/gems/sinatra-support/1.2.2/Sinatra/I18nSupport) -- dependent on sinatra-support gem (!)
+    register Sinatra::ActiveRecordExtension # => Required to use the ActiveRecord extension for Sinatra
 
     # => Rack (Flash/Sessions etc)
     # => Allows us to use the "flash" object (rack-flash3)

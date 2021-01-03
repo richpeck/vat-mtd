@@ -26,7 +26,7 @@ ruby [RUBY_VERSION, '2.7.2'].max
 
 # => Sinatra
 # => Not big enough for Rails
-gem 'sinatra', '~> 2.1',                                                           require: ['uri','sinatra/base', 'sinatra/namespace', 'sinatra/multi_route'] # => Not needed but allows us to call /namespace
+gem 'sinatra', '~> 2.1',                                                           require: ['sinatra/base', 'sinatra/namespace', 'sinatra/multi_route'] # => Not needed but allows us to call /namespace
 gem 'sinatra-activerecord', '~> 2.0', '>= 2.0.21',                                 require: 'sinatra/activerecord'                # => Integrates ActiveRecord into Sinatra apps (I changed for AR6+)
 gem 'sinatra-asset-pipeline', '~> 2.2', '>= 2.2.1', github: 'richpeck/sinatra-asset-pipeline', require: 'sinatra/asset_pipeline'  # => Asset Pipeline (for CSS/JS) (changed lib/asset-pipeline/task.rb#14 to use ::Sinatra:Manifest) (changed dependencies to use installed rake)
 gem 'sinatra-contrib', '~> 2.1',                                                   require: 'sinatra/contrib'                     # => Allows us to add "contrib" library to Sinatra app (respond_with) -> http://sinatrarb.com/contrib/

@@ -5,9 +5,11 @@ development:
   pool: 5
 
 staging:
+  adapter: postgresql
   url: <%= ENV['DATABASE_URL'] %>
 
 production:
+  adapter: postgresql
   url: <%= ENV['DATABASE_URL'] %>
 
 test:

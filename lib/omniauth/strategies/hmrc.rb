@@ -21,22 +21,19 @@ module OmniAuth
     # HMRC OmniAuth strategy
     # Based on https://github.com/auth0/omniauth-auth0/blob/master/lib/omniauth/strategies/auth0.rb
     class HMRC < OmniAuth::Strategies::OAuth2
-      include OmniAuth::Auth0::Telemetry
+      #include OmniAuth::Auth0::Telemetry
 
-      option :name, 'auth0'
+      option :name, 'hmrc'
 
       args %i[
         client_id
-        client_secret
-        domain
       ]
 
       # Setup client URLs used during authentication
       def client
         options.client_options.site = domain_url
-        options.client_options.authorize_url = '/authorize'
-        options.client_options.token_url = '/oauth/token'
-        options.client_options.userinfo_url = '/userinfo'
+        options.client_options.authorize_url = '/auth/hmrc'
+        options.client_options.token_url = '/auth/hmrc/token'
         super
       end
 

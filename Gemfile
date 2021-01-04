@@ -75,6 +75,7 @@ gem 'rack-attack', '~> 6.3', '>= 6.3.1', require: 'rack/attack' # => Rack::Attac
 # => Functionality
 # => This is used for specific functionality inside the system
 gem 'omniauth', '~> 1.9', '>= 1.9.1' # => OmniAuth (required to connect with oAuth providers)
+gem 'omniauth-oauth2', '~> 1.7'      # => OmniAuth (oAuth2) generic oAuth2 strategy for Omniauth
 
 # => Asset Management
 gem 'uglifier', '~> 4.2'         # => Uglifier - Javascript minification (required to get minification working)

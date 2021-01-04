@@ -9,13 +9,6 @@
 ##########################################################
 ##########################################################
 
-# => Constants
-# => These are not loaded properly by zeitwerk, so we load them manually
-require_relative 'constants' # => named this way so it stands out
-
-##################################################
-##################################################
-
 # => Load
 # => This replaces individual requires with bundled gems
 # => https://stackoverflow.com/a/1712669/1143732
@@ -36,6 +29,7 @@ loader = Zeitwerk::Loader.new
   loader.push_dir(d)
 end
 loader.enable_reloading # you need to opt-in before setup
+loader.inflector.inflect "omniauth" => "OmniAuth"
 loader.setup
 
 ##################################################
@@ -102,7 +96,6 @@ class Environment < Sinatra::Base
     # => Ensures we're only loading in development environment
     configure :development do
       register Sinatra::Reloader  # => http://sinatrarb.com/contrib/reloader
-      use OmniAuth::Strategies::Developer # => OmniAuth (Developer)
     end
 
     # => Staging
@@ -137,6 +130,13 @@ class Environment < Sinatra::Base
     # => Locales
     # => This had to be included to ensure we can use the various locales required by Auth + others
     load_locales File.join(root, "..", "config", "locales") # => requires Sinatra::I18nSupport
+
+    # => OmniAuth
+    # => This allows us to build the various providers required for connecting with Omniauth
+    # => https://gist.github.com/gorenje/2895009/87ca24478ee19eb7bfa557b98221a177d714e16c
+    use OmniAuth::Builder do
+      provider :hmrc, ENV.fetch("HMRC_CLIENT_ID"), ENV.fetch("HMRC_CLIENT_SECRET")
+    end
 
   ##########################################################
   ##########################################################
@@ -192,7 +192,7 @@ class Environment < Sinatra::Base
         via_options: {
           address:  'smtp.sendgrid.net',
           port:     '587',
-          domain:    DOMAIN,
+          domain:    ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com'),
           user_name: 'apikey',
           password:  ENV.fetch('SENDGRID', nil),
           authentication: :plain,
@@ -207,7 +207,7 @@ class Environment < Sinatra::Base
 
     ## CORS ##
     ## Only allow requests from domain ##
-    set :allow_origin,   URI::HTTPS.build(host: DOMAIN).to_s
+    set :allow_origin,   URI::HTTPS.build(host: ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com')).to_s
     set :allow_methods,  "GET,POST,PUT,DELETE"
     set :allow_headers,  "accept,content-type,if-modified-since"
     set :expose_headers, "location,link"

@@ -51,7 +51,7 @@ class SettingsController < ApplicationController
 
       # => Action
       # => Return to the main page with either error or notice flash message
-      redirect '/', @user.errors.any? ? {error: "Errors - #{@user.errors.full_messagess..join(' ')}"} : {notice: "Updated"}
+      redirect '/', @user ? {notice: "Updated"} : {error: "Errors"}
 
     end #post
 

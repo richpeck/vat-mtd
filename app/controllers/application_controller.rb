@@ -51,6 +51,9 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     # do whatever you want with the information!
   end
 
+  ##############################################################
+  ##############################################################
+
 end ## app.rb
 
 ##########################################################

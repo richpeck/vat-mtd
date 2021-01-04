@@ -21,6 +21,7 @@
 module OmniAuth
   module Strategies
     class Hmrc < OmniAuth::Strategies::OAuth2
+      
       # Give your strategy a name.
       option :name, "hmrc"
 
@@ -32,33 +33,13 @@ module OmniAuth
       # This allows us to define the scope through which the oAuth relationship will be conducted
       option :authorize_params, { scope: 'write:vat+read:vat' }
 
+      # Token
+      # Needed to ensure redirect_uri
+      option :token_params, { redirect_uri: Sinatra::Base.development? ? 'http://localhost:80/auth/hmrc/callback' : "https://" + ENV.fetch("DOMAIN", "vat-mtd.herokuapp.com") + '/auth/hmrc/callback' }
+
       # You may specify that your strategy should use PKCE by setting
       # the pkce option to true: https://tools.ietf.org/html/rfc7636
       option :pkce, true
-
-      # These are called after authentication has succeeded. If
-      # possible, you should try to set the UID without making
-      # additional calls (if the user id is returned with the token
-      # or as a URI parameter). This may not be possible with all
-      # providers.
-      uid{ raw_info['id'] }
-
-      info do
-        {
-          :name => raw_info['name'],
-          :email => raw_info['email']
-        }
-      end
-
-      extra do
-        {
-          'raw_info' => raw_info
-        }
-      end
-
-      def raw_info
-        @raw_info ||= access_token.get('/me').parsed
-      end
 
     end
   end

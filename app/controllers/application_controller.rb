@@ -17,6 +17,9 @@
 # => Referenced in ./config.ru
 class ApplicationController < Environment # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
 
+  ##############################################################
+  ##############################################################
+
   # => General
   # => Pulls pages (some are static and need to be shown outside of the authentication system)
   get '/', '/privacy', '/terms' do
@@ -45,10 +48,8 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
   # => oAuth
   # => This is from https://github.com/omniauth/omniauth/wiki/Sinatra-Example
   post '/auth/:name/callback' do
-    auth = request.env['omniauth.auth']
-    logger.info(auth.inspect)
+    #auth = request.env['omniauth.auth']
     redirect "/", notice: "test"
-    # do whatever you want with the information!
   end
 
   ##############################################################

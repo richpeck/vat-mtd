@@ -37,13 +37,15 @@
         %h6 Connect to HMRC (oAuth)
         = button_to "Authenticate", "/auth/hmrc", disabled: current_user.authenticated?
 
+        = current_user.inspect
+
 - else
 
   - # Returns
   - # These show the user which returns they have available, and which they need to submit
   %h4 📝 Returns
-  - if @returns.any?
-    - @returns.each do |r|
+  - if current_user.returns.any?
+    - current_user.returns.each do |r|
       = r.periodKey
   - else
     No Returns!

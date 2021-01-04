@@ -23,9 +23,11 @@ class CreateUsers < ActiveRecord::Migration::Base # => lib/active_record/migrati
       t.string  :email                                                           # => Email (login)
       t.string  :password_digest                                                 # => Password (login)
       t.string  :access_token_digest                                             # => oAuth access token (encrypted with the constant SECRET)
+      t.string  :refresh_token_digest                                            # => oAuth refresh token (encrypted with the constant SECRET)
       t.string  :vrn, limit: 9                                                   # => VAT (9 character number) (vtr = VAT Tax Reference)
       t.send (adapter.to_sym == :SQLite ? :string : :inet), :last_signed_in_ip   # => last_signed_in_ip
       t.datetime :last_signed_in_at                                              # => last_signed_in_at
+      t.datetime :access_token_expires                                           # => access_token_expires
       t.timestamps                                                               # => created_at, updated_at
 
       t.index :email, unique: true, name: 'email_unique' # => one email per user

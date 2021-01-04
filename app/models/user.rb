@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 
   # => Returns
   # => Gives us ability to view & manage the various VAT returns for a user
-  has_many :returns
+  has_many :returns, dependent: :destroy
 
   ################################
   ################################
@@ -61,6 +61,7 @@ class User < ActiveRecord::Base
   # => Uses the Ruby bcrypt "has_secure_password" command to create encrypted password
   # => https://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password
   has_secure_password :access_token, validations: false
+  has_secure_password :refresh_token, validations: false
 
   ################################
   ################################
@@ -73,7 +74,7 @@ class User < ActiveRecord::Base
   # => Allows us to see if HMRC is authenticated or not
   # => Tests for the presence of the access token
   def authenticated?
-    false
+    access_token_expires.present?
   end
 
   ################################

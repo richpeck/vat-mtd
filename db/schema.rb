@@ -39,9 +39,11 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "email"
     t.string "password_digest"
     t.string "access_token_digest"
+    t.string "refresh_token_digest"
     t.string "vrn", limit: 9
     t.string "last_signed_in_ip"
     t.datetime "last_signed_in_at"
+    t.datetime "access_token_expires"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "email_unique", unique: true

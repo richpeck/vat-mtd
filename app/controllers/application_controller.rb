@@ -47,9 +47,23 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
 
   # => oAuth
   # => This is from https://github.com/omniauth/omniauth/wiki/Sinatra-Example
-  post '/auth/:name/callback' do
-    #auth = request.env['omniauth.auth']
-    redirect "/", notice: "test"
+  get '/auth/:name/callback' do
+
+    # => Auth object (data)
+    # => Structure credentials: { expires_at: x, token: y, refresh_token: z}
+    auth = request.env['omniauth.auth']
+
+    # => Update
+    # => This updates the user so that we're able to access the token/refresh token in future
+    current_user.access_token         = auth['credentials']['token']
+    current_user.refresh_token        = auth['credentials']['refresh_token']
+    current_user.access_token_expires = Time.at(auth['credentials']['expires_at'])
+    current_user.save
+
+    # => Action
+    # => Redirect to homepage
+    redirect "/", notice: "Authenicated, thank you"
+
   end
 
   ##############################################################

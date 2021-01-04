@@ -79,7 +79,7 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
   # => Not Found
   # => Allows us to show error pages for the "Not Found" element
   def not_found
-    redirect: "/", error: "Not Found"
+    redirect "/", error: "Not Found"
   end
 
   ##############################################################

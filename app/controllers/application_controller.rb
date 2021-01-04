@@ -17,10 +17,6 @@
 # => Referenced in ./config.ru
 class ApplicationController < Environment # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
 
-  # => General
-  # => https://stackoverflow.com/a/12681603/1143732
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
-
   ##############################################################
   ##############################################################
 
@@ -68,18 +64,6 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     # => Redirect to homepage
     redirect "/", notice: "Authenicated, thank you"
 
-  end
-
-  ##############################################################
-  ##############################################################
-
-  ## Private ##
-  private
-
-  # => Not Found
-  # => Allows us to show error pages for the "Not Found" element
-  def not_found
-    redirect "/", error: "Not Found"
   end
 
   ##############################################################

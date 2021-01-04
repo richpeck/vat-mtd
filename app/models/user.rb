@@ -57,12 +57,6 @@ class User < ActiveRecord::Base
   # => https://learn.co/lessons/sinatra-password-security#activerecord's-has_secure_password
   has_secure_password
 
-  # => oAuth Token (encrypted)
-  # => Uses the Ruby bcrypt "has_secure_password" command to create encrypted password
-  # => https://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password
-  has_secure_password :access_token, validations: false
-  has_secure_password :refresh_token, validations: false
-
   ################################
   ################################
 

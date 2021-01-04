@@ -37,12 +37,22 @@ class ReturnsController < ApplicationController
 
     # => HMRC
     # => Starts the API
-    @api = HMRC.new current_user.vrn
-    r = @api.hello_world
+    @url     = [ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk"), "/organisations/vat/", current_user.vrn, "/obligations"].join()
+    @query   = {
+      "from": "2020-01-01",
+      "to":   "2021-01-01"
+    }
+    @headers = {
+      'Accept': 'application/vnd.hmrc.1.0+json',
+      'Authorization': 'Bearer ' + current_user.access_token
+    }
+
+    response = HTTParty.get(@url, headers: @headers, query: @query)
+    puts response.body
 
     # => Response
     # => This checks for an error code and redirects to home if it is there
-    redirect '/', r.try("code") ? { error: r.dig("code") } : { notice: r.dig("message") }
+    #redirect '/', r.try("code") ? { error: r.dig("code") } : { notice: r.dig("message") }
 
   end #get
 

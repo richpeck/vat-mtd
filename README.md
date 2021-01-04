@@ -1,6 +1,6 @@
 [[ img ]]
 
-[VAT-MTD](https://www.gov.uk/guidance/making-tax-digital-for-vat) integration (inspired by [100pcVatBridge](http://www.comsci.co.uk/100PcVatFreeBridge.html)) to enable UK VAT return submissions. 
+[VAT-MTD](https://www.gov.uk/guidance/making-tax-digital-for-vat) integration (inspired by [100pcVatBridge](http://www.comsci.co.uk/100PcVatFreeBridge.html)) to enable UK VAT return submissions.
 
 ---
 

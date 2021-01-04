@@ -29,7 +29,7 @@ loader = Zeitwerk::Loader.new
   loader.push_dir(d)
 end
 loader.enable_reloading # you need to opt-in before setup
-loader.inflector.inflect "omniauth" => "OmniAuth"
+loader.inflector.inflect "omniauth" => "OmniAuth" # required to get the custom hmrc strategy to load
 loader.setup
 
 ##################################################
@@ -57,6 +57,13 @@ class Environment < Sinatra::Base
     use Rack::Session::Cookie, secret: ENV.fetch("SECRET", "62uao31c7d7j7dy6se9hs5auxyupmay") # => could use enable :sessions instead (http://sinatrarb.com/faq.html#sessions)
     use Rack::Flash, accessorize: [:notice, :error], sweep: true
     use Rack::MethodOverride # => used for DELETE requests (logout etc) - https://stackoverflow.com/a/5169913 // http://sinatrarb.com/configuration.html#method_override---enabledisable-the-post-_method-hack
+
+    # => OmniAuth
+    # => This allows us to build the various providers required for connecting with Omniauth
+    # => https://gist.github.com/gorenje/2895009/87ca24478ee19eb7bfa557b98221a177d714e16c
+    use OmniAuth::Builder do
+      provider :hmrc, ENV.fetch("HMRC_CLIENT_ID"), ENV.fetch("HMRC_CLIENT_SECRET")
+    end
 
     # => HTMLCompressor
     # => Used to minify HTML output (removes bloat and other nonsense)
@@ -130,13 +137,6 @@ class Environment < Sinatra::Base
     # => Locales
     # => This had to be included to ensure we can use the various locales required by Auth + others
     load_locales File.join(root, "..", "config", "locales") # => requires Sinatra::I18nSupport
-
-    # => OmniAuth
-    # => This allows us to build the various providers required for connecting with Omniauth
-    # => https://gist.github.com/gorenje/2895009/87ca24478ee19eb7bfa557b98221a177d714e16c
-    use OmniAuth::Builder do
-      provider :hmrc, ENV.fetch("HMRC_CLIENT_ID"), ENV.fetch("HMRC_CLIENT_SECRET")
-    end
 
   ##########################################################
   ##########################################################

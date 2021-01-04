@@ -14,10 +14,6 @@
 ##############################################################
 ##############################################################
 
-## OmniAuth ##
-## Provides strategy to help us authenticate with HMRC ##
-require 'omniauth-oauth2'
-
 ## Strategy ##
 ## Used to provide us with the ability to connect to HMRC's VAT endpoints ##
 ## https://github.com/hmrc/vat-api/issues/518 ##
@@ -30,7 +26,11 @@ module OmniAuth
 
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
-      option :client_options, {:site => ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk") }
+      option :client_options, { site: ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk"),  redirect_uri: Sinatra::Base.development? ? 'http://localhost:80/auth/hmrc/callback' : "https://" + ENV.fetch("DOMAIN", "vat-mtd.herokuapp.com") + '/auth/hmrc/callback' }
+
+      # Scope
+      # This allows us to define the scope through which the oAuth relationship will be conducted
+      option :authorize_params, { scope: 'write:vat+read:vat' }
 
       # You may specify that your strategy should use PKCE by setting
       # the pkce option to true: https://tools.ietf.org/html/rfc7636

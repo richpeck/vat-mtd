@@ -42,15 +42,15 @@ class CreateReturns < ActiveRecord::Migration::Base # => lib/active_record/migra
 
       # => start_date
       # => Date in the format YYYY-MM-DD
-      t.date :start_date
+      t.date :start
 
       # => end_date
       # => Date in the format YYYY-MM-DD
-      t.date :end_date
+      t.date :end
 
       # => due_date
       # => Date in the format YYYY-MM-DD
-      t.date :due_date
+      t.date :due
 
       # => status
       # => Which obligation statuses to return (O = Open, F = Fulfilled)

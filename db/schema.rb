@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(version: 1) do
   create_table "returns", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "periodKey", null: false
-    t.date "start_date"
-    t.date "end_date"
-    t.date "due_date"
+    t.date "start"
+    t.date "end"
+    t.date "due"
     t.string "status"
     t.decimal "vatDueSales", precision: 13, scale: 2
     t.decimal "vatDueAcquisitions", precision: 13, scale: 2

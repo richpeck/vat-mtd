@@ -41,9 +41,16 @@ module Auth
         # Sessions can only take strings, not Ruby code, we'll store
         # the User's `id`
         config.serialize_into_session{|user| user.id }
+
         # Now tell Warden how to take what we've stored in the session
         # and get a User from that information.
-        config.serialize_from_session{|id| User.find(id) }
+        config.serialize_from_session do |id|
+          begin
+            User.find(id)
+          rescue
+            redirect '/', error: "Please Login"
+          end
+        end
 
         config.scope_defaults :default,
           # "strategies" is an array of named methods with which to

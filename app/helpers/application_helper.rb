@@ -12,9 +12,9 @@
 
 # => ApplicationHelpers
 # => This is used provide standardized functionality accross the system
-module ApplicationHelpers
+module ApplicationHelper
 
-  # => HMRC Authentication 
+  # => HMRC Authentication
   # => Shows the oAuth button required to ensure the connectivity to HMRC is correct
   def hmrc_authentication
     hmrc = ::HMRC.new current_user

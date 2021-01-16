@@ -54,7 +54,7 @@ class ReturnsController < ApplicationController
 
       # => Redirect
       # => This redirects to the homepage
-      redirect '/', error: response.parsed_response["message"]
+      message = { error: response.parsed_response["message"] }
 
     else
 
@@ -67,7 +67,7 @@ class ReturnsController < ApplicationController
 
     # => Action
     # => This checks for an error code and redirects to home if it is there
-    redirect '/', notice: "Updated"
+    redirect '/', message || { notice: "Updated" }
 
   end #get
 

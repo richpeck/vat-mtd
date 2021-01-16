@@ -20,7 +20,7 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
   # => Helpers
   # => Allows us to call helpers as required
   # => https://stackoverflow.com/a/7642637/1143732
-  helpers ApplicationHelpers
+  helpers ApplicationHelper
 
   ##############################################################
   ##############################################################

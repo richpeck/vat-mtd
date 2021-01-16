@@ -1,6 +1,6 @@
 %auth
   - if user_signed_in?
-    = hmrc_authentication # => this is stored in helpers/application_helper
+    
     = link_to "⚙️ #{current_user.email}", "/settings", title: "Settings", class: :btn
     = link_to ["❌", I18n.t('auth.logout.label')].join(" "), "/logout", method: :delete, data: { confirm: "Really?" }, class: :btn
   - else

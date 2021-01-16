@@ -20,7 +20,7 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
   # => Helpers
   # => Allows us to call helpers as required
   # => https://stackoverflow.com/a/7642637/1143732
-  #helpers ApplicationHelper
+  helpers ApplicationHelper
 
   ##############################################################
   ##############################################################
@@ -33,7 +33,17 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     # This is set if no :id is passed (IE the user is on the index page)
     params[:id] ||= :index
 
-    haml :index
+    # Response
+    respond_to do |format|
+      format.js   { haml params[:id].to_sym, layout: false }
+      format.html {
+        begin
+          haml params[:id].to_sym
+        rescue
+          halt(404)
+        end
+      }
+    end
 
   end
 

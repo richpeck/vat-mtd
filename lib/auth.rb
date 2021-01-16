@@ -48,7 +48,7 @@ module Auth
           begin
             User.find(id)
           rescue
-            puts "TEST"
+            env['warden'].logout
           end
         end
 
@@ -170,7 +170,7 @@ module Auth
 
       # => Logout (GET)
       # => Request to log out of the system (allows us to perform session destroy)
-      delete "/#{@@logout}" do
+      get "/#{@@logout}" do
         env['warden'].logout
         redirect '/', error: I18n.t('auth.logout.success')
       end

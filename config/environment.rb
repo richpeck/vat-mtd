@@ -223,7 +223,7 @@ class Environment < Sinatra::Base
       # => Authentication
       # => Allows you to load the page if required
       # => https://stackoverflow.com/a/7709087/1143732
-      env['warden'].authenticate! unless %w[nil login logout register unauthenticated privacy terms].include?(request.path_info.split('/')[1]) # => https://stackoverflow.com/a/7709087/1143732
+      #env['warden'].authenticate! unless %w[nil login logout register unauthenticated privacy terms].include?(request.path_info.split('/')[1]) # => https://stackoverflow.com/a/7709087/1143732
 
     end
 

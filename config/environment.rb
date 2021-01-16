@@ -149,6 +149,10 @@ class Environment < Sinatra::Base
   ##########################################################
   ##########################################################
 
+    # => Terser
+    # => Quicker/better than Uglifier and supports ES6 (RPECK 16/01/2021)
+    Sprockets.register_compressor 'application/javascript', :terser, Terser::Compressor
+
     # => Asset Pipeline
     # => Allows us to precompile assets as you would in Rails
     # => https://github.com/kalasjocke/sinatra-asset-pipeline#customization

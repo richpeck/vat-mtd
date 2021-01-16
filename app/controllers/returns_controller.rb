@@ -51,7 +51,7 @@ class ReturnsController < ApplicationController
 
     # => Response
     # => This handles the request (response) from the HMRC endpoint
-    response = HTTParty.get(url, headers: headers, query: query)
+    response = HMRC.new current_user
 
     # => Returns (populate)
     # => This will input the returns ("obligations") into the database
@@ -63,19 +63,6 @@ class ReturnsController < ApplicationController
     redirect '/', notice: "Updated"
 
   end #get
-
-  ################################
-  ################################
-
-  ## Private ##
-  private
-
-  # => URL
-  # => Allows us to create class variable for HMRC endpoint etc
-  # => https://test-api.service.hmrc.gov.uk/organisations/vat/{{ vrn }}/liabilities
-  def url endpoint: "obligations"
-    [ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk"), "organisations/vat", current_user.vrn, endpoint].join("/")
-  end
 
   ################################
   ################################

@@ -42,6 +42,20 @@ class Return < ActiveRecord::Base
   ################################
   ################################
 
+  # => Status
+  # => Allows us to infer the Open/Fulfilled specification
+  def status
+    case @status
+      when "O"
+        "Open"
+      when "F"
+        "Fulfilled"
+    end
+  end
+
+  ################################
+  ################################
+
 end
 
 ############################################

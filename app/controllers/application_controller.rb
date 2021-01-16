@@ -17,6 +17,11 @@
 # => Referenced in ./config.ru
 class ApplicationController < Environment # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
 
+  # => Helpers
+  # => Allows us to call helpers as required
+  # => https://stackoverflow.com/a/7642637/1143732
+  helpers ApplicationHelpers
+
   ##############################################################
   ##############################################################
 
@@ -59,6 +64,10 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     current_user.refresh_token        = auth['credentials']['refresh_token']
     current_user.access_token_expires = Time.at(auth['credentials']['expires_at'])
     current_user.save
+
+    # => Options
+    # => Fill out the obligations of the company (the returns they have and have yet to fulfill)
+
 
     # => Action
     # => Redirect to homepage

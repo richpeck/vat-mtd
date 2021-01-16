@@ -25,11 +25,12 @@ Bundler.require :default, ENV.fetch("RACK_ENV", "development") if defined?(Bundl
 ## This should really have bundler stuff ##
 ## https://www.oreilly.com/library/view/sinatra-up-and/9781449306847/ch04.html ##
 loader = Zeitwerk::Loader.new
-%w(app/controllers app/models lib config).each do |d|
+%w(app/controllers app/models app/helpers lib config).each do |d|
   loader.push_dir(d)
 end
 loader.enable_reloading # you need to opt-in before setup
 loader.inflector.inflect "omniauth" => "OmniAuth" # required to get the custom hmrc strategy to load
+loader.inflector.inflect "hmrc"     => "HMRC"     # required to get the custom hmrc strategy to load
 loader.setup
 
 ##################################################
@@ -62,7 +63,7 @@ class Environment < Sinatra::Base
     # => This allows us to build the various providers required for connecting with Omniauth
     # => https://gist.github.com/gorenje/2895009/87ca24478ee19eb7bfa557b98221a177d714e16c
     use OmniAuth::Builder do
-      provider :hmrc, ENV.fetch("HMRC_CLIENT_ID"), ENV.fetch("HMRC_CLIENT_SECRET")
+      provider :hmrc_vat, ENV.fetch("HMRC_CLIENT_ID"), ENV.fetch("HMRC_CLIENT_SECRET")
     end
 
     # => HTMLCompressor

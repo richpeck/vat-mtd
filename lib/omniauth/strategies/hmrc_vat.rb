@@ -20,10 +20,10 @@
 ## https://github.com/uzerpllp/uzerp/blob/master/lib/classes/standard/MTD.php ##
 module OmniAuth
   module Strategies
-    class Hmrc < OmniAuth::Strategies::OAuth2
-      
+    class HmrcVat < OmniAuth::Strategies::OAuth2
+
       # Give your strategy a name.
-      option :name, "hmrc"
+      option :name, "hmrc_vat"
 
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.

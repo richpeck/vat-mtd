@@ -48,7 +48,7 @@ module Auth
           begin
             User.find(id)
           rescue
-            puts "TEST"
+            env['warden'].logout
           end
         end
 

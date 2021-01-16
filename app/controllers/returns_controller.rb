@@ -46,17 +46,24 @@ class ReturnsController < ApplicationController
     # => HMRC
     # => Sets the required data for the API
     # => https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/1.0#_retrieve-vat-obligations_get_accordion
-    query   = { "from": "2020-01-01", "to": "2021-01-01" }
-    headers = { 'Accept': 'application/vnd.hmrc.1.0+json', 'Authorization': 'Bearer ' + current_user.access_token }
+    response = HMRC.new(current_user).obligations
 
     # => Response
-    # => This handles the request (response) from the HMRC endpoint
-    response = HMRC.new current_user
+    # => This examines the response code and (if it's anything other than 200, redirect to the homepage and show an error)
+    if response.code != 200
 
-    # => Returns (populate)
-    # => This will input the returns ("obligations") into the database
-    # => The data for said returns will not be visible until we pull each return from the web
-    current_user.returns.upsert_all response.parsed_response["obligations"], unique_by: :periodKey
+      # => Redirect
+      # => This redirects to the homepage
+      redirect '/', error: response.parsed_response["message"]
+
+    else
+
+      # => Returns (populate)
+      # => This will input the returns ("obligations") into the database
+      # => The data for said returns will not be visible until we pull each return from the web
+      current_user.returns.upsert_all response.parsed_response["obligations"], unique_by: :periodKey
+
+    end
 
     # => Action
     # => This checks for an error code and redirects to home if it is there

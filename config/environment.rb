@@ -36,6 +36,13 @@ loader.setup
 ##################################################
 ##################################################
 
+## ExecJS (RPECK 16/01/2020) ##
+## This was required locally because Ruby 3.0.0 messed up the way in which File.open is called (the following file is changed on line 178) ##
+require_relative '../lib/execjs/external_runtime' if Gem.win_platform?
+
+##################################################
+##################################################
+
 # => Base
 # => This is used to give us a general set of config options
 # => No, it's not the simplest way to do it, but it works
@@ -148,8 +155,8 @@ class Environment < Sinatra::Base
     set :assets_prefix, '/dist' # => Needed to access assets in frontend
     set :assets_public_path, File.join(public_folder, assets_prefix.strip) # => Needed to tell Sprockets where to put assets
     set :assets_css_compressor, :sass
-    set :assets_js_compressor,  :uglifier
-    set :assets_precompile, %w[javascripts/app.js stylesheets/app.sass *.png *.jpg *.gif *.svg] # *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2
+    set :assets_js_compressor,  :terser
+    set :assets_precompile, %w[app.coffee app.sass *.png *.jpg *.gif *.svg] # *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2
     set :precompiled_environments, %i(staging production) # => Only precompile in staging & production
 
     # => Register

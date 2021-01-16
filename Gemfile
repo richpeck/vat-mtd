@@ -49,10 +49,10 @@ gem 'puma' # => web server
 
 # => Environments
 # => Allows us to load gems depending on the environment
-group :development do                         # => Console
-  gem 'dotenv', require: 'dotenv/load' # => ENV vars (local) -- https://github.com/bkeepers/dotenv#sinatra-or-plain-ol-ruby
-  gem 'foreman'                        # => Allows us to run the app in development/testing
-  gem 'byebug'                         # => Debug tool for Ruby
+group :development do # => Console
+  gem 'dotenv', require: 'dotenv/load'      # => ENV vars (local) -- https://github.com/bkeepers/dotenv#sinatra-or-plain-ol-ruby
+  gem 'foreman'                             # => Allows us to run the app in development/testing
+  gem 'byebug'                              # => Debug tool for Ruby
 end
 
 ###########################################
@@ -78,8 +78,8 @@ gem 'omniauth', '~> 1.9', '>= 1.9.1' # => OmniAuth (required to connect with oAu
 gem 'omniauth-oauth2', '~> 1.7'      # => OmniAuth (oAuth2) generic oAuth2 strategy for Omniauth
 
 # => Asset Management
-gem 'uglifier', '~> 4.2'         # => Uglifier - Javascript minification (required to get minification working)
-gem 'sass', '~> 3.7', '>= 3.7.4' # =>  SASS - converts SASS into CSS (required for minification)
+gem 'terser', '~> 1.1', '>= 1.1.1'  # => Terser - Javascript minification (required to get minification working)
+gem 'sass', '~> 3.7', '>= 3.7.4'    # => SASS - converts SASS into CSS (required for minification)
 
 # => Extra
 # => Added to help us manage data structures in app

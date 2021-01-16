@@ -48,6 +48,8 @@ haml :index
     # => Structure credentials: { expires_at: x, token: y, refresh_token: z}
     auth = request.env['omniauth.auth']
 
+    puts auth.inspect()
+
     # => Update
     # => This updates the user so that we're able to access the token/refresh token in future
     current_user.access_token         = auth['credentials']['token']

@@ -11,8 +11,8 @@
     %meta{name: "robots", content: "noindex"}
 
     - # Assets
-    != stylesheet_tag('app')
-    != javascript_tag('app')
+    != stylesheet_tag 'app'
+
 
   %body{ class: request.path.delete('\/') }
     %header

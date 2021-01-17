@@ -22,15 +22,15 @@
 
   - # Content
   .container
-    - unless current_user.vrn.present?
-      %h6 VRN (VAT Registration Number):
-      = form_for current_user, url('/settings'), data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
-        - if @user.try(:errors)
-          - @user.errors.full_messages.each do |message|
-            = message
-        = f.text_field :vrn, placeholder: "VAT Number (VRN)", value: current_user.try(:vrn), data: { parsley: { type: "number", minlength: "9", maxlength: "9" }}
-        = f.submit
-
+    %h5
+      %u VRN (VAT Registration Number)
+    %h6 This is a 9 digit number provided by HMRC: -
+    = form_for current_user, url('/settings'), data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
+      - if @user.try(:errors)
+        - @user.errors.full_messages.each do |message|
+          = message
+      = f.text_field :vrn, placeholder: "VAT Number (VRN)", value: current_user.try(:vrn), data: { parsley: { type: "number", minlength: "9", maxlength: "9" }}
+      = f.submit
 
 - # Need to check if HMRC is connected
 - if current_user.authenticated?
@@ -42,8 +42,16 @@
     - current_user.returns.each do |r|
       = r.periodKey
   - else
-    No Returns!
-    %br= link_to "Get Obligations", "/returns"
+    - if current_user.vrn
+      No Returns!
+      %br= link_to "Get Obligations", "/returns"
+    - else
+      %p Please add a VRN (above) to download your data.
+
+- else
+
+  %p
+    %center You must #{ link_to 'authenticate with HMRC', url("/auth/hmrc_vat"), method: :post, style: "text-decoration: underline"} before you can see any data.
 
 - ###################################################
 - ###################################################

@@ -15,7 +15,7 @@
 
 ## Return ##
 ## Gives us the ability to store the data for each return ##
-## id | periodKey | start_date | end_date | due_date | status (O // open or F // fulfilled) | vatDueSales | vatDueAcquisitions | totalVatDue | vatReclaimedCurrPeriod | netVatDue | totalValueSalesExVAT | totalValuePurchasesExVAT | totalValueGoodsSuppliedExVAT | totalAcquisitionsExVAT | created_at | updated_at ##
+## id | periodKey | start | end | due | received | status (O // open or F // fulfilled) | vatDueSales | vatDueAcquisitions | totalVatDue | vatReclaimedCurrPeriod | netVatDue | totalValueSalesExVAT | totalValuePurchasesExVAT | totalValueGoodsSuppliedExVAT | totalAcquisitionsExVAT | created_at | updated_at ##
 class CreateReturns < ActiveRecord::Migration::Base # => lib/active_record/migration/base.rb
 
   def up
@@ -51,6 +51,10 @@ class CreateReturns < ActiveRecord::Migration::Base # => lib/active_record/migra
       # => due_date
       # => Date in the format YYYY-MM-DD
       t.date :due
+
+      # => Received
+      # => Date in the format YYYY-MM-DD
+      t.date :received
 
       # => status
       # => Which obligation statuses to return (O = Open, F = Fulfilled)

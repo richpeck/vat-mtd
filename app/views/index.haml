@@ -37,10 +37,19 @@
 
   - # Returns
   - # These show the user which returns they have available, and which they need to submit
+  = link_to 'Update', '/returns'
   %h4 📝 Returns
   - if current_user.returns.any?
-    - current_user.returns.each do |r|
-      = r.periodKey
+    %table{ width: "100%" }
+      %thead
+        %tr
+          - @columns.each do |column|
+            %td= Return.human_attribute_name(column)
+      %tbody
+        - current_user.returns.order(start: :desc).each do |r|
+          %tr
+            - @columns.each do |column|
+              %td= r.send(column)
   - else
     - if current_user.vrn
       No Returns!

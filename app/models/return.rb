@@ -45,11 +45,24 @@ class Return < ActiveRecord::Base
   # => Status
   # => Allows us to infer the Open/Fulfilled specification
   def status
-    case @status
+    case self[:status]
       when "O"
         "Open"
       when "F"
         "Fulfilled"
+    end
+  end
+
+  # => Formatting
+  # => Allows us to format the dates to be readable in the UK
+  %i(start end due received).each do |x|
+    define_method(x) do
+      unless self[x].blank?
+        date = Date.parse(self[x].to_s)
+        date.strftime("%d %b %Y")
+      else
+        self[x]
+      end
     end
   end
 

@@ -33,7 +33,14 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     # This is set if no :id is passed (IE the user is on the index page)
     params[:id] ||= :index
 
+    # => Vars
+    # => Required for certain views
+    @columns = Return.attribute_names - %w(user_id periodKey updated_at)
+
+    # => Action
+    # => Needs to be updated for the pages
     haml :index
+
   end
 
   ##############################################################

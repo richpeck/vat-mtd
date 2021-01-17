@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.date "start"
     t.date "end"
     t.date "due"
+    t.date "received"
     t.string "status"
     t.decimal "vatDueSales", precision: 13, scale: 2
     t.decimal "vatDueAcquisitions", precision: 13, scale: 2

@@ -58,10 +58,15 @@ class ReturnsController < ApplicationController
 
     else
 
-      # => Returns (populate)
-      # => This will input the returns ("obligations") into the database
-      # => The data for said returns will not be visible until we pull each return from the web
-      current_user.returns.upsert_all response.parsed_response["obligations"], unique_by: :periodKey
+      # => Obligations
+      # => This used to be an upsert_all job but since the ActiveRecord implementation is sketchy at best, we needed to use the activerecord-import gem
+      obligations = response.parsed_response["obligations"]
+
+      # => Each
+      # => Because upsert requires each hash contain the same keys, we need to cycle through them
+      obligations.each do |obligation|
+        current_user.returns.upsert obligation.merge({ 'created_at' => DateTime.now, 'updated_at' => DateTime.now }), unique_by: :periodKey
+      end
 
     end
 

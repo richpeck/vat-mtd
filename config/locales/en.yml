@@ -29,6 +29,9 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
+# ActiveRecord model translations:
+# https://guides.rubyonrails.org/i18n.html#translations-for-active-record-models
+
 en:
   page:
     not_found:   Page Not Found!
@@ -43,3 +46,8 @@ en:
     logout:
       label:     Log Out
       success:   Logged Out
+  activerecord:
+    attributes:
+      return:
+        periodKey: "Period"
+        created_at: "Created"

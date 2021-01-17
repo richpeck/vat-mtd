@@ -46,7 +46,11 @@ class ReturnsController < ApplicationController
     # => HMRC
     # => Sets the required data for the API
     # => https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/1.0#_retrieve-vat-obligations_get_accordion
-    response = HMRC.new(current_user).obligations
+    hmrc = HMRC.new(current_user)
+
+    # => Objects
+    # => These are used to get data from the HMRC variable above
+    response = hmrc.obligations
 
     # => Response
     # => This examines the response code and (if it's anything other than 200, redirect to the homepage and show an error)
@@ -65,7 +69,27 @@ class ReturnsController < ApplicationController
       # => Each
       # => Because upsert requires each hash contain the same keys, we need to cycle through them
       obligations.each do |obligation|
+
+        # => Fulfilled
+        # => This only fires if the obligation is considered "Fulfilled"
+         if obligation["status"] == "F"
+
+          # => Vars
+          # => Populate a number of variables to use in the block
+          vat_return = hmrc.returns(obligation["periodKey"])
+
+          p vat_return
+
+          # => Return
+          # => If the obligation is "fulfilled", get the individual element from the API
+          obligation.merge(vat_return)
+
+        end #fulfilled
+
+        # => Update
+        # => Update the system with the various obligations
         current_user.returns.upsert obligation.merge({ 'created_at' => DateTime.now, 'updated_at' => DateTime.now }), unique_by: :periodKey
+
       end
 
     end

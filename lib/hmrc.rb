@@ -48,6 +48,13 @@ class HMRC
     self.class.get(url, @options)
   end
 
+  ## Returns ##
+  ## Allows us to get individual returns from the API
+  def returns(periodKey)
+    puts url("returns", periodKey)
+    self.class.get(url("returns", periodKey), @options)
+  end
+
   ## Hello World ##
   ## https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/api-example-microservice/1.0 ##
   def hello_world
@@ -63,8 +70,8 @@ class HMRC
   # => URL
   # => Allows us to create class variable for HMRC endpoint etc
   # => https://test-api.service.hmrc.gov.uk/organisations/vat/{{ vrn }}/liabilities
-  def url endpoint: "obligations"
-    [ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk"), "organisations/vat", @vrn, endpoint].join("/")
+  def url endpoint = "obligations", id = nil
+    [ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk"), "organisations/vat", @vrn, endpoint, id].join("/")
   end
 
   ####################################

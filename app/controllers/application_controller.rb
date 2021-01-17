@@ -35,7 +35,7 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
 
     # => Vars
     # => Required for certain views
-    @columns = Return.attribute_names - %w(user_id periodKey updated_at)
+    @columns = Return.attribute_names - %w(user_id updated_at)
 
     # => Action
     # => Needs to be updated for the pages

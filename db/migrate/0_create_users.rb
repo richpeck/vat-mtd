@@ -19,7 +19,7 @@ class CreateUsers < ActiveRecord::Migration::Base # => lib/active_record/migrati
   ## This is taken by virtue of a) BCrypt being more secure + b) it providing a central means to manage the software ##
 
   def up
-    create_table table, options do |t|
+    create_table table do |t|
       t.string  :email                                                           # => Email (login)
       t.string  :password_digest                                                 # => Password (login)
       t.string  :access_token                                                    # => oAuth access token (encrypted with the constant SECRET)

@@ -1,6 +1,6 @@
 %auth
   - if user_signed_in?
-    
+    = hmrc_authentication # => this is used to give us the authentication button for oAuth
     = link_to "⚙️ #{current_user.email}", "/settings", title: "Settings", class: :btn
     = link_to ["❌", I18n.t('auth.logout.label')].join(" "), "/logout", method: :delete, data: { confirm: "Really?" }, class: :btn
   - else

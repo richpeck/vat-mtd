@@ -19,7 +19,7 @@
 class CreateReturns < ActiveRecord::Migration::Base # => lib/active_record/migration/base.rb
 
   def up
-    create_table table, options do |t|
+    create_table table do |t|
 
       ########################
       ##       General      ##

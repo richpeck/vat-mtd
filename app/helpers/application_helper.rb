@@ -17,8 +17,11 @@ module ApplicationHelper
   # => HMRC Authentication
   # => Shows the oAuth button required to ensure the connectivity to HMRC is correct
   def hmrc_authentication
-    hmrc = ::HMRC.new current_user
-    hmrc.hello_world["message"]
+     if current_user.authenticated?
+      "Authenticated"
+    else
+      button_to "Authenticate", "/auth/hmrc_vat", disabled: current_user.authenticated?
+    end
   end
 
 end

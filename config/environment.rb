@@ -29,8 +29,8 @@ loader = Zeitwerk::Loader.new
   loader.push_dir(d)
 end
 loader.enable_reloading # you need to opt-in before setup
-loader.inflector.inflect "omniauth" => "OmniAuth" # required to get the custom hmrc strategy to load
-loader.inflector.inflect "hmrc"     => "HMRC"     # required to get the custom hmrc strategy to load
+loader.inflector.inflect "omniauth"         => "OmniAuth"         # required to get the custom hmrc strategy to load
+loader.inflector.inflect "hmrc"             => "HMRC"             # required to get the custom hmrc strategy to load
 loader.setup
 
 ##################################################

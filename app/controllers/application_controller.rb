@@ -33,7 +33,7 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     # This is set if no :id is passed (IE the user is on the index page)
     params[:id] ||= :index
 
-haml :index
+    haml :index
 
   end
 
@@ -42,7 +42,7 @@ haml :index
 
   # => oAuth
   # => This is from https://github.com/omniauth/omniauth/wiki/Sinatra-Example
-  get '/auth/:name/callback' do
+  get '/:name/callback' do
 
     # => Auth object (data)
     # => Structure credentials: { expires_at: x, token: y, refresh_token: z}
@@ -63,7 +63,16 @@ haml :index
     # => Redirect to homepage
     redirect "/", notice: "Authenicated, thank you"
 
-  end
+  end #get
+
+  ##############################################################
+  ##############################################################
+
+  # => oAuth Failure
+  # => Apparently will send failure messages to this address
+  get '/failure' do
+    redirect '/', notice: params[:message]
+  end #get
 
   ##############################################################
   ##############################################################

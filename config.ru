@@ -35,7 +35,7 @@ require_relative 'config/environment'
 
 ## Sinatra ##
 ## Changed the following to include different app structure ##
-## https://nickcharlton.net/posts/structuring-sinatra-applications.html ##
+## https://nickcharlton.net/posts/structuring-sinatra-applications.html 
 map('/returns')  { run ReturnsController }     # used to manage HMRC integration (as well as creating/editing returns)
 map('/settings') { run SettingsController }    # used to manage user/company
 map('/')         { run ApplicationController } # dashboard

@@ -34,8 +34,7 @@
           = f.text_field :vrn, placeholder: "VAT Number (VRN)", data: { parsley: { type: "number", minlength: "9", maxlength: "9" }}
           = f.submit
       - else
-        %h6 Connect to HMRC (oAuth)
-        = button_to "Authenticate", "/auth/hmrc_vat", disabled: current_user.authenticated?
+        %h6 Connect to HMRC (oAuth)= hmrc_authentication
 
 - else
 

@@ -78,7 +78,7 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
 
     # => Action
     # => Redirect to homepage
-    redirect "/", notice: "Authenicated, thank you"
+    redirect "/", notice: "Authenticated, thank you"
 
   end #get
 
@@ -87,9 +87,34 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
 
   # => oAuth Failure
   # => Apparently will send failure messages to this address
-  get '/failure' do
+  get '/auth/failure' do
     redirect '/', notice: params[:message]
   end #get
+
+  ##############################################################
+  ##############################################################
+
+  # => Revoke
+  # => This is from https://github.com/omniauth/omniauth/wiki/Sinatra-Example
+  delete '/auth/hmrc_vat/revoke' do
+
+    # => Current User
+    # => Basically, there is no way to revoke token access via the API
+    # => This means we need to handle the revokation by faking it
+    current_user.access_token         = ''
+    current_user.refresh_token        = ''
+    current_user.access_token_expires = ''
+    current_user.save
+
+    # => Returns
+    # => This data is not required when we don't have access to HMRC any more
+    current_user.returns.destroy_all
+
+    # => Action
+    # => Redirect to homepage
+    redirect "/", notice: "Revoked"
+
+  end #delete
 
   ##############################################################
   ##############################################################

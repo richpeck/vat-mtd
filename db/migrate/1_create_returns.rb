@@ -78,7 +78,7 @@ class CreateReturns < ActiveRecord::Migration::Base # => lib/active_record/migra
 
       # => totalVatDue (Box 3)
       # => Total VAT due (the sum of vatDueSales and vatDueAcquisitions). This corresponds to box 3 on the VAT Return form. The value must be between -9999999999999.99 and 9999999999999.99.
-      t.decimal :vatDueDue, precision: 13, scale: 2
+      t.decimal :totalVatDue, precision: 13, scale: 2
 
       # => vatReclaimedCurrPeriod (Box 4)
       # => VAT reclaimed on purchases and other inputs (including acquisitions from the EC). This corresponds to box 4 on the VAT Return form. The value must be between -9999999999999.99 and 9999999999999.99.
@@ -90,19 +90,19 @@ class CreateReturns < ActiveRecord::Migration::Base # => lib/active_record/migra
 
       # => totalValueSalesExVAT (Box 6)
       # => Total value of sales and all other outputs excluding any VAT. This corresponds to box 6 on the VAT Return form. The value must be between -9999999999999 and 9999999999999.
-      t.integer :totalValueSalesExVAT
+      t.string :totalValueSalesExVAT
 
       # => totalValuePurchasesExVAT (Box 7)
       # => Total value of purchases and all other inputs excluding any VAT (including exempt purchases). This corresponds to box 7 on the VAT Return form. The value must be between -9999999999999 and 9999999999999.
-      t.integer :totalValuePurchasesExVAT
+      t.string :totalValuePurchasesExVAT
 
       # => totalValueGoodsSuppliedExVAT (Box 8)
-      # => Total value of all supplies of goods and related costs, excluding any VAT, to other EC member states. This corresponds to box 8 on the VAT Return form. The value must be between -9999999999999 and 9999999999999.
-      t.integer :totalValueGoodsSuppliedExVAT
+      # => Total value of all supplies of goods and related costs, excluding VAT, to other EC member states. This corresponds to box 8 on the VAT Return form. The value must be between -9999999999999 and 9999999999999.
+      t.string :totalValueGoodsSuppliedExVAT
 
       # => totalValueGoodsSuppliedExVAT (Box 9)
       # => Total value of acquisitions of goods and related costs excluding any VAT, from other EC member states. This corresponds to box 9 on the VAT Return form. The value must be between -9999999999999 and 9999999999999.
-      t.integer :totalAcquisitionsExVAT
+      t.string :totalAcquisitionsExVAT
 
       ########################
       ##       Extras       ##

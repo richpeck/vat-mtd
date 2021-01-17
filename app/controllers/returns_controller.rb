@@ -78,8 +78,6 @@ class ReturnsController < ApplicationController
           # => Populate a number of variables to use in the block
           vat_return = hmrc.returns(obligation["periodKey"])
 
-          p vat_return
-
           # => Return
           # => If the obligation is "fulfilled", get the individual element from the API
           obligation.merge(vat_return)

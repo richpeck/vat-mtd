@@ -47,9 +47,9 @@ class Return < ActiveRecord::Base
   def status
     case self[:status]
       when "O"
-        "Open"
+        "❌"
       when "F"
-        "Fulfilled"
+        "✔️"
     end
   end
 
@@ -64,6 +64,12 @@ class Return < ActiveRecord::Base
         self[x]
       end
     end
+  end
+
+  # => Created At
+  # => Show the "short" format
+  def created_at
+    self[:created_at].strftime("%e %b %Y %H:%M%p")
   end
 
   ################################

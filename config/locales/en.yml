@@ -34,7 +34,7 @@
 
 en:
   page:
-    not_found:   Page Not Found!
+    not_found:   Page Not Found
   auth:
     register:
       label:     Register
@@ -49,5 +49,14 @@ en:
   activerecord:
     attributes:
       return:
-        periodKey: "Period"
-        created_at: "Created"
+        periodKey:                    "Period"
+        created_at:                   "Created"
+        vatDueSales:                  "VAT Due On Sales (Box 1)"
+        vatDueAcquisitions:           "VAT Due On Acquisitions (Box 2)"
+        totalVatDue:                  "Total VAT Due (Box 3)"
+        vatReclaimedCurrPeriod:       "Vat Reclaimed In Current Period (Box 4)"
+        netVatDue:                    "Net VAT Owed To/From You (Box 5)"
+        totalValueSalesExVAT:         "Total Sales Value (ex VAT) (Box 6)"
+        totalValuePurchasesExVAT:     "Total Purchases Value (ex VAT) (Box 7)"
+        totalValueGoodsSuppliedExVAT: "Total Supplied To EU States (ex VAT) (Box 8)"
+        totalAcquisitionsExVAT:       "Total Imports from EU States (ex VAT) (Box 9)"

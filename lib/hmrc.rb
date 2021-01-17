@@ -32,10 +32,22 @@ class HMRC
   def initialize current_user
     @vrn     = current_user.vrn
     @access  = current_user.access_token
+    @query   = { "from": "2020-01-01", "to": "2021-01-01" }
+    @headers = {
 
-    query    = { "from": "2020-01-01", "to": "2021-01-01" }
-    headers  = { 'Accept': 'application/vnd.hmrc.1.0+json', 'Authorization': 'Bearer ' + @access }
-    @options = { headers: headers, query: query }
+      # Authenication
+      # Required to communicate with oAuth
+      'Accept': 'application/vnd.hmrc.1.0+json',
+      'Authorization': 'Bearer ' + @access,
+
+      # Fraud headers
+      # https://developer.service.hmrc.gov.uk/guides/fraud-prevention/connection-method/web-app-via-server/#gov-vendor-product-name
+      'Gov-Client-Connection-Method': 'WEB_APP_VIA_SERVER',
+      'Gov-Client-User-IDs': "vat-mtd=#{current_user.id}",
+      'Gov-Client-Timezone': "UTC#{Time.now.strftime("%:z")}",
+      'Gov-Vendor-Version': "vat-mtd=1.0.0"
+
+    }
   end
 
   ####################################
@@ -45,20 +57,19 @@ class HMRC
   ## This pulls down the submitted returns and gives us a periodKey (which we use to pull individual returns) ##
   ## The aim is to store all returns in a single table ##
   def obligations
-    self.class.get(url, @options)
+    self.class.get(url, { headers: @headers, query: @query })
   end
 
   ## Returns ##
   ## Allows us to get individual returns from the API
   def returns(periodKey)
-    puts url("returns", periodKey)
-    self.class.get(url("returns", periodKey), @options)
+    self.class.get(url("returns", periodKey), headers: @headers )
   end
 
-  ## Hello World ##
-  ## https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/api-example-microservice/1.0 ##
-  def hello_world
-    self.class.get("/hello/world", @options) # => should return "Hello World"
+  ## Liabilities ##
+  ## Shows money owed to HMRC
+  def returns(periodKey)
+    self.class.get(url("liabilities"), headers: @headers, query: @query )
   end
 
   ####################################

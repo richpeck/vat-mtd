@@ -27,7 +27,7 @@
     .container
       - unless current_user.vrn.present?
         %h6 Provide your VRN (VAT Registration Number):
-        = form_for current_user, '/settings', data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
+        = form_for current_user, url('/settings'), data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
           - if @user.try(:errors)
             - @user.errors.full_messages.each do |message|
               = message

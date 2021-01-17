@@ -34,15 +34,26 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     params[:id] ||= :index
 
     haml :index
-
   end
 
+  ##############################################################
+  ##############################################################
+  ##                     ___         __  __                   ##
+  ##              ____  /   | __  __/ /_/ /_                  ##
+  ##             / __ \/ /| |/ / / / __/ __ \                 ##
+  ##            / /_/ / ___ / /_/ / /_/ / / /                 ##
+  ##            \____/_/  |_\__,_/\__/_/ /_/                  ##
+  ##                                                          ##
+  ##############################################################
+  ##############################################################
+  ## Allows for OmniAuth gem to perform various tasks
+  ## This was originally in the ApplicationController, but moved here to keep succinct
   ##############################################################
   ##############################################################
 
   # => oAuth
   # => This is from https://github.com/omniauth/omniauth/wiki/Sinatra-Example
-  get '/:name/callback' do
+  get '/auth/:name/callback' do
 
     # => Auth object (data)
     # => Structure credentials: { expires_at: x, token: y, refresh_token: z}
@@ -57,7 +68,6 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
 
     # => Options
     # => Fill out the obligations of the company (the returns they have and have yet to fulfill)
-
 
     # => Action
     # => Redirect to homepage

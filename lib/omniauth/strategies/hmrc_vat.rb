@@ -22,12 +22,17 @@ module OmniAuth
   module Strategies
     class HmrcVat < OmniAuth::Strategies::OAuth2
 
+      ## Vars ##
+      @@name     = "hmrc_vat"
+      @@endpoint = ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk")
+      @@redirect = [Sinatra::Base.development? ? 'http://localhost:80' : "https://" + ENV.fetch("DOMAIN", "vat-mtd.herokuapp.com"), "auth"].join("/")
+
       # Give your strategy a name.
-      option :name, "hmrc_vat"
+      option :name, @@name
 
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
-      option :client_options, { site: ENV.fetch("HMRC_API_ENDPOINT", "https://test-api.service.hmrc.gov.uk"),  redirect_uri: Sinatra::Base.development? ? 'http://localhost:80/auth/hmrc_vat/callback' : "https://" + ENV.fetch("DOMAIN", "vat-mtd.herokuapp.com") + '/auth/hmrc_vat/callback' }
+      option :client_options, { site: @@endpoint,  redirect_uri: [@@redirect, @@name, 'callback'].join("/") }
 
       # Scope
       # This allows us to define the scope through which the oAuth relationship will be conducted
@@ -35,7 +40,7 @@ module OmniAuth
 
       # Token
       # Needed to ensure redirect_uri
-      option :token_params, { redirect_uri: Sinatra::Base.development? ? 'http://localhost:80/auth/hmrc/callback' : "https://" + ENV.fetch("DOMAIN", "vat-mtd.herokuapp.com") + '/auth/hmrc_vat/callback' }
+      option :token_params, { redirect_uri: [@@redirect, @@name, 'callback'].join("/") }
 
       # You may specify that your strategy should use PKCE by setting
       # the pkce option to true: https://tools.ietf.org/html/rfc7636

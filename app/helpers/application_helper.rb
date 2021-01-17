@@ -18,9 +18,9 @@ module ApplicationHelper
   # => Shows the oAuth button required to ensure the connectivity to HMRC is correct
   def hmrc_authentication
      if current_user.authenticated?
-      "Authenticated"
+      button_to "Revoke", url("/auth/hmrc_vat")
     else
-      button_to "Authenticate", "/auth/hmrc_vat", disabled: current_user.authenticated?
+      button_to "Authenticate", url("/auth/hmrc_vat")
     end
   end
 

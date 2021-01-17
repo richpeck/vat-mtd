@@ -13,30 +13,27 @@
 - ###################################################
 - ###################################################
 
-- # If user is NOT authenticated with HMRC
-- unless current_user.authenticated?
+- # Container
+.authentication
 
-  - # Container
-  .authentication
+  - # User Information
+  - # Expected to be signed in
+  %h4 🔒 Authentication
 
-    - # User Information
-    - # Expected to be signed in
-    %h4 🔒 Authentication
+  - # Content
+  .container
+    - unless current_user.vrn.present?
+      %h6 VRN (VAT Registration Number):
+      = form_for current_user, url('/settings'), data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
+        - if @user.try(:errors)
+          - @user.errors.full_messages.each do |message|
+            = message
+        = f.text_field :vrn, placeholder: "VAT Number (VRN)", value: current_user.try(:vrn), data: { parsley: { type: "number", minlength: "9", maxlength: "9" }}
+        = f.submit
 
-    - # Content
-    .container
-      - unless current_user.vrn.present?
-        %h6 Provide your VRN (VAT Registration Number):
-        = form_for current_user, url('/settings'), data: { parsley: {validate: 'true', trigger: 'keyup', required: {message: "Required"}}} do |f|
-          - if @user.try(:errors)
-            - @user.errors.full_messages.each do |message|
-              = message
-          = f.text_field :vrn, placeholder: "VAT Number (VRN)", data: { parsley: { type: "number", minlength: "9", maxlength: "9" }}
-          = f.submit
-      - else
-        %h6 Connect to HMRC (oAuth)= hmrc_authentication
 
-- else
+- # Need to check if HMRC is connected
+- if current_user.authenticated?
 
   - # Returns
   - # These show the user which returns they have available, and which they need to submit

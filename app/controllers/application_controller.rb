@@ -54,7 +54,7 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
   ##############################################################
   ##############################################################
   ## Allows for OmniAuth gem to perform various tasks
-  ## This was originally in the ApplicationController, but moved here to keep succinct
+  ## This was originally in its own controller, but that interfered with the OmniAuth gem, so it's here now
   ##############################################################
   ##############################################################
 

@@ -1,6 +1,4 @@
-[[ img ]]
-
-[VAT-MTD](https://www.gov.uk/guidance/making-tax-digital-for-vat) integration (inspired by [100pcVatBridge](http://www.comsci.co.uk/100PcVatFreeBridge.html)) to enable UK VAT return submissions.
+[VAT-MTD](https://www.gov.uk/guidance/making-tax-digital-for-vat) integration (inspired by [100pcVatFreeBridge](http://www.comsci.co.uk/100PcVatFreeBridge.html)) to enable UK VAT return submissions.
 
 ---
 
@@ -8,7 +6,7 @@
 
 Copyrights owned by respective contributors.
 
-This is a technical demonstration. The code, and corresponding demo service, are provided "as-is" with no warranty.
+This is open source software. The code, and corresponding service, are provided "as-is" with no warranty.
 
 ---
 

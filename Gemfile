@@ -86,7 +86,7 @@ gem 'sass', '~> 3.7', '>= 3.7.4'    # => SASS - converts SASS into CSS (required
 gem 'pony', '~> 1.13', '>= 1.13.1'                          # => Email management for Ruby/Rails
 gem 'addressable', '~> 2.7'                                 # => Break down the various components of a domain
 gem 'padrino-helpers', '~> 0.15.0'                          # => Sinatra framework which adds a number of support classes -- we needed it for "number_to_currency" (https://github.com/padrino/padrino-framework/blob/02feacb6afa9bce20c1fb360df4dfd4057899cfc/padrino-helpers/lib/padrino-helpers/number_helpers.rb)
-gem 'zeitwerk', '~> 2.4', '>= 2.4.2'                         # => Replaced require_all to give us the ability to autoload/require classes in a Rails-centric way
+gem 'zeitwerk', '~> 2.4', '>= 2.4.2'                        # => Replaced require_all to give us the ability to autoload/require classes in a Rails-centric way
 
 # => ActiveRecord
 # => Sinec we had multiple dependencies here, better to just add to our own category

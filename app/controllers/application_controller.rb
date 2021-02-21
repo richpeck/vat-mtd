@@ -27,7 +27,7 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
 
   # => General
   # => Pulls pages (some are static and need to be shown outside of the authentication system)
-  get '/', '/privacy', '/terms' do
+  get '/', '/:id' do
 
     # Set ID
     # This is set if no :id is passed (IE the user is on the index page)
@@ -35,11 +35,11 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
 
     # => Vars
     # => Required for certain views
-    @columns = Return.attribute_names - %w(user_id updated_at)
+    @columns = Return.attribute_names - %w(id user_id updated_at) if params[:id] == :index
 
     # => Action
     # => Needs to be updated for the pages
-    haml :index
+    haml params[:id]
 
   end
 

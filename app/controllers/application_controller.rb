@@ -29,17 +29,17 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
   # => Pulls pages (some are static and need to be shown outside of the authentication system)
   get '/', '/:id' do
 
-    # Set ID
-    # This is set if no :id is passed (IE the user is on the index page)
-    params[:id] ||= :index
+    # => Auth
+    # => Allows us to determine whether the page is authenticated or not
+    pass if Auth::routes.has_key?(request.path_info.tr('/', '')) # => auth routes
 
     # => Vars
     # => Required for certain views
-    @columns = Return.attribute_names - %w(id user_id updated_at) if params[:id] == :index
+    @columns = Return.attribute_names - %w(id user_id updated_at)
 
     # => Action
     # => Needs to be updated for the pages
-    haml params[:id]
+    haml (params[:id] || :index).to_sym
 
   end
 

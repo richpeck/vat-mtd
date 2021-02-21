@@ -22,10 +22,19 @@ module Auth
 
   # => Vars
   # => Used for login/logout routes etc
-  @@login    = 'login'
-  @@logout   = 'logout'
-  @@register = 'register'
-  @@unauth   = 'unauthenticated'
+  define_singleton_method(:routes) do
+    {
+      'login'    => 'login',
+      'logout'   => 'logout',
+      'register' => 'register',
+      'unauth'   => 'unauthenticated'
+    }
+  end
+
+  @@login    = self::routes['login']
+  @@logout   = self::routes['logout']
+  @@register = self::routes['register']
+  @@unauth   = self::routes['unauth']
 
   # => Included
   # => https://stackoverflow.com/a/28009954/1143732

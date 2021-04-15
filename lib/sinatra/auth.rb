@@ -135,7 +135,7 @@ module Sinatra
             begin
               User.find(id)
             rescue
-              logout
+              env['warden'].logout
             end
           end
 
@@ -228,7 +228,7 @@ module Sinatra
         # => Logout (GET)
         # => Request to log out of the system (allows us to perform session destroy)
         app.delete "/#{app.auth_logout}" do
-          logout
+          warden.logout
           redirect '/', error: I18n.t('auth.logout.success')
         end
 

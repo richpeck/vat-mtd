@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 2) do
 
   create_table "returns", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -22,18 +22,28 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "status"
     t.decimal "vatDueSales", precision: 13, scale: 2
     t.decimal "vatDueAcquisitions", precision: 13, scale: 2
-    t.decimal "vatDueDue", precision: 13, scale: 2
+    t.decimal "totalVatDue", precision: 13, scale: 2
     t.decimal "vatReclaimedCurrPeriod", precision: 13, scale: 2
     t.decimal "netVatDue", precision: 11, scale: 2
-    t.integer "totalValueSalesExVAT"
-    t.integer "totalValuePurchasesExVAT"
-    t.integer "totalValueGoodsSuppliedExVAT"
-    t.integer "totalAcquisitionsExVAT"
+    t.string "totalValueSalesExVAT"
+    t.string "totalValuePurchasesExVAT"
+    t.string "totalValueGoodsSuppliedExVAT"
+    t.string "totalAcquisitionsExVAT"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["periodKey"], name: "period_key_unique", unique: true
     t.index ["user_id", "periodKey"], name: "user_period_key_unique", unique: true
     t.index ["user_id"], name: "index_returns_on_user_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name"
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "\"name\", \"user\"", name: "name_user_unique", unique: true
+    t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,4 +60,5 @@ ActiveRecord::Schema.define(version: 1) do
     t.index ["email"], name: "email_unique", unique: true
   end
 
+  add_foreign_key "settings", "users"
 end

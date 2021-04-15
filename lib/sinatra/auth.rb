@@ -153,6 +153,43 @@ module Sinatra
 
         end
 
+        # => Failure Manager
+        # => Allows us to consider how the system should work
+        Warden::Manager.before_failure do |env,opts|
+
+          # Because authentication failure can happen on any request but
+          # we handle it only under "post '/auth/unauthenticated'", we need
+          # to change request to POST
+          env['REQUEST_METHOD'] = 'POST'
+
+          # And we need to do the following to work with  Rack::MethodOverride
+          env.each do |key, value|
+            env[key]['_method'] = 'post' if key == 'rack.request.form_hash'
+          end
+
+        end
+
+        # => Strategies
+        # => Password allows us to manage the system
+        Warden::Strategies.add(:password) do
+          def valid?
+            params['user'] && params['user']['email'] && params['user']['password']
+          end
+
+          def authenticate!
+            user = User.find_by email: params['user']['email'] # => email is unique, so any records will be the only record
+
+            if user.nil?
+              throw(:warden, message: "Email does not exist")
+            elsif user.authenticate(params['user']['password'])
+              user.update last_signed_in_at: Time.now, last_signed_in_ip: request.ip
+              success!(user)
+            else
+              throw(:warden, message: "Bad password")
+            end
+          end
+        end
+
         ##########################################################
         ##########################################################
         ##             ____              __                     ##
@@ -230,52 +267,6 @@ module Sinatra
 
     end #included
   end #auth
-
-  ###################################
-  ###################################
-
-    # => Failure Manager
-    # => Allows us to consider how the system should work
-    Warden::Manager.before_failure do |env,opts|
-
-      # Because authentication failure can happen on any request but
-      # we handle it only under "post '/auth/unauthenticated'", we need
-      # to change request to POST
-      env['REQUEST_METHOD'] = 'POST'
-
-      # And we need to do the following to work with  Rack::MethodOverride
-      env.each do |key, value|
-        env[key]['_method'] = 'post' if key == 'rack.request.form_hash'
-      end
-
-    end
-
-  ###################################
-  ###################################
-
-  # => Strategies
-  # => Password allows us to manage the system
-  Warden::Strategies.add(:password) do
-    def valid?
-      params['user'] && params['user']['email'] && params['user']['password']
-    end
-
-    def authenticate!
-      user = User.find_by email: params['user']['email'] # => email is unique, so any records will be the only record
-
-      if user.nil?
-        throw(:warden, message: "Email does not exist")
-      elsif user.authenticate(params['user']['password'])
-        user.update last_signed_in_at: Time.now, last_signed_in_ip: request.ip
-        success!(user)
-      else
-        throw(:warden, message: "Bad password")
-      end
-    end
-  end
-
-  ###################################
-  ###################################
 
   # => Register
   # => Allows us to integrate into the Sinatra app

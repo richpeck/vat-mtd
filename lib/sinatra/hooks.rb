@@ -74,13 +74,13 @@ module Sinatra
           # => Actions
           # => These fire for whichever the user has defined
           case action.to_sym
-          when :pre_render
-            output = Liquid::Template.parse(html).render @liquid
+          when :before_render
+            output = Liquid::Template.parse(html).render(@liquid)
           end
 
           # => Fire other hooks
           # => This allows us to iterate over the various hooks that exist
-          #settings.hooks[action.to_s].each { |hook| hook.function.call() } if settings.hooks[action.to_s]
+          settings.hooks[action.to_s].each { |hook| hook.function.call() } if settings.hooks[action.to_s]
 
           # => Return
           # => This returns outputted data to the main script

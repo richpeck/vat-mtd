@@ -40,12 +40,12 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
 
     # => HAML
     # => Needs to provide barebones framework into-which we can place liquid
-  haml @path.to_sym
+    @html = haml @path.to_sym
 
     # => Hook
     # => This allows us to manage the underlying user-level code that may be present in the above HAML
     # => For example, maybe we include a "sections" part in the above. The user can add a section with liquid code, which will then be rendered by the HAML and parsed by Liquid
-    #perform_hook :render, @html
+    return perform_hook :before_render, @html
 
   end
 

@@ -227,15 +227,7 @@ class Environment < Sinatra::Base
     ## APP ##
     ## Allows us to set specifics for ENTIRE app
     before do
-
-      # => Authentication
-      # => Allows you to load the page if required
-      # => https://stackoverflow.com/a/7709087/1143732
-      env['warden'].authenticate! unless %w[nil login logout register unauthenticated privacy terms].include?(request.path_info.split('/')[1]) # => https://stackoverflow.com/a/7709087/1143732
-
-      # => Register hook (test)
       register_hook :pre_render, 'test', Proc.new { puts "test2" }, 2
-
     end
 
   ##############################################################

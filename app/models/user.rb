@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
   # => Gives us ability to view & manage the various VAT returns for a user
   has_many :returns, dependent: :destroy
 
+  # => Settings
+  # => Allows us to add various settings for the system (which can be used to provide the user with the means to customize the system)
+  has_many :settings, dependent: :destroy
+
   ################################
   ################################
 

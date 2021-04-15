@@ -26,7 +26,7 @@ class CreateSettings < ActiveRecord::Migration::Base # => lib/active_record/migr
       t.string  :value                                                           # => Value
       t.timestamps                                                               # => created_at, updated_at
 
-      t.index [:name, :user], unique: true, name: 'name_user_unique' # => one email per user
+      t.index [:name, :user_id], unique: true, name: 'name_user_unique' # => one email per user
     end
   end #up
 

@@ -80,7 +80,7 @@ module Sinatra
 
           # => Fire other hooks
           # => This allows us to iterate over the various hooks that exist
-          settings.hooks[action.to_s].each { |hook| output = hook.function.call(output) } if settings.hooks[action.to_s]
+          settings.hooks[action.to_s].sort_by(&:priority).each { |hook| puts hook.priority; output = hook.function.call(output) } if settings.hooks[action.to_s]
 
           # => Return
           # => This returns outputted data to the main script

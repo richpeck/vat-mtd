@@ -52,6 +52,7 @@ class Environment < Sinatra::Base
     # => This allows us to call the various extensions for the system
     register Sinatra::Auth                  # => My own Warden implementation extracted into a Sinatra module (./lib/sinatra/auth.rb)
     register Sinatra::Cors                  # => Protects from unauthorized domain activity
+    register Sinatra::OmniAuth              # => This is my own implementation of several routes which are required for omniauth. SHOULD BE MOVED ELSEWHERE
     register Sinatra::Hooks                 # => lib/sinatra/hooks (allows us to use Wordpress-style hooks)
     register Padrino::Helpers               # => number_to_currency (https://github.com/padrino/padrino-framework/blob/master/padrino-helpers/lib/padrino-helpers.rb#L22)
     register Sinatra::RespondWith           # => http://sinatrarb.com/contrib/respond_with

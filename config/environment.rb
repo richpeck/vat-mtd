@@ -25,7 +25,7 @@ Bundler.require :default, ENV.fetch("RACK_ENV", "development") if defined?(Bundl
 ## This should really have bundler stuff ##
 ## https://www.oreilly.com/library/view/sinatra-up-and/9781449306847/ch04.html ##
 loader = Zeitwerk::Loader.new
-%w(app/controllers app/models app/helpers lib config).each do |d|
+%w(app/controllers app/models app/helpers app/drops lib config).each do |d|
   loader.push_dir(d)
 end
 loader.enable_reloading # you need to opt-in before setup
@@ -50,7 +50,9 @@ class Environment < Sinatra::Base
 
     # => Register
     # => This allows us to call the various extensions for the system
+    register Sinatra::Auth                  # => My own Warden implementation extracted into a Sinatra module (./lib/sinatra/auth.rb)
     register Sinatra::Cors                  # => Protects from unauthorized domain activity
+    register Sinatra::Hooks                 # => lib/sinatra/hooks (allows us to use Wordpress-style hooks)
     register Padrino::Helpers               # => number_to_currency (https://github.com/padrino/padrino-framework/blob/master/padrino-helpers/lib/padrino-helpers.rb#L22)
     register Sinatra::RespondWith           # => http://sinatrarb.com/contrib/respond_with
     register Sinatra::MultiRoute            # => Multi Route (allows for route :put, :delete)
@@ -100,10 +102,6 @@ class Environment < Sinatra::Base
     helpers Sinatra::RequiredParams     # => Required Parameters (ensures we have certain params for different routes)
     helpers Sinatra::RedirectWithFlash  # => Used to provide "flash" functionality with redirect helper
 
-    # => Includes
-    # => Functionality provided by various systems (some my own)
-    include Auth # => app/auth.rb (used for Warden)
-
   ##########################################################
   ##########################################################
 
@@ -133,7 +131,6 @@ class Environment < Sinatra::Base
 
     # => General
     # => Allows us to determine various specifications inside the app
-    set :haml, { layout: :'layouts/application' } # https://stackoverflow.com/a/18303130/1143732
     set :root, File.join(Dir.pwd, "app") # => had to change because we put into the app/controllers directory (if we put it in app directory we can just use default behaviour)
     set :views, File.join(root, 'views') # => required to get views working (defaulted to ./views)
     set :public_folder, File.join(root, "..", "public") # => Root dir fucks up (public_folder defaults to root) http://sinatrarb.com/configuration.html#root---the-applications-root-directory
@@ -235,6 +232,9 @@ class Environment < Sinatra::Base
       # => Allows you to load the page if required
       # => https://stackoverflow.com/a/7709087/1143732
       env['warden'].authenticate! unless %w[nil login logout register unauthenticated privacy terms].include?(request.path_info.split('/')[1]) # => https://stackoverflow.com/a/7709087/1143732
+
+      # => Register hook (test)
+      register_hook :pre_render, 'test', Proc.new { puts "test2" }, 2
 
     end
 

@@ -31,15 +31,21 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
 
     # => Auth
     # => Allows us to determine whether the page is authenticated or not
-    pass if Auth::routes.has_key?(request.path_info.tr('/', '')) # => auth routes
+    pass if [settings.auth_login, settings.auth_logout, settings.auth_register, settings.auth_unauth].include?(request.path_info.tr('/', '')) # => auth routes
 
     # => Vars
     # => Required for certain views
+    @path    = params[:id] || :index
     @columns = Return.attribute_names - %w(id user_id updated_at)
 
-    # => Action
-    # => Needs to be updated for the pages
-    haml (params[:id] || :index).to_sym
+    # => HAML
+    # => Needs to provide barebones framework into-which we can place liquid
+  haml @path.to_sym
+
+    # => Hook
+    # => This allows us to manage the underlying user-level code that may be present in the above HAML
+    # => For example, maybe we include a "sections" part in the above. The user can add a section with liquid code, which will then be rendered by the HAML and parsed by Liquid
+    #perform_hook :render, @html
 
   end
 

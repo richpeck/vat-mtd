@@ -33,7 +33,13 @@
 ////////////////////////////////////////////////////////////
 
 // Vars
-$main_bg: #15112b
+// Default vars used for base functionality (user can add their own on top of this with separate vars.sass file)
+\:root
+  --main-bg: #000
+  --main-color: #fff
+
+  --main-a-color: #fff
+  --main-a-hover: #fff
 
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
@@ -49,16 +55,15 @@ body
 body
 
   // Styling
-  color: rgba(255,255,255,1)
+  color: var(--main-color)
   position: relative
   background:
-    color: rgba($main_bg,1)
-    image: linear-gradient(0deg, rgba(#0B071D,45) 0%, rgba(#0B071D,0) 48%)
+    color: var(--main-bg)
   a
     display: inline-block
-    color: #fff
+    color: var(--main-a-color)
     &:hover
-      color: rgba(255,255,255,1)
+      color: var(--main-a-hover)
       text:
         decoration: none
   hr

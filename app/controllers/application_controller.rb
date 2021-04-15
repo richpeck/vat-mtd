@@ -45,7 +45,7 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     # => Hook
     # => This allows us to manage the underlying user-level code that may be present in the above HAML
     # => For example, maybe we include a "sections" part in the above. The user can add a section with liquid code, which will then be rendered by the HAML and parsed by Liquid
-    return perform_hook :before_render, @html
+    perform_hook :pre_render, @html
 
   end
 
@@ -78,9 +78,6 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     current_user.refresh_token        = auth['credentials']['refresh_token']
     current_user.access_token_expires = Time.at(auth['credentials']['expires_at'])
     current_user.save
-
-    # => Options
-    # => Fill out the obligations of the company (the returns they have and have yet to fulfill)
 
     # => Action
     # => Redirect to homepage

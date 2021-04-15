@@ -134,6 +134,7 @@ class Environment < Sinatra::Base
     set :root, File.join(Dir.pwd, "app") # => had to change because we put into the app/controllers directory (if we put it in app directory we can just use default behaviour)
     set :views, File.join(root, 'views') # => required to get views working (defaulted to ./views)
     set :public_folder, File.join(root, "..", "public") # => Root dir fucks up (public_folder defaults to root) http://sinatrarb.com/configuration.html#root---the-applications-root-directory
+    set :domain, ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com') # => Allows us to define the domain in the app's settings
 
     # => Required for CSRF
     # => https://cheeyeo.uk/ruby/sinatra/padrino/2016/05/14/padrino-sinatra-rack-authentication-token/
@@ -159,6 +160,15 @@ class Environment < Sinatra::Base
     set :assets_js_compressor,  :terser
     set :assets_precompile, %w[app.coffee app.sass *.png *.jpg *.gif *.svg] # *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2
     set :precompiled_environments, %i(staging production) # => Only precompile in staging & production
+
+    # => SMTP Settings
+    # => Allows us to define the various parts of the system - we use SendGrid as a default
+    set :smtp_host,           ENV.fetch('SMTP_HOST', 'smtp.sendgrid.net')
+    set :smtp_port,           ENV.fetch('SMTP_PORT', '587')
+    set :smtp_user,           ENV.fetch('SMTP_USER', 'apikey')
+    set :smtp_password,       ENV.fetch('SMTP_PASS', nil)
+    set :smtp_authentication, ENV.fetch('SMTP_AUTH', :plain)
+    set :smtp_starttls,       ENV.fetch('SMTP_STARTTLS', true)
 
     # => Register
     # => Needs to be below definitions
@@ -199,13 +209,13 @@ class Environment < Sinatra::Base
       Pony.options = {
         via: :smtp,
         via_options: {
-          address:  'smtp.sendgrid.net',
-          port:     '587',
-          domain:    ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com'),
-          user_name: 'apikey',
-          password:  ENV.fetch('SENDGRID', nil),
-          authentication: :plain,
-          enable_starttls_auto: true
+          address:              settings.smtp_host,
+          port:                 settings.smtp_port,
+          domain:               settings.domain,
+          user_name:            settings.smtp_user,
+          password:             settings.smtp_password,
+          authentication:       settings.smtp_authentication,
+          enable_starttls_auto: settings.smtp_starttls
         }
       } #pony
 
@@ -216,19 +226,10 @@ class Environment < Sinatra::Base
 
     ## CORS ##
     ## Only allow requests from domain ##
-    set :allow_origin,   URI::HTTPS.build(host: ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com')).to_s
+    set :allow_origin,   URI::HTTPS.build(host: settings.domain).to_s
     set :allow_methods,  "GET,POST,PUT,DELETE"
     set :allow_headers,  "accept,content-type,if-modified-since"
     set :expose_headers, "location,link"
-
-  ##############################################################
-  ##############################################################
-
-    ## APP ##
-    ## Allows us to set specifics for ENTIRE app
-    before do
-      register_hook :pre_render, 'test', Proc.new { puts "test2" }, 2
-    end
 
   ##############################################################
   ##############################################################

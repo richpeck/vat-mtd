@@ -16,7 +16,7 @@
 # => Returns
 # => Used to pull obligations, returns and liabilities from the HMRC endpoints
 # => https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api
-class ReturnsController < ApplicationController
+class ReturnsController < ::ApplicationController
 
   # => HMRC has 5 different endpoints (obligations, returns, payments, liabilities and return/{{ period }})
   # => We use this controller to populate our "returns" and also provide a means to create/store new ones

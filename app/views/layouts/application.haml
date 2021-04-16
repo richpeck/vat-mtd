@@ -1,14 +1,18 @@
 !!!
-%html{lang: "en"}
+%html{lang: "en-GB"}
   %head
 
-    - # General
-    %title {{ app.name | default: 'VAT MTD' }}
+    {% comment %} General {% endcomment %}
+    {% meta title: "Test" %}
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %link{rel: "icon", type: "image/png", href: "favicon.ico"}
 
     {% comment %} Meta Tags {% endcomment %}
-    {% meta 5 %}
+    {% comment %} Outlines exactly what should be present on the page {% endcomment %}
+    {% meta %}
+
+    != stylesheet_tag 'app'
+    != javascript_tag 'app'
 
   %body{ class: request.path.delete('\/') }
     %header

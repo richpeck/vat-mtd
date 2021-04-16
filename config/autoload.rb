@@ -46,8 +46,9 @@ require_relative '../lib/execjs/external_runtime' if Gem.win_platform?
 # => Eager Loading
 # => This is required to mitigate a number of conflicts/errors due to the eager loading at the end of the file
 # => I had to include eager loading because of the way in which Liquid needed to load tags globally (which was not happening without the eager load)
-loader.ignore("#{__dir__}/../lib/execjs")
-loader.ignore("#{__dir__}/../config/deploy")
+%w(../lib/execjs ../config/deploy).each do |path|
+  loader.ignore("#{__dir__}/#{path}")
+end
 
 ##################################################
 ##################################################
@@ -87,25 +88,27 @@ class Autoload < Sinatra::Base
 
     # => HTMLCompressor
     # => Used to minify HTML output (removes bloat and other nonsense)
-    use HtmlCompressor::Rack,
-      compress_css: false,        # => already done by webpack
-      compress_javascript: false, # => already done by webpack
-      enabled: true,
-      preserve_line_breaks: false,
-      remove_comments: true,
-      remove_form_attributes: false,
-      remove_http_protocol: false,
-      remove_https_protocol: false,
-      remove_input_attributes: true,
-      remove_intertag_spaces: true,
-      remove_javascript_protocol: true,
-      remove_link_attributes: true,
-      remove_multi_spaces: true,
-      remove_quotes: true,
-      remove_script_attributes: true,
-      remove_style_attributes: true,
-      simple_boolean_attributes: true,
-      simple_doctype: false
+    unless settings.development?
+      use HtmlCompressor::Rack,
+        compress_css: false,        # => already done by webpack
+        compress_javascript: false, # => already done by webpack
+        enabled: true,
+        preserve_line_breaks: false,
+        remove_comments: true,
+        remove_form_attributes: false,
+        remove_http_protocol: false,
+        remove_https_protocol: false,
+        remove_input_attributes: true,
+        remove_intertag_spaces: true,
+        remove_javascript_protocol: true,
+        remove_link_attributes: true,
+        remove_multi_spaces: true,
+        remove_quotes: true,
+        remove_script_attributes: true,
+        remove_style_attributes: true,
+        simple_boolean_attributes: true,
+        simple_doctype: false
+    end
 
     # => Helpers
     # => Allows us to manage the system at its core

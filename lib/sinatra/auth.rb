@@ -215,7 +215,7 @@ module Sinatra
         # => Standard login form (no need to set anything except the HTML elements)
         # => Need to ensure users are redirected to index if they are logged in
         app.get "/#{app.auth_login}" do # => https://github.com/jondot/padrino-warden/blob/master/lib/padrino/warden/controller.rb#L22
-          haml :'auth/login'
+          render_hook :pre_render, haml(:'auth/login')
         end
 
         # => Login (POST)
@@ -246,7 +246,7 @@ module Sinatra
         # => Allows us to accept users into the application
         app.get "/#{app.auth_register}" do
           @user = User.new
-          haml :'auth/register'
+          render_hook :pre_render, haml(:'auth/register')
         end
 
         # => Register (POST)
@@ -258,7 +258,7 @@ module Sinatra
             warden.set_user(@user)
             redirect "/", notice: I18n.t('auth.login.success')
           else
-            haml :'auth/register'
+            render_hook :pre_render, haml(:'auth/register')
           end
         end
 

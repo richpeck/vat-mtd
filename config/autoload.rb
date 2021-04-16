@@ -25,7 +25,7 @@ Bundler.require :default, ENV.fetch("RACK_ENV", "development") if defined?(Bundl
 ## This should really have bundler stuff ##
 ## https://www.oreilly.com/library/view/sinatra-up-and/9781449306847/ch04.html ##
 loader = Zeitwerk::Loader.new
-%w(app/controllers app/models app/helpers app/drops lib config).each do |d|
+%w(app/controllers app/models app/helpers app/drops app/tags lib config).each do |d|
   loader.push_dir(d)
 end
 loader.enable_reloading # you need to opt-in before setup
@@ -43,10 +43,19 @@ require_relative '../lib/execjs/external_runtime' if Gem.win_platform?
 ##################################################
 ##################################################
 
+# => Eager Loading
+# => This is required to mitigate a number of conflicts/errors due to the eager loading at the end of the file
+# => I had to include eager loading because of the way in which Liquid needed to load tags globally (which was not happening without the eager load)
+loader.ignore("#{__dir__}/../lib/execjs")
+loader.ignore("#{__dir__}/../config/deploy")
+
+##################################################
+##################################################
+
 # => Base
 # => This is used to give us a general set of config options
 # => No, it's not the simplest way to do it, but it works
-class Environment < Sinatra::Base
+class Autoload < Sinatra::Base
 
     # => Register
     # => This allows us to call the various extensions for the system
@@ -250,3 +259,13 @@ class Environment < Sinatra::Base
   ##############################################################
 
 end
+
+##########################################################
+##########################################################
+
+# => Eagerload
+# => This is used to laod the files that are required to run the app (I had to do this so the Liquid::Template could be registered)
+loader.eager_load # => required to get the Liquid Tags to register globally (otherwise would have to do it manually for each one)
+
+##########################################################
+##########################################################

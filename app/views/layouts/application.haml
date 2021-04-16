@@ -3,12 +3,12 @@
   %head
 
     - # General
-    %title {{ app.name | default: 'VAT MTD Test' }}
+    %title {{ app.name | default: 'VAT MTD' }}
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %link{rel: "icon", type: "image/png", href: "favicon.ico"}
 
     {% comment %} Meta Tags {% endcomment %}
-    {{ meta }}
+    {% meta 5 %}
 
   %body{ class: request.path.delete('\/') }
     %header

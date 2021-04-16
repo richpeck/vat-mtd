@@ -53,12 +53,24 @@ module Sinatra
         # => Registers a new hook element, allowing us to add different functions to the global $hooks var
         def register_hook action, name, method, priority
 
+          # => Info
+          # => Register Hook allows us to define which funtions should fire for a specific hook
+          # => For example, if you want to manage the "pre_render" action --> you would use register_hook :pre_render ...
+          # => -
+          # => There are two types of hook - action + filter
+          # => These work together to provide us with the ability to output the correct code to the frontend
+
           # => Var
           # => Takes the $hooks global var and populates it with the passed function
           settings.hooks[action.to_s] ||= []
           settings.hooks[action.to_s] << Sinatra::Hooks::Hook.new(action, name, method, priority)
 
+          # => These populate the "hooks" global Sinatra setting
+          # => By providing a list of instantiated hooks, it allows us to call these at an appropriate time, giving rise to the way in which the hooks work
+
         end #register_hook
+        alias :register_action :register_hook
+        alias :register_filter :register_hook
 
       ########################
       ########################
@@ -67,26 +79,41 @@ module Sinatra
         # => This fires an action (and subsequent hooks) present in our code
         def perform_hook action, html
 
-          # => Vars
-          # => Loads the various vars required to make it work
-          @liquid = { 'app' => AppDrop.new }
+          # => Info
+          # => Perform Hook creates an instance of an "action" inside the system. This can be anything and called at any time
+          # => -
+          # => It works similarly to the "do_action" hook inside Wordpress --> this takes any of the registered actions and runs through them
+          # => -
+          # => The key with this is that there is a difference between "actions" and "filters" (almost exactly as WP has them): -
+          # => - Actions are functions fired once without bearing on the output of the system
+          # => - Filters are designed to elicit some sort of response and can be stacked recursively
 
-          # => Actions
+          # => Filter/Action
+          # => This is designed to figure out whether it's a filter or action being declared
+          method_name = __callee__
+
+          # => Fire Hook
           # => These fire for whichever the user has defined
           case action.to_sym
-          when :pre_render
-            output = Liquid::Template.parse(html).render(@liquid)
+            when :pre_render
+              output = Liquid::Template.parse(html).render({ 'app' => AppDrop.new })
           end
 
           # => Fire other hooks
           # => This allows us to iterate over the various hooks that exist
-          settings.hooks[action.to_s].sort_by(&:priority).each { |hook| puts hook.priority; output = hook.function.call(output) } if settings.hooks[action.to_s]
+          if settings.hooks[action.to_s]
+            settings.hooks[action.to_s].sort_by(&:priority).each do |hook|
+              (method_name.include?('filter')) ? output = hook.function.call(output) : hook.function.call(output)
+            end
+          end
 
           # => Return
           # => This returns outputted data to the main script
           return output
 
         end #perform_hook
+        alias :perform_action :perform_hook
+        alias :perform_filter :perform_hook
 
       ########################
       ########################

@@ -1,7 +1,32 @@
+####################################################
+####################################################
+##      ___                ____                   ##
+##     /   |  ____  ____  / __ \_________  ____   ##
+##    / /| | / __ \/ __ \/ / / / ___/ __ \/ __ \  ##
+##   / ___ |/ /_/ / /_/ / /_/ / /  / /_/ / /_/ /  ##
+##  /_/  |_/ .___/ .___/_____/_/   \____/ .___/   ##
+##        /_/   /_/                    /_/        ##
+##                                                ##
+####################################################
+####################################################
+## Used to populate several parts of the application, such as title ##
+## Pulls from the database, meaning an admin is able to change its values if necessary ##
+
+# => AppDrop
+# => Called by {{ app.title }} in the views
 class AppDrop < Liquid::Drop
 
-  def name
-    "Test"
+  # => Constructor
+  # => Builds the class and populates the values
+  def before_method
+    @app = Setting.where(name: 'app')
+  end
+
+  # => Title
+  # => The title of the application
+  # => This is used in the <title> part of the app
+  def title
+    @app.title || "Vat MTD"
   end
 
   def description

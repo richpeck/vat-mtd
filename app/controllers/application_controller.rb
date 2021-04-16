@@ -15,7 +15,7 @@
 
 # => Dashboard
 # => Referenced in ./config.ru
-class ApplicationController < Environment # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
+class ApplicationController < ::Autoload # => /config/settings.rb (wanted to include everything in Sinatra::Base, but looks like I have to subclass it for now)
 
   # => Helpers
   # => Allows us to call helpers as required
@@ -38,14 +38,10 @@ class ApplicationController < Environment # => /config/settings.rb (wanted to in
     @path    = params[:id] || :index
     @columns = Return.attribute_names - %w(id user_id updated_at)
 
-    # => HAML
-    # => Needs to provide barebones framework into-which we can place liquid
-    @html = haml @path.to_sym
-
     # => Hook
     # => This allows us to manage the underlying user-level code that may be present in the above HAML
     # => For example, maybe we include a "sections" part in the above. The user can add a section with liquid code, which will then be rendered by the HAML and parsed by Liquid
-    perform_hook :pre_render, @html
+    perform_action :pre_render, haml(@path.to_sym)
 
   end ## get
 

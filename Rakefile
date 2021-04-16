@@ -17,7 +17,7 @@
 
 # => Load
 # => This should have bundler load etc, but because we need to use the Rakefile, we need to load them with the other files ##
-require_relative 'config/environment'
+require_relative 'config/autoload'
 
 ##########################################################
 ##########################################################
@@ -40,7 +40,7 @@ import 'lib/tasks/files.rake' # => files.rake (allows us to add/remove favicon o
 
 # => Asset Pipeline
 # => This allows us to integrate the Rails Assets Pipeline into Sinatra
-Sinatra::AssetPipeline::Task.define! Environment
+Sinatra::AssetPipeline::Task.define! Autoload
 
 ##########################################################
 ##########################################################

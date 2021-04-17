@@ -1,18 +1,17 @@
 ############################################################
 ############################################################
-##          _____      __  __  _                          ##
-##         / ___/___  / /_/ /_(_)___  ____ ______         ##
-##         \__ \/ _ \/ __/ __/ / __ \/ __ `/ ___/         ##
-##        ___/ /  __/ /_/ /_/ / / / / /_/ (__  )          ##
-##       /____/\___/\__/\__/_/_/ /_/\__, /____/           ##
-##                                 /____/                 ##
+##               _   __          __                       ##
+##              / | / /___  ____/ /__  _____              ##
+##             /  |/ / __ \/ __  / _ \/ ___/              ##
+##            / /|  / /_/ / /_/ /  __(__  )               ##
+##           /_/ |_/\____/\__,_/\___/____/                ##
 ##                                                        ##
 ############################################################
 ############################################################
 
-## Setting ##
+## Nodes  ##
 ## id | user_id | name | value | created_at | updated_at ##
-class CreateSettings < ActiveRecord::Migration::Base # => lib/active_record/migration/base.rb
+class CreateNodes < ActiveRecord::Migration::Base # => lib/active_record/migration/base.rb
 
   ## Password ##
   ## Storing passwords requires encryption. Obviously, how this is done is dependent on the technology stack ##
@@ -21,10 +20,12 @@ class CreateSettings < ActiveRecord::Migration::Base # => lib/active_record/migr
 
   def up
     create_table table do |t|
-      t.belongs_to :user, foreign_key: true                                      # => User
-      t.string  :name                                                            # => Name
-      t.string  :value                                                           # => Value
-      t.timestamps                                                               # => created_at, updated_at
+      t.belongs_to  :user, foreign_key: true                          # => User
+      t.string      :type                                             # => Type (Single Table Inheritance)
+      t.string      :name                                             # => Name
+      t.text        :value                                            # => Value
+      t.datetime    :created_at, default: -> { "CURRENT_TIMESTAMP" }  # => Created At (required to provide default)
+      t.datetime    :updated_at, default: -> { "CURRENT_TIMESTAMP" }  # => Updated At (required to provide default)
 
       t.index [:name, :user_id], unique: true, name: 'name_user_unique' # => one email per user
     end

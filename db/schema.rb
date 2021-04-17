@@ -12,6 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2) do
 
+  create_table "nodes", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "type"
+    t.string "name"
+    t.text "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["name", "user_id"], name: "name_user_unique", unique: true
+    t.index ["user_id"], name: "index_nodes_on_user_id"
+  end
+
   create_table "returns", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "periodKey", null: false
@@ -36,16 +47,6 @@ ActiveRecord::Schema.define(version: 2) do
     t.index ["user_id"], name: "index_returns_on_user_id"
   end
 
-  create_table "settings", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "name"
-    t.string "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index "\"name\", \"user\"", name: "name_user_unique", unique: true
-    t.index ["user_id"], name: "index_settings_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -60,5 +61,5 @@ ActiveRecord::Schema.define(version: 2) do
     t.index ["email"], name: "email_unique", unique: true
   end
 
-  add_foreign_key "settings", "users"
+  add_foreign_key "nodes", "users"
 end

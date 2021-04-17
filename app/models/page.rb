@@ -9,22 +9,15 @@
 ##                                                        ##
 ############################################################
 ############################################################
-## Gives us the ability to manage "settings" for user objects
-## EG @user.settings.css_styles
+## Gives us the ability to cretae and store "pages" for the app
+## Each "page" allows us to store text/information in "liquid" format
 ##############################################################
 ##############################################################
 
-# => Default (Attributes)
-# => Reference for how to create "default" attributes in Rails 5+
-# => https://stackoverflow.com/a/43484863/1143732
-
-##############################################################
-##############################################################
-
-## Setting ##
+## Page ##
 ## Because we want to keep the app simple, this stores all the required information (no profile model) ##
 ## id | user_id | name | value | created_at | updated_at ##
-class Setting < ::Node
+class Page < ::Node
 end
 
 ############################################

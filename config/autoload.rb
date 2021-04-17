@@ -232,6 +232,10 @@ class Autoload < Sinatra::Base
         }
       } #pony
 
+      # => Liquid
+      # => Allows us to define the Liquid templating system and other things here
+      Liquid::Template.file_system = Liquid::LocalFileSystem.new File.join(views, 'partials')
+
     end #configure
 
   ##########################################################

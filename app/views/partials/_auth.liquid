@@ -1,0 +1,14 @@
+<auth>
+  {% if user %}
+
+    <a href="/auth/hmrc_vat" class="btn" data-method="post" rel="nofollow">💾 Grant HMRC Access</a>
+    <a href="/settings" title="Settings" class="btn">⚙️ support@pcfixes.com</a>
+    <a href="/logout" data-confirm="Really?" class="btn" data-method="delete" rel="nofollow">❌ Log Out</a>
+
+  {% else %}
+
+    {{ "🔒 Login" | link_to: "/login", "Login" | replace: '<a', '<a class="btn"' }}
+    {{ "✔️ Register" | link_to: "/register", "Register" | replace: '<a', '<a class="btn"' }}
+
+  {% endif %}
+</auth>

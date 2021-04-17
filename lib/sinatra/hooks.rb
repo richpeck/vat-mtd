@@ -96,7 +96,7 @@ module Sinatra
           # => These fire for whichever the user has defined
           case action.to_sym
             when :pre_render
-              output = Liquid::Template.parse(html).render({ 'app' => AppDrop.new })
+              output = Liquid::Template.parse(html).render({ 'app' => AppDrop.new, 'user' => (UserDrop.new(current_user) if current_user) }) # => https://stackoverflow.com/a/7331374/1143732
           end
 
           # => Fire other hooks

@@ -17,37 +17,54 @@
 ## {% meta %} ##
 class MetaTag < Liquid::Tag
 
+  # => Initialize
+  # => Allows us to define the various variables for use in the class
   def initialize(tag_name, params, tokens)
      super
      @tag_name = tag_name
-     @params   = params
+     @params   = params.split(":").map(&:strip)
   end
 
+  # => Render
+  # => This renders the outputted code to the viewport
   def render(context)
-    case @params
-      when :js, :javascript, :javascripts, :script, :scripts
-        javascript_pack_tag	*args.compact #-> splat operator http://stackoverflow.com/questions/13795627/ruby-send-method-passing-multiple-parameters
-      when :css, :stylesheet, :stylesheets
-        stylesheet_pack_tag	*args.compact #-> splat operator http://stackoverflow.com/questions/13795627/ruby-send-method-passing-multiple-parameters
-      when :title
-        Haml::Engine.new("%title #{args.join(' ')}").render
-      when :favicon
-        favicon_link_tag "favicon.ico"
-      when :csrf
-        csrf_meta_tags
-      else
-        Haml::Engine.new("%meta{ name: \"#{type}\", content: \"#{args.join(', ')}\" }").render #-> http://stackoverflow.com/questions/9143761/meta-descritpion-in-haml-with-outside-variable
-    end
-    return @tag_name
+    self.send(@params.first.to_sym, context)
   end
 
   private
 
-  def description
+  # => Title
+  # => HTML <title> tag used in HTML page markup
+  def title(context)
+    "<title>#{@params.last}</title>"
+  end
+
+  # => Description
+  # => Provides us with the ability to create a meta "description" tag
+  def description(context)
 
   end
 
+  # => Javascript
+  def javascript(context)
+    Sinatra::Sprockets::Helpers.stylesheet_tag 'app' #-> splat operator http://stackoverflow.com/questions/13795627/ruby-send-method-passing-multiple-parameters
+  end
+
 end
+
+
+#case @params.first.to_sym
+#when :js, :javascript, :javascripts, :script, :scripts, :javascript_tag
+#    javascript_include_tag	@params.last.split(",").compact #-> splat operator http://stackoverflow.com/questions/13795627/ruby-send-method-passing-multiple-parameters
+#  when :css, :stylesheet, :stylesheet, :stylesheet_tag
+#    stylesheet_link_tag	@params.last.split(",").compact #-> splat operator http://stackoverflow.com/questions/13795627/ruby-send-method-passing-multiple-parameters
+#  when :favicon
+#    favicon_link_tag "favicon.ico"
+#  when :csrf
+#    csrf_meta_tags
+#  else
+#    Haml::Engine.new("%meta{ name: \"#{type}\", content: \"#{args.join(', ')}\" }").render #-> http://stackoverflow.com/questions/9143761/meta-descritpion-in-haml-with-outside-variable
+#end
 
 ####################################################
 ####################################################

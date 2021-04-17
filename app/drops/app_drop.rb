@@ -18,7 +18,7 @@ class AppDrop < Liquid::Drop
 
   # => Constructor
   # => Builds the class and populates the values
-  def before_method
+  def initialize
     @app = Setting.where(name: 'app')
   end
 

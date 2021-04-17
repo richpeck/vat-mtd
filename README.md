@@ -11,7 +11,7 @@
 
 Ruby implementation of [HMRC's VAT (MTD) API](https://developer.service.hmrc.gov.uk/api-documentation/docs/api/service/vat-api/1.0).
 
-Inspired by [100pcVATFreeBridge](http://www.comsci.co.uk/100PcVatFreeBridge.html), we wanted to explore the technology required to facilitate such a solution.
+Inspired by [100pcVATFreeBridge](http://www.comsci.co.uk/100PcVatFreeBridge.html), wanted to explore the technology required to facilitate such a solution.
 
 ---
 

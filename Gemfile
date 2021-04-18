@@ -76,7 +76,6 @@ gem 'rack-attack', '~> 6.3', '>= 6.3.1', require: 'rack/attack' # => Rack::Attac
 # => This is used for specific functionality inside the system
 gem 'omniauth', '~> 1.9', '>= 1.9.1' # => OmniAuth (required to connect with oAuth providers)
 gem 'omniauth-oauth2', '~> 1.7'      # => OmniAuth (oAuth2) generic oAuth2 strategy for Omniauth
-gem 'liquid', '~> 5.0', '>= 5.0.1'   # => Liquid (allows us to manage the underlying meta-language of the system)
 
 # => Asset Management
 gem 'terser', '~> 1.1', '>= 1.1.1'  # => Terser - Javascript minification (required to get minification working)
@@ -102,7 +101,7 @@ gem 'activerecord', '~> 6.1.1'                  # => Allows us to use AR 6.0.0.r
 ####################
 
 # => General
-gem 'haml', '~> 5.2', '>= 5.2.1'      # => HAML
+gem 'liquid',   '~> 5.0', '>= 5.0.1'  # => Liquid (allows us to manage the underlying meta-language of the system)
 gem 'titleize', '~> 1.4', '>= 1.4.1'  # => Titleize (for order line items)
 gem 'humanize', '~> 2.5', '>= 2.5.1'  # => Humanize (allows us to translate numbers to words)
 

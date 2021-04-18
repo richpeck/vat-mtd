@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+
+    {% comment %} General {% endcomment %}
+    {% meta title: Test %}
+
+    {% comment %} Meta Tags {% endcomment %}
+    {% comment %} Outlines exactly what should be present on the page {% endcomment %}
+
+    != stylesheet_tag 'app'
+    != javascript_tag 'app'
+
+  </head>
+
+  <body class="">
+    <header>
+      {% include 'auth' %}
+      <h1>{{ "VAT MTD" | link_to: "/" }}</h1>
+    </header>
+    <main>
+      {% if flash %}{% include 'flash' %}{% endif %}
+      <div class="container">{{ content_for_layout }}</div>
+    </main>
+  </body>
+
+<html>

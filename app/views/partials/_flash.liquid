@@ -1,3 +1,5 @@
-%flash
-  - flash.keys.each do |k|
-    = content_tag :div, flash[k], class: k
+<flash>
+  {% for message in flash %}
+    <div class="">{{ message }}</div>
+  {% endfor %}
+</flash>

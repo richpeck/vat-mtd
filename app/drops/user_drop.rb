@@ -35,6 +35,18 @@ class UserDrop < Liquid::Drop
     @user["vrn"]
   end
 
+  # => Authenticated
+  # => {{ user.authenticated? }}
+  def authenticated?
+    @user["authenticated?"]
+  end
+
+  # => Returns
+  # => {{ user.returns }}
+  def returns
+    @user["returns"]
+  end
+
 end
 
 ###################################################

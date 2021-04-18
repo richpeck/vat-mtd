@@ -96,14 +96,14 @@ module Sinatra
           # => These fire for whichever the user has defined
           case action.to_sym
             when :pre_render
-              output = Liquid::Template.parse(html).render({ 'app' => AppDrop.new, 'user' => (UserDrop.new(current_user) if current_user) }) # => https://stackoverflow.com/a/7331374/1143732
+              output = liquid html, layout: :'layouts/application', locals: { 'app' => AppDrop.new, 'user' => (UserDrop.new(current_user) if current_user), 'flash' => (FlashDrop.new(flash) if flash.keys.any?), 'content_for_layout' => (liquid(html) if html) }
           end
 
           # => Fire other hooks
           # => This allows us to iterate over the various hooks that exist
           if settings.hooks[action.to_s]
             settings.hooks[action.to_s].sort_by(&:priority).each do |hook|
-              (method_name.include?('filter')) ? output = hook.function.call(output) : hook.function.call(output)
+              (method_name.to_s.include?('filter')) ? output = hook.function.call(output) : hook.function.call(output)
             end
           end
 

@@ -29,12 +29,6 @@ class Node < ActiveRecord::Base
   # => Ensures we are able to keep records stored globally
   belongs_to :user, optional: true
 
-  # => Validations
-  # => Ensure the various elements are stored
-  validates :name, :value, length: { minimum: 2,       message: "2 characters minimum" }
-  validates :name, exclusion:    { in: %w(meta role),  message: "%{value} is reserved" }  # => http://stackoverflow.com/a/17668634/1143732
-  validates :name, uniqueness:   { scope: :ref,        message: "%{value} cannot be duplicate" }
-
 end
 
 ############################################

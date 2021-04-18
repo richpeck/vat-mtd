@@ -1,0 +1,37 @@
+# => General
+# => Allows us to determine various specifications inside the app
+root:           <%= root   = File.join(Dir.pwd, '..', 'app') %>                     # => had to change because we put into the app/controllers directory (if we put it in app directory we can just use default behaviour)
+views:          <%= views  = File.join(root, 'views') %>                      # => required to get views working (defaulted to ./views)
+public_folder:  <%= public = File.join(root, "..", "public") %>               # => Root dir fucks up (public_folder defaults to root) http://sinatrarb.com/configuration.html#root---the-applications-root-directory
+domain:         <%= domain = ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com') %>  # => Allows us to define the domain in the app's settings
+
+# => CSRF
+# => https://cheeyeo.uk/ruby/sinatra/padrino/2016/05/14/padrino-sinatra-rack-authentication-token/
+protect_from_csrf: true
+
+# => CORS
+# => Only allow requests from domain
+allow_origin:   <%= URI::HTTPS.build(host: domain).to_s %>
+allow_methods:  "GET,POST,PUT,DELETE"
+allow_headers:  "accept,content-type,if-modified-since"
+expose_headers: "location,link"
+
+# => SMTP
+# => Allows us to call the smtp information for the likes of Sendgrid etc
+smtp:
+  host:               <%= ENV.fetch('SMTP_HOST', 'smtp.sendgrid.net') %>
+  port:               <%= ENV.fetch('SMTP_PORT', '587') %>
+  user:               <%= ENV.fetch('SMTP_USER', 'apikey') %>
+  password:           <%= ENV.fetch('SMTP_PASS', nil) %>
+  authentication:     <%= ENV.fetch('SMTP_AUTH', :plain) %>
+  starttls:           <%= ENV.fetch('SMTP_STARTTLS', true) %>
+
+# => Asset Pipeline
+# => Allows us to precompile assets as you would in Rails
+# => https://github.com/kalasjocke/sinatra-asset-pipeline#customization
+assets_prefix:            <%= assets_prefix = '/dist' %>                          # => Needed to access assets in frontend
+assets_public_path:       <%= File.join(public, assets_prefix.strip) %>           # => Needed to tell Sprockets where to put assets
+assets_css_compressor:    <%= :sass %>
+assets_js_compressor:     <%= :terser %>
+assets_precompile:        <%= %w[app.coffee app.sass *.png *.jpg *.gif *.svg] %>  # => *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2
+precompiled_environments: <%= %w[staging production] %>                           # => Only precompile in staging & production

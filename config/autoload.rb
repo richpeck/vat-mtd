@@ -195,18 +195,7 @@ class Autoload < Sinatra::Base
       # => Pony
       # => SMTP used to send email to account owner
       # => https://github.com/benprew/pony#default-options
-      Pony.options = {
-        via: :smtp,
-        via_options: {
-          address:              settings.smtp[:host],
-          port:                 settings.smtp[:port],
-          domain:               settings.domain,
-          user_name:            settings.smtp[:user],
-          password:             settings.smtp[:password],
-          authentication:       settings.smtp[:authentication],
-          enable_starttls_auto: settings.smtp[:starttls]
-        }
-      } #pony
+
 
       # => Liquid
       # => Allows us to define the Liquid templating system and other things here

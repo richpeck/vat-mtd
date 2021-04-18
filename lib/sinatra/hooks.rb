@@ -96,7 +96,7 @@ module Sinatra
           # => These fire for whichever the user has defined
           case action.to_sym
             when :pre_render
-              output = liquid html, layout: :'layouts/application', locals: { 'app' => AppDrop.new, 'user' => (UserDrop.new(current_user) if current_user), 'flash' => (FlashDrop.new(flash) if flash.keys.any?), 'content_for_layout' => (liquid(html) if html) }
+              output = liquid html, layout: :application, locals: { 'app' => AppDrop.new, 'user' => (UserDrop.new(current_user) if current_user), 'flash' => (FlashDrop.new(flash) if flash.keys.any?) }
           end
 
           # => Fire other hooks

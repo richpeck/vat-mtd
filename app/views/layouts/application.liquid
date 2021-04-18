@@ -20,7 +20,7 @@
     </header>
     <main>
       {% if flash %}{% include 'flash' %}{% endif %}
-      <div class="container">{{ content_for_layout }}</div>
+      <div class="container"><%= yield %></div>
     </main>
   </body>
 

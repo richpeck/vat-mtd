@@ -62,6 +62,7 @@ class Autoload < Sinatra::Base
     # => This allows us to call the various extensions for the system
     register Sinatra::Auth                  # => My own Warden implementation extracted into a Sinatra module (./lib/sinatra/auth.rb)
     register Sinatra::Cors                  # => Protects from unauthorized domain activity
+    register Sinatra::ConfigFile            # => Allows us to use a config file (YAML) instead of declaring all settings here
     register Sinatra::OmniAuth              # => This is my own implementation of several routes which are required for omniauth. SHOULD BE MOVED ELSEWHERE
     register Sinatra::Hooks                 # => lib/sinatra/hooks (allows us to use Wordpress-style hooks)
     register Padrino::Helpers               # => number_to_currency (https://github.com/padrino/padrino-framework/blob/master/padrino-helpers/lib/padrino-helpers.rb#L22)
@@ -142,16 +143,10 @@ class Autoload < Sinatra::Base
   ##########################################################
   ##########################################################
 
-    # => General
-    # => Allows us to determine various specifications inside the app
-    set :root, File.join(Dir.pwd, "app") # => had to change because we put into the app/controllers directory (if we put it in app directory we can just use default behaviour)
-    set :views, File.join(root, 'views') # => required to get views working (defaulted to ./views)
-    set :public_folder, File.join(root, "..", "public") # => Root dir fucks up (public_folder defaults to root) http://sinatrarb.com/configuration.html#root---the-applications-root-directory
-    set :domain, ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com') # => Allows us to define the domain in the app's settings
-
-    # => Required for CSRF
-    # => https://cheeyeo.uk/ruby/sinatra/padrino/2016/05/14/padrino-sinatra-rack-authentication-token/
-    set :protect_from_csrf, true
+    # => Config
+    # => Allows us to define config options and Sinatra will automatically populate them in the config of the app
+    # => http://sinatrarb.com/contrib/config_file#label-Sinatra%3A%3AConfigFile
+    config_file File.join(__dir__,"/settings.yml")
 
     # => Locales
     # => This had to be included to ensure we can use the various locales required by Auth + others
@@ -163,25 +158,6 @@ class Autoload < Sinatra::Base
     # => Terser
     # => Quicker/better than Uglifier and supports ES6 (RPECK 16/01/2021)
     Sprockets.register_compressor 'application/javascript', :terser, Terser::Compressor
-
-    # => Asset Pipeline
-    # => Allows us to precompile assets as you would in Rails
-    # => https://github.com/kalasjocke/sinatra-asset-pipeline#customization
-    set :assets_prefix, '/dist' # => Needed to access assets in frontend
-    set :assets_public_path, File.join(public_folder, assets_prefix.strip) # => Needed to tell Sprockets where to put assets
-    set :assets_css_compressor, :sass
-    set :assets_js_compressor,  :terser
-    set :assets_precompile, %w[app.coffee app.sass *.png *.jpg *.gif *.svg] # *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2
-    set :precompiled_environments, %i(staging production) # => Only precompile in staging & production
-
-    # => SMTP Settings
-    # => Allows us to define the various parts of the system - we use SendGrid as a default
-    set :smtp_host,           ENV.fetch('SMTP_HOST', 'smtp.sendgrid.net')
-    set :smtp_port,           ENV.fetch('SMTP_PORT', '587')
-    set :smtp_user,           ENV.fetch('SMTP_USER', 'apikey')
-    set :smtp_password,       ENV.fetch('SMTP_PASS', nil)
-    set :smtp_authentication, ENV.fetch('SMTP_AUTH', :plain)
-    set :smtp_starttls,       ENV.fetch('SMTP_STARTTLS', true)
 
     # => Register
     # => Needs to be below definitions
@@ -222,13 +198,13 @@ class Autoload < Sinatra::Base
       Pony.options = {
         via: :smtp,
         via_options: {
-          address:              settings.smtp_host,
-          port:                 settings.smtp_port,
+          address:              settings.smtp[:host],
+          port:                 settings.smtp[:port],
           domain:               settings.domain,
-          user_name:            settings.smtp_user,
-          password:             settings.smtp_password,
-          authentication:       settings.smtp_authentication,
-          enable_starttls_auto: settings.smtp_starttls
+          user_name:            settings.smtp[:user],
+          password:             settings.smtp[:password],
+          authentication:       settings.smtp[:authentication],
+          enable_starttls_auto: settings.smtp[:starttls]
         }
       } #pony
 
@@ -237,16 +213,6 @@ class Autoload < Sinatra::Base
       Liquid::Template.file_system = Liquid::LocalFileSystem.new File.join(views, 'partials')
 
     end #configure
-
-  ##########################################################
-  ##########################################################
-
-    ## CORS ##
-    ## Only allow requests from domain ##
-    set :allow_origin,   URI::HTTPS.build(host: settings.domain).to_s
-    set :allow_methods,  "GET,POST,PUT,DELETE"
-    set :allow_headers,  "accept,content-type,if-modified-since"
-    set :expose_headers, "location,link"
 
   ##############################################################
   ##############################################################

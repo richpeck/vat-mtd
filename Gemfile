@@ -19,7 +19,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # => Ruby
 # => https://github.com/cantino/huginn/blob/master/Gemfile#L4
-ruby RUBY_VERSION
+ruby ENV.fetch('RUBY_VERSION', RUBY_VERSION)
 
 ###########################################
 ###########################################

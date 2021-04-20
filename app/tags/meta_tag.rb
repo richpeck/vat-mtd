@@ -13,13 +13,13 @@
 ####################################################
 ####################################################
 
-require 'action_view/helpers'
+#require 'action_view/helpers'
 
 ## Meta ##
 ## {% meta %} ##
 class MetaTag < Liquid::Tag
 
-  include ::ActionView::Helpers::AssetTagHelper
+  #include ::ActionView::Helpers::AssetTagHelper
 
   # => Initialize
   # => Allows us to define the various variables for use in the class

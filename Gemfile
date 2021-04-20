@@ -19,7 +19,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # => Ruby
 # => https://github.com/cantino/huginn/blob/master/Gemfile#L4
-ruby '3.0.1'
+ruby ENV.fetch('RUBY_VERSION', RUBY_VERSION) # => This is dependent on your local Ruby version (Gemfile.lock), so has to remain consistent across environments - https://webcache.googleusercontent.com/search?q=cache:op1oNeJiAVgJ:https://help.heroku.com/Q5ZF0DUO/ruby-build-fails-with-your-ruby-version-is-x-but-your-gemfile-specified-y+&cd=7&hl=en&ct=clnk&gl=uk
 
 ###########################################
 ###########################################

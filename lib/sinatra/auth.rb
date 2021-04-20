@@ -104,10 +104,12 @@ module Sinatra
 
         # => Settings
         # => Allows us to override the settings if necessary
-        app.set :auth_login,    "login"
-        app.set :auth_logout,   "logout"
-        app.set :auth_register, "register"
-        app.set :auth_unauth,   "unauthenticated"
+        app.set :auth, {
+            login:    'login',
+            logout:   'logout',
+            register: 'register',
+            unauth:   'unauth'
+        }
 
       ###################################
       ###################################
@@ -146,7 +148,7 @@ module Sinatra
             # The action is a route to send the user to when
             # warden.authenticate! returns a false answer. We'll show
             # this route below.
-            action: app.auth_unauth
+            action: app.auth['unauth']
           # When a user tries to log in and cannot, this specifies the
           # app to send the user to.
           config.failure_app = app
@@ -204,7 +206,7 @@ module Sinatra
         # => Before
         # => Prevent auth pages showing when logged in
         # => https://stackoverflow.com/a/17912053/1143732
-        app.before %r{\/(#{app.settings.auth_login}|#{app.settings.auth_register}|#{app.settings.auth_unauth})} do
+        app.before %r{\/(#{app.settings.auth[:login]}|#{app.settings.auth[:register]}|#{app.settings.auth[:unauth]})} do
           redirect "/", notice: I18n.t('auth.login.persisted') if user_signed_in?
         end
 
@@ -214,29 +216,29 @@ module Sinatra
         # => Login (GET)
         # => Standard login form (no need to set anything except the HTML elements)
         # => Need to ensure users are redirected to index if they are logged in
-        app.get "/#{app.auth_login}" do # => https://github.com/jondot/padrino-warden/blob/master/lib/padrino/warden/controller.rb#L22
+        app.get "/#{app.auth[:login]}" do # => https://github.com/jondot/padrino-warden/blob/master/lib/padrino/warden/controller.rb#L22
           perform_hook :pre_render, haml(:'auth/login')
         end
 
         # => Login (POST)
         # => Where the login form submits to (allows us to process the request)
-        app.post "/#{app.auth_login}" do
+        app.post "/#{app.auth[:login]}" do
           authenticate!
           redirect (session[:return_to].nil? ? '/' : session[:return_to]), notice: I18n.t('auth.login.success')
         end
 
         # => Logout (GET)
         # => Request to log out of the system (allows us to perform session destroy)
-        app.delete "/#{app.auth_logout}" do
+        app.delete "/#{app.auth[:logout]}" do
           warden.logout
           redirect '/', error: I18n.t('auth.logout.success')
         end
 
         # => Unauthenticated (POST)
         # => Where to send the user if they are not authorized to view a page (IE they hit a page, and it redirects them to the unauthorized page)
-        app.post "/#{app.auth_unauth}" do
+        app.post "/#{app.auth[:unauth]}" do
           session[:return_to] ||= env['warden.options'][:attempted_path]
-          redirect "/#{app.auth_login}", error: env['warden.options'][:message] || I18n.t('auth.login.failure')
+          redirect "/#{app.auth[:login]}", error: env['warden.options'][:message] || I18n.t('auth.login.failure')
         end
 
         #############################################
@@ -244,14 +246,14 @@ module Sinatra
 
         # => Register
         # => Allows us to accept users into the application
-        app.get "/#{app.auth_register}" do
+        app.get "/#{app.auth[:register]}" do
           @user = User.new
           perform_hook :pre_render, haml(:'auth/register')
         end
 
         # => Register (POST)
         # => Create the user from the sent items
-        app.post "/#{app.auth_register}" do
+        app.post "/#{app.auth[:register]}" do
           required_params :user # => ensure we have the :user param set
           @user = User.new params.dig("user")
           if @user.save

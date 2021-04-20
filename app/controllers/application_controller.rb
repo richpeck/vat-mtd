@@ -31,7 +31,7 @@ class ApplicationController < ::Autoload # => /config/settings.rb (wanted to inc
 
     # => Auth
     # => Allows us to determine whether the page is authenticated or not
-    pass if [settings.auth_login, settings.auth_logout, settings.auth_register, settings.auth_unauth].include?(request.path_info.tr('/', '')) # => auth routes
+    pass if [settings.auth['login'], settings.auth['logout'], settings.auth['register'], settings.auth['unauth']].include?(request.path_info.tr('/', '')) # => auth routes
 
     # => Vars
     # => Required for certain views

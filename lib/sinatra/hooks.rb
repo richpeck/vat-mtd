@@ -79,15 +79,6 @@ module Sinatra
         # => This fires an action (and subsequent hooks) present in our code
         def perform_hook action, html
 
-          # => Info
-          # => Perform Hook creates an instance of an "action" inside the system. This can be anything and called at any time
-          # => -
-          # => It works similarly to the "do_action" hook inside Wordpress --> this takes any of the registered actions and runs through them
-          # => -
-          # => The key with this is that there is a difference between "actions" and "filters" (almost exactly as WP has them): -
-          # => - Actions are functions fired once without bearing on the output of the system
-          # => - Filters are designed to elicit some sort of response and can be stacked recursively
-
           # => Filter/Action
           # => This is designed to figure out whether it's a filter or action being declared
           method_name = __callee__
@@ -96,7 +87,7 @@ module Sinatra
           # => These fire for whichever the user has defined
           case action.to_sym
             when :pre_render
-              output = liquid html, layout: :application, locals: { 'app' => AppDrop.new, 'user' => (UserDrop.new(current_user) if current_user), 'flash' => (FlashDrop.new(flash) if flash.keys.any?) }
+              output = liquid html, layout: :application, locals: { app: AppDrop.new, user: (UserDrop.new(current_user) if current_user), flash: (FlashDrop.new(flash) if flash.keys.any?) }
           end
 
           # => Fire other hooks

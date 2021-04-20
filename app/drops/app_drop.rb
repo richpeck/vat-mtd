@@ -19,14 +19,14 @@ class AppDrop < Liquid::Drop
   # => Constructor
   # => Builds the class and populates the values
   def initialize
-    @app = Setting.where(name: 'app')
+    #@app = Setting.where(name: 'app')
   end
 
   # => Title
   # => The title of the application
   # => This is used in the <title> part of the app
   def title
-    @app.title || "Vat MTD"
+    "Vat MTD"
   end
 
   def description

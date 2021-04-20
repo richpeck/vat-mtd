@@ -1,3 +1,19 @@
+##################################################
+##################################################
+##      _____      __  __  _                    ##
+##     / ___/___  / /_/ /_(_)___  ____ ______   ##
+##     \__ \/ _ \/ __/ __/ / __ \/ __ `/ ___/   ##
+##    ___/ /  __/ /_/ /_/ / / / / /_/ (__  )    ##
+##   /____/\___/\__/\__/_/_/ /_/\__, /____/     ##
+##                             /____/           ##
+##                                              ##
+##################################################
+##################################################
+## Uses the ConfigFile Sinatra plugin to give us a single location to handle settings
+## This removes all the "set" declarations in the main Autoload file
+##################################################
+##################################################
+
 # => General
 # => Allows us to determine various specifications inside the app
 root:           <%= root   = File.join(Dir.pwd, '..', 'app') %>                     # => had to change because we put into the app/controllers directory (if we put it in app directory we can just use default behaviour)
@@ -35,3 +51,6 @@ assets_css_compressor:    <%= :sass %>
 assets_js_compressor:     <%= :terser %>
 assets_precompile:        <%= %w[app.coffee app.sass *.png *.jpg *.gif *.svg] %>  # => *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2
 precompiled_environments: <%= %w[staging production] %>                           # => Only precompile in staging & production
+
+##################################################
+##################################################

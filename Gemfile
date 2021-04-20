@@ -101,9 +101,10 @@ gem 'activerecord', '~> 6.1.1'                  # => Allows us to use AR 6.0.0.r
 ####################
 
 # => General
-gem 'liquid',   '~> 5.0', '>= 5.0.1'  # => Liquid (allows us to manage the underlying meta-language of the system)
-gem 'titleize', '~> 1.4', '>= 1.4.1'  # => Titleize (for order line items)
-gem 'humanize', '~> 2.5', '>= 2.5.1'  # => Humanize (allows us to translate numbers to words)
+gem 'liquid',   '~> 5.0', '>= 5.0.1'     # => Liquid (allows us to manage the underlying meta-language of the system)
+gem 'actionview', '~> 6.1', '>= 6.1.3.1' # => Used to provide helper functionality to Liquid (delegate the likes of link_to etc to actionview)
+gem 'titleize', '~> 1.4', '>= 1.4.1'     # => Titleize (for order line items)
+gem 'humanize', '~> 2.5', '>= 2.5.1'     # => Humanize (allows us to translate numbers to words)
 
 # => Assets
 # => Used to provide functionality to frontend (CSS/JS)

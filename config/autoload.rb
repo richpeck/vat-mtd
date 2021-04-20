@@ -25,7 +25,7 @@ Bundler.require :default, ENV.fetch("RACK_ENV", "development") if defined?(Bundl
 ## This should really have bundler stuff ##
 ## https://www.oreilly.com/library/view/sinatra-up-and/9781449306847/ch04.html ##
 loader = Zeitwerk::Loader.new
-%w(app/controllers app/models app/helpers app/drops app/tags lib config).each do |d|
+%w(app/controllers app/models app/helpers app/drops app/tags app/filters lib config).each do |d|
   loader.push_dir(d)
 end
 loader.enable_reloading # you need to opt-in before setup

@@ -13,14 +13,19 @@
 ####################################################
 ####################################################
 
+require 'action_view/helpers'
+
 ## Meta ##
 ## {% meta %} ##
 class MetaTag < Liquid::Tag
+
+  include ::ActionView::Helpers::AssetTagHelper
 
   # => Initialize
   # => Allows us to define the various variables for use in the class
   def initialize(tag_name, params, tokens)
      super
+     @a      = ::Autoload.new.helpers # => https://stackoverflow.com/a/18965066/1143732
      @tag_name = tag_name
      @params   = params.split(":").map(&:strip)
   end
@@ -28,7 +33,7 @@ class MetaTag < Liquid::Tag
   # => Render
   # => This renders the outputted code to the viewport
   def render(context)
-    self.send(@params.first.to_sym, context)
+    ::Autoload.new.helpers.send(@params.first.to_s, @params.last.to_s)
   end
 
   private
@@ -36,7 +41,7 @@ class MetaTag < Liquid::Tag
   # => Title
   # => HTML <title> tag used in HTML page markup
   def title(context)
-    "<title>#{@params.last}</title>"
+    "<title>{{ #{@params.last} }}</title>"
   end
 
   # => Description
@@ -46,9 +51,15 @@ class MetaTag < Liquid::Tag
   end
 
   # => Javascript
-  def javascript(context)
-    Sinatra::Sprockets::Helpers.stylesheet_tag 'app' #-> splat operator http://stackoverflow.com/questions/13795627/ruby-send-method-passing-multiple-parameters
-  end
+  #def javascript(context)
+  #  stylesheet_link_tag @params.last
+  #  #::Autoload.new.helpers.javascript_tag @params.last
+  #end
+
+  # => Stylesheet
+  #def stylesheet(context)
+  #  ::Autoload.new.helpers.stylesheet_tag @params.last
+  #end
 
 end
 

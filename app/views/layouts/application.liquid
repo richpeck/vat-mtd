@@ -3,13 +3,14 @@
   <head>
 
     {% comment %} General {% endcomment %}
-    {% meta title: Test %}
+    {% comment %} HTML that should be present on all pages {% endcomment %}
+    <title>{{ app.title }}</title>
 
     {% comment %} Meta Tags {% endcomment %}
     {% comment %} Outlines exactly what should be present on the page {% endcomment %}
 
-    != stylesheet_tag 'app'
-    != javascript_tag 'app'
+    {{ 'app' | javascript_tag }}
+    {{ 'app' | stylesheet_tag }}
 
   </head>
 

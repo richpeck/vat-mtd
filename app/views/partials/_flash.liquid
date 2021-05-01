@@ -1,5 +1,5 @@
 <flash>
   {% for message in flash %}
-    <div class="">{{ message }}</div>
+    {{ message | flash_tag: "notice" }}
   {% endfor %}
 </flash>

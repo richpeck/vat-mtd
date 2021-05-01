@@ -109,7 +109,7 @@ module Sinatra
             'logout'   => 'logout',
             'register' => 'register',
             'unauth'   => 'unauth'
-        }
+        }.with_indifferent_access
 
       ###################################
       ###################################
@@ -216,29 +216,29 @@ module Sinatra
         # => Login (GET)
         # => Standard login form (no need to set anything except the HTML elements)
         # => Need to ensure users are redirected to index if they are logged in
-        app.get "/#{app.auth[:login]}" do # => https://github.com/jondot/padrino-warden/blob/master/lib/padrino/warden/controller.rb#L22
-          perform_hook :pre_render, haml(:'auth/login')
+        app.get "/#{app.auth['login']}" do # => https://github.com/jondot/padrino-warden/blob/master/lib/padrino/warden/controller.rb#L22
+          perform_hook :pre_render, liquid('auth/login')
         end
 
         # => Login (POST)
         # => Where the login form submits to (allows us to process the request)
-        app.post "/#{app.auth[:login]}" do
+        app.post "/#{app.auth['login']}" do
           authenticate!
           redirect (session[:return_to].nil? ? '/' : session[:return_to]), notice: I18n.t('auth.login.success')
         end
 
         # => Logout (GET)
         # => Request to log out of the system (allows us to perform session destroy)
-        app.delete "/#{app.auth[:logout]}" do
+        app.delete "/#{app.auth['logout']}" do
           warden.logout
           redirect '/', error: I18n.t('auth.logout.success')
         end
 
         # => Unauthenticated (POST)
         # => Where to send the user if they are not authorized to view a page (IE they hit a page, and it redirects them to the unauthorized page)
-        app.post "/#{app.auth[:unauth]}" do
+        app.post "/#{app.auth['unauth']}" do
           session[:return_to] ||= env['warden.options'][:attempted_path]
-          redirect "/#{app.auth[:login]}", error: env['warden.options'][:message] || I18n.t('auth.login.failure')
+          redirect "/#{app.auth['login']}", error: env['warden.options'][:message] || I18n.t('auth.login.failure')
         end
 
         #############################################
@@ -246,21 +246,21 @@ module Sinatra
 
         # => Register
         # => Allows us to accept users into the application
-        app.get "/#{app.auth[:register]}" do
+        app.get "/#{app.auth['register']}" do
           @user = User.new
-          perform_hook :pre_render, haml(:'auth/register')
+          perform_hook :pre_render, liquid(:'auth/register')
         end
 
         # => Register (POST)
         # => Create the user from the sent items
-        app.post "/#{app.auth[:register]}" do
+        app.post "/#{app.auth['register']}" do
           required_params :user # => ensure we have the :user param set
           @user = User.new params.dig("user")
           if @user.save
             warden.set_user(@user)
             redirect "/", notice: I18n.t('auth.login.success')
           else
-            perform_hook :pre_render, haml(:'auth/register')
+            perform_hook :pre_render, liquid(:'auth/register.liquid')
           end
         end
 

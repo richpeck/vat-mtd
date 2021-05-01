@@ -17,7 +17,7 @@ module AssetFilter
   # => Methods
   # => Delegate as much as possible
   # => https://github.com/chamnap/liquid-rails/blob/master/lib/liquid-rails/filters/asset_tag_filter.rb
-  delegate :stylesheet_tag, :javascript_tag, :audio_path, :font_path, :image_path, :javascript_path, :stylesheet_path, :video_path, to: :__h__
+  delegate :stylesheet_tag, :javascript_tag, :link_to, :audio_path, :font_path, :image_path, :javascript_path, :stylesheet_path, :video_path, to: :__h__
 
   private
 

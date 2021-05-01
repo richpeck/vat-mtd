@@ -16,7 +16,7 @@
 
 # => General
 # => Allows us to determine various specifications inside the app
-root:           <%= root   = File.join(Dir.pwd, '..', 'app') %>                     # => had to change because we put into the app/controllers directory (if we put it in app directory we can just use default behaviour)
+root:           <%= root   = File.join(Dir.pwd, '..', 'app') %>               # => had to change because we put into the app/controllers directory (if we put it in app directory we can just use default behaviour)
 views:          <%= views  = File.join(root, 'views') %>                      # => required to get views working (defaulted to ./views)
 public_folder:  <%= public = File.join(root, "..", "public") %>               # => Root dir fucks up (public_folder defaults to root) http://sinatrarb.com/configuration.html#root---the-applications-root-directory
 domain:         <%= domain = ENV.fetch('DOMAIN', 'vat-mtd.herokuapp.com') %>  # => Allows us to define the domain in the app's settings

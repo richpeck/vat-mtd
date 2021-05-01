@@ -49,7 +49,7 @@ module Sinatra
       # => Authenticate a user against defined strategies
       # => https://github.com/wardencommunity/sinatra_warden/blob/master/lib/sinatra_warden/sinatra.rb#L25
       def authenticate(*args)
-        warden.authenticate!(*args)
+        warden.authenticate(*args)
       end #authenticate
       alias_method :login, :authenticate
       alias_method :authenticate!, :authenticate
@@ -105,10 +105,10 @@ module Sinatra
         # => Settings
         # => Allows us to override the settings if necessary
         app.set :auth, {
-            login:    'login',
-            logout:   'logout',
-            register: 'register',
-            unauth:   'unauth'
+            'login'    => 'login',
+            'logout'   => 'logout',
+            'register' => 'register',
+            'unauth'   => 'unauth'
         }
 
       ###################################

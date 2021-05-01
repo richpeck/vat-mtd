@@ -28,7 +28,7 @@ class ApplicationController < ::Autoload # => /config/settings.rb (wanted to inc
   # => General
   # => Pulls pages (some are static and need to be shown outside of the authentication system)
   get '/', '/:id' do
-
+  
     # => Auth
     # => Allows us to determine whether the page is authenticated or not
     pass if [settings.auth['login'], settings.auth['logout'], settings.auth['register'], settings.auth['unauth']].include?(request.path_info.tr('/', '')) # => auth routes

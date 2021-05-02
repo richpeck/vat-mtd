@@ -89,10 +89,9 @@ gem 'padrino-helpers', '~> 0.15.1'                          # => Used to delegat
 gem 'zeitwerk', '~> 2.4', '>= 2.4.2'                        # => Replaced require_all to give us the ability to autoload/require classes in a Rails-centric way
 gem 'roo', '~> 2.8', '>= 2.8.3'                             # => Used to read spreadsheet data
 
-# => ActiveX
+# => ActiveRecord
 # => Sinec we had multiple dependencies here, better to just add to our own category
 gem 'activerecord',  '~> 6.1', '>= 6.1.3.1' # => Allows us to use AR 6.0.0.rc1+ as opposed to 5.2.x (will need to keep up to date)
-gem 'activesupport', '~> 6.1', '>= 6.1.3.1', require: 'active_support/all' # => Gives us access to a bunch of functions present in Rails (so we can map them to Liquid)
 
 ###########################################
 ###########################################

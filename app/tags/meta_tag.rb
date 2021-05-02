@@ -13,8 +13,6 @@
 ####################################################
 ####################################################
 
-#require 'action_view/helpers'
-
 ## Meta ##
 ## {% meta %} ##
 class MetaTag < Liquid::Tag
@@ -25,7 +23,6 @@ class MetaTag < Liquid::Tag
   # => Allows us to define the various variables for use in the class
   def initialize(tag_name, params, tokens)
      super
-     @a      = ::Autoload.new.helpers # => https://stackoverflow.com/a/18965066/1143732
      @tag_name = tag_name
      @params   = params.split(":").map(&:strip)
   end

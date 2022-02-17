@@ -143,7 +143,7 @@ Please be aware that we are not responsible for any product/solution which uses 
 
 ---
 
-# ⚖️ Copyrights/Licenses
+##### ⚖️ Copyrights/Licenses
 
 Copyrights owned by respective contributors.
 
